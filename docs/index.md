@@ -1,11 +1,11 @@
 
-# GIS 1 {: .page_title}
+# Webová kartografie {: .page_title}
 
-Předmět vás seznámí se základy tzv. __geografických informačních systémů__ (GIS). GIS je soubor nástrojů sloužících ke __sběru__, __správě__, __analýze__ a __vizualizaci__ geografických dat. Umožňuje efektivně pracovat s prostorovými informacemi, což zahrnuje __mapy__, __satelitní snímky__, __adresy__, __topografické údaje__ a mnoho dalšího. Dokáže provádět složité analýzy, identifikovat vzory, a tím __lépe porozumět geografickým jevům a vztahům__.
+Tento povinně-volitelný předmět seznamuje se základy fungování a vytváření mapových aplikací ve webovém prostředí.
 
-GIS má široké uplatnění, od __městského plánování__, přes __správu přírodních zdrojů__ až po __krizový management__. Je nepostradatelným nástrojem pro efektivní rozhodování a řízení v různých odvětvích a pomáhá lépe pochopit složité geografické souvislosti.
+Začíná se seznámením s jazykem JavaScript a jeho možnostmi, přičemž je zmíněno fungování webových stránek a serverů, problematika DNS a domén a hostování webového obsahu. Mapové výstupy jsou pak vytvářeny užitím dvou metod – pomocí open-source mapové knihovny (využíváme __:simple-leaflet: Leaflet__{: style="white-space: nowrap;"}) a pomocí API rozhraní pokročilého kartografického cloudu (využíváme __:simple-arcgis: ArcGIS Online__{: style="white-space: nowrap;"}).
 
-GIS 1 je v tomto tématu úvodním kurzem. Zatímco přednášky vás provedou základní teorií, cvičení se věnují praktickému ovládání GIS software – zejména porozumění práce s daty a provádění jednodušších analýz. Během výuky je používán software __:simple-arcgis: Esri ArcGIS Pro__{: style="white-space: nowrap;"}, ke konci kurzu bude pak věnován prostor i možným alternativám (program __:simple-qgis: QGIS__).
+Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívající širokou škálu funkcionality, od rastrových a vektorových podkladových vrstev, přes stylování, tvorbu pop-upů, grafů a tematických výstupů po propojení mapy s grafikou či dalším obsahem. Pomocí ArcGIS API for Javascript si rozšíříte znalosti o tvorbě webových mapových aplikací v prostředí Esri, kde tento předmět navazuje na základy probírané v Kartografii 3.
 
 <h2 style="text-align:center;">Naučíte se</h2>
 <!-- styl je zde pridany HTML tagem (ne pomoci '##'), aby se text neobjevil v tabulce obsahu vlevo na strance -->
@@ -72,25 +72,26 @@ GIS 1 je v tomto tématu úvodním kurzem. Zatímco přednášky vás provedou z
 
 ## Přednášky {: style="margin-bottom:0;"}
 
-účast doporučená
+jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nimiž se mnohdy prolínají
 {: style="opacity:50%;margin-top:0;"}
 
-![](https://geomatics.fsv.cvut.cz/wp-content/uploads/2022/01/03-edit_export@0.5x-2.jpg){: .off-glb .no-filter style="height: 1.5em; vertical-align: -.4em; clip-path: circle();"} 
-__prof. Ing. Lena Halounová, CSc.__
+__Ing. Tomáš Janata, Ph.D.__ | __Ing. František Mužík__
 
-1. Definice GIS, informatika, základní pojmy, aplikační oblasti GIS, prostor, topologie, historie GIS
-2. Reálný svět × GIS, model v GIS, vztahy objektů, typy modelů, geometrické typy objektů, rozlišovací schopnost
-3. Geografická poloha v GIS, prostorové vztahy, atributy
-4. Čas v GIS, modelování, druhy modelů, chyby v modelování v GIS
-5. Vektorový a rastrový GIS, datová struktura
-6. Rastrový GIS, atributová data
-7. Vektorový GIS, druhy objektů
-8. Geometrické a topologické vlastnosti objektů ve vektorovém GIS
-9. Vektorová a rastrová reprezentace prostorových objektů
-10. Rastrová reprezentace prostorových objektů, způsob ukládání rastrových objektů
+1. Motivace k webové kartografii, úvod. Představení prostředí a technik. Přístupy k tvorbě webového obsahu. Webový server, typy serverů. Hosting
+2. Webový server – konfigurace. DNS, propojení obsahu s doménou. Základy JavaScript – datové typy, proměnné. Funkce, pole, řetězce, moderní operátory, cykly. DevTools, konzole, debug, responsivita.
+3. Základy JavaScript – DOM, asynchronní přenos, události, objektové typy. JSON, odkazování do souborů a načítání ze souborů.
+4. Mapové knihovny – Leaflet, OpenLayers, MapTiler. Leaflet – základní informace. Leaflet – mapový objekt, symbolika, prostorové dotazování, pop-up. Mapové elementy a rozdíly oproti konvenční kartografii.
+5. Tvorba pokročilejších aplikací v Leaflet
+6. Vstupní a výstupní formáty souborů. GeoJSON, souborové databáze, GeoPackage. Vektorové a rastrové dlaždice
+7. Javascriptové knihovny a prostředí pro tvorbu map. D3JS.
+8. Serverové fungování, nastavení, širší vztahy webového mapování. Apache, IIS
+9. Základy ArcGIS JavaScript API. Práce s WebMap
+10. ArcGIS JavaScript API – pokročilé možnosti. Feature Collection
+11. Ladění a škálování aplikací. Další API prostředí – CARTO.db, Mapbox aj. MapTiler, OSM
 
 ## Harmonogram {: style="margin-bottom:0;"}
 
+<!--
 [![](./assets/index/schedule.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
 [![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
 
@@ -99,4 +100,4 @@ __prof. Ing. Lena Halounová, CSc.__
 [Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/1551GIS/B232){ .md-button .md-button--primary target="_blank"}
 {align=center}
 
-<br>
+-->

@@ -2,17 +2,15 @@ site_name: Webová kartografie (155YWEK)
 nav:
   - Charakteristika předmětu: index.md
   - Cvičení:
-      - Motivace k webové kartografii, úvod. Představení prostředí a technik. Přístupy k tvorbě webového obsahu. Webový server, typy serverů. Hosting.: cviceni/cviceni1.md
-      - Webový server – konfigurace. DNS, propojení obsahu s doménou. Základy JavaScript – datové typy, proměnné. Funkce, pole, řetězce, moderní operátory, cykly. DevTools, konzole, debug, responsivita.: cviceni/cviceni2.md
-      - Základy JavaScript – DOM, asynchronní přenos, události, objektové typy. JSON, odkazování do souborů a načítání ze souborů: cviceni/cviceni3.md
-      - Mapové knihovny – Leaflet, OpenLayers, MapTiler. Leaflet – základní informace. Leaflet – mapový objekt, symbolika, prostorové dotazování, pop-up. Mapové elementy a rozdíly oproti konvenční kartografii.: cviceni/cviceni4.md
-      - Tvorba pokročilejších aplikací v Leaflet: cviceni/cviceni5.md
-      - Vstupní a výstupní formáty souborů. GeoJSON, souborové databáze, GeoPackage. Vektorové a rastrové dlaždice: cviceni/cviceni6.md
-      - Javascriptové knihovny a prostředí pro tvorbu map. D3JS.: cviceni/cviceni7.md
-      - Serverové fungování, nastavení, širší vztahy webového mapování. Apache, IIS: cviceni/cviceni8.md
-      - Základy ArcGIS JavaScript API. Práce s WebMap: cviceni/cviceni9.md
-      - ArcGIS JavaScript API – pokročilé možnosti. Feature Collection: cviceni/cviceni10.md
-      - Ladění a škálování aplikací. Další API prostředí – CARTO.db, Mapbox aj. MapTiler, OSM: cviceni/cviceni11.md
+      - HTML5, CSS. Prostředí Glitch.com. Návrhové prostředí Figma. ÚLOHA 1 – Webová forma životopisu: cviceni/cviceni1.md 
+      - Základy práce s CSS, základy JavaScriptu: cviceni/cviceni2.md
+      - Pokročilejší využití JavaScriptu: cviceni/cviceni3.md
+      - VS Code, Netlify. ÚLOHA 2A – Mapová aplikace v prostředí Leaflet: cviceni/cviceni4.md
+      - Knihovna D3.js: cviceni/cviceni5.md
+      - ÚLOHA 2B – Vylepšení aplikace pomocí D3.js – grafy, diagramy, pop-upy, animace: cviceni/cviceni6.md
+      - Základy ArcGIS JavaScript API. Práce s WebMap. ÚLOHA 3 – Mapová aplikace pomocí ArcGIS API: cviceni/cviceni9.md
+      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni10.md
+      - GISQuick. ÚLOHA 4 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
   # - Data: data.md
   # - Hodnocení: hodnoceni.md
   # - Semestrální práce: semestralka.md
