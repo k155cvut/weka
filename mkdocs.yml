@@ -1,22 +1,23 @@
-site_name: GIS 1 (155GIS1)
+site_name: Webová kartografie (155YWEK)
 nav:
   - Charakteristika předmětu: index.md
   - Cvičení:
-      - Úvod do práce v prostředí ArcGIS, prostorová data, datové zdroje, atributová tabulka: cviceni/cviceni1.md
-      - Vektorová data, atributové dotazy, prostorové dotazy: cviceni/cviceni2.md
-      - Prostorové funkce (geoprocessing), spatial join: cviceni/cviceni3.md
-      - Práce s externími daty (Excel, CSV), join: cviceni/cviceni4.md
-      - Rastrová data, georeferencování: cviceni/cviceni5.md
-      - Vektorizace, tvorba geodatabáze, kontrola topologie: cviceni/cviceni6.md
-      - ArcGIS Online, webové služby, připojení do ArcGIS Pro: cviceni/cviceni7.md
-      - Ukázky webové prezentace map, Experience Builder, Instant Apps, Dashboards: cviceni/cviceni8.md
-      - Volně dostupné GIS nástroje (QGIS): cviceni/cviceni9.md
-      - QGIS – online publikace dat: cviceni/cviceni10.md
-  - Data: data.md
+      - Motivace k webové kartografii, úvod. Představení prostředí a technik. Přístupy k tvorbě webového obsahu. Webový server, typy serverů. Hosting.: cviceni/cviceni1.md
+      - Webový server – konfigurace. DNS, propojení obsahu s doménou. Základy JavaScript – datové typy, proměnné. Funkce, pole, řetězce, moderní operátory, cykly. DevTools, konzole, debug, responsivita.: cviceni/cviceni2.md
+      - Základy JavaScript – DOM, asynchronní přenos, události, objektové typy. JSON, odkazování do souborů a načítání ze souborů: cviceni/cviceni3.md
+      - Mapové knihovny – Leaflet, OpenLayers, MapTiler. Leaflet – základní informace. Leaflet – mapový objekt, symbolika, prostorové dotazování, pop-up. Mapové elementy a rozdíly oproti konvenční kartografii.: cviceni/cviceni4.md
+      - Tvorba pokročilejších aplikací v Leaflet: cviceni/cviceni5.md
+      - Vstupní a výstupní formáty souborů. GeoJSON, souborové databáze, GeoPackage. Vektorové a rastrové dlaždice: cviceni/cviceni6.md
+      - Javascriptové knihovny a prostředí pro tvorbu map. D3JS.: cviceni/cviceni7.md
+      - Serverové fungování, nastavení, širší vztahy webového mapování. Apache, IIS: cviceni/cviceni8.md
+      - Základy ArcGIS JavaScript API. Práce s WebMap: cviceni/cviceni9.md
+      - ArcGIS JavaScript API – pokročilé možnosti. Feature Collection: cviceni/cviceni10.md
+      - Ladění a škálování aplikací. Další API prostředí – CARTO.db, Mapbox aj. MapTiler, OSM: cviceni/cviceni11.md
+  # - Data: data.md
   # - Hodnocení: hodnoceni.md
-  - Semestrální práce: semestralka.md
+  # - Semestrální práce: semestralka.md
   # - Výuková videa: videa.md
-  - Kvíz: quiz.md
+  # - Kvíz: quiz.md
 plugins:
   - search
   - glightbox:
