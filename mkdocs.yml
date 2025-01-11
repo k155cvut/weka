@@ -2,15 +2,15 @@ site_name: Webová kartografie (155YWEK)
 nav:
   - Charakteristika předmětu: index.md
   - Cvičení:
-      - HTML5, CSS. Prostředí Glitch.com. Návrhové prostředí Figma. ÚLOHA 1 – Webová forma životopisu: cviceni/cviceni1.md 
+      - Úloha 1 – HTML5, CSS. Prostředí Glitch.com. Webová forma životopisu: cviceni/cviceni1.md 
       - Základy práce s CSS, základy JavaScriptu: cviceni/cviceni2.md
       - Pokročilejší využití JavaScriptu: cviceni/cviceni3.md
-      - VS Code, Netlify. ÚLOHA 2A – Mapová aplikace v prostředí Leaflet: cviceni/cviceni4.md
-      - Knihovna D3.js: cviceni/cviceni5.md
-      - ÚLOHA 2B – Vylepšení aplikace pomocí D3.js – grafy, diagramy, pop-upy, animace: cviceni/cviceni6.md
-      - Základy ArcGIS JavaScript API. Práce s WebMap. ÚLOHA 3 – Mapová aplikace pomocí ArcGIS API: cviceni/cviceni9.md
-      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni10.md
-      - GISQuick. ÚLOHA 4 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
+      - Úloha 2 – VS Code, Netlify. Mapová aplikace v prostředí Leaflet: cviceni/cviceni4.md
+      - Úloha 3A – Knihovna D3.js: cviceni/cviceni5.md
+      - Úloha 3B – Vylepšení aplikace pomocí D3.js – grafy, diagramy, pop-upy: cviceni/cviceni6.md
+      - ÚLOHA 4 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni7.md
+      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni8.md
+      - ÚLOHA 5 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni9.md
   # - Data: data.md
   # - Hodnocení: hodnoceni.md
   # - Semestrální práce: semestralka.md

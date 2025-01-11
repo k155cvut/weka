@@ -12,29 +12,31 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
 <div class="grid cards grid_icon_info smaller_padding" markdown> <!-- specificky format gridu (trida "grid_icon_info") na miru uvodni strance predmetu -->
 
+-   :material-creation-outline:{ .xl }
+
+    základy __HTML__, __CSS__ a __JavaScriptu__
+
 -   :material-map-outline:{ .xl }
 
-    __zpracovávat__ a __analyzovat__ prostorová (tj. geografická, mapová) data
+    __vyvíjet__ interaktivní webové mapové aplikace
 
 -   :material-vector-polygon:{ .xl }
 
-    porozumět rozdílu mezi __vektorovými__ a __rastrovými__ daty
+    využívat open-source mapové knihovny jako třeba __Leaflet__ či __OpenLayers__
 
 -   :material-filter-outline:{ .xl }
 
-    __filtrovat__ data pomocí atributových a prostorových dotazů
+    __vizualizovat__ geoprostorová data na webu
 
 -   :material-tools:{ .xl }
 
-    aplikovat základní __prostorové funkce__ (nástroje geoprocessingu)
+    pochopit fungování webových __serverů__
 
--   :material-creation-outline:{ .xl }
 
-    __tvořit__ a __editovat__ GIS data
 
 -   :material-vector-difference:{ .xl }
 
-    základy datové __topologie__
+    vytvořit interaktivní __infografiku__ a propojit jí s mapou
 
 -   :octicons-share-16:{ .xl }
 
@@ -42,24 +44,21 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
 -   :simple-qgis:{ .xl }
 
-    získat základy ovládání __alternativního GIS software__ (_QGIS_)
+    __publikovat__ webové mapové aplikace s využití open-source softwaru __QGIS__
 
 
 </div>
 
 <div class="gallery_container" markdown>
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/01.jpg){: .no-filter }
+![](../assets/main/01.png){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/02.jpg){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/03.jpg){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/04.jpg){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/05.jpg){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/06.jpg){: .no-filter }
 ![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/07.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/08.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/09.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/10.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/11.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/12.jpg){: .no-filter }
+
+
 </div>
 
 <!-- ## Doporučená literatura
@@ -75,7 +74,7 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nimiž se mnohdy prolínají
 {: style="opacity:50%;margin-top:0;"}
 
-__Ing. Tomáš Janata, Ph.D.__ | __Ing. František Mužík__
+__Ing. Tomáš Janata, Ph.D.__ | __Mgr. Petra Justová, Ph.D.__ | __Ing. František Mužík__
 
 1. Motivace k webové kartografii, úvod. Představení prostředí a technik. Přístupy k tvorbě webového obsahu. Webový server, typy serverů. Hosting
 2. Webový server – konfigurace. DNS, propojení obsahu s doménou. Základy JavaScript – datové typy, proměnné. Funkce, pole, řetězce, moderní operátory, cykly. DevTools, konzole, debug, responsivita.

@@ -1,4 +1,7 @@
-# Úloha 5 – Knihovna D3.js
+---
+icon: material/numeric-5-box
+title: Cvičení 5
+---
 
 Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=8V1ewwZ5qhl71g73) extension Live Sever
 
