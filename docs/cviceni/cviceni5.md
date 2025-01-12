@@ -12,7 +12,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - ukázkový graf (zobrazí pouze osy): [https://d3js.org/getting-started](https://d3js.org/getting-started)
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf1.png){ width="800" }
+![](../assets/cviceni5/graf1.png){ width="600" }
     <figcaption>Ukázkový graf</figcaption>
 </figure>
 
@@ -26,7 +26,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - změna atributů grafu (barva apod.)
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf2.png){ width="800" }
+![](../assets/cviceni5/graf2.png){ width="600" }
     <figcaption>Vložení vlastních dat do grafu</figcaption>
 </figure>
 
@@ -37,7 +37,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - změna datového formátu vložených atributů
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf3.png){ width="800" }
+![](../assets/cviceni5/graf3.png){ width="600" }
     <figcaption>Import dat ze souboru</figcaption>
 </figure>
 
@@ -46,7 +46,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - případná úprava os a jejich popisu
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf4.png){ width="800" }
+![](../assets/cviceni5/graf4.png){ width="600" }
     <figcaption>Přidání popisu grafu</figcaption>
 </figure>
 
@@ -58,7 +58,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - skrytí indikátoru zobrazené hodnoty po opuštění grafu ukazatelem myši
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf5.png){ width="800" }
+![](../assets/cviceni5/graf5.png){ width="600" }
     <figcaption>Přidání interaktivity grafu</figcaption>
 </figure>
 
@@ -69,7 +69,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
 - skrytí pop-upu, pokud nejsou zjišťované hodnoty
 
 <figure markdown>
-![stin_relief](../assets/cviceni5/graf6.png){ width="800" }
+![](../assets/cviceni5/graf6.png){ width="600" }
     <figcaption>Pop-up s informacemi o zobrazovaném bodě</figcaption>
 </figure>
 
