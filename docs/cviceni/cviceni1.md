@@ -19,13 +19,14 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         <h1>Moje první webová stránka</h1>
         <p>Toto je odstavec textu.</p>
 
-        <!-- Toto je komentář, pod kterým je obrázek -->
+        <!-- Toto je komentář v html-->
         <img src="obrazek.jpg" alt="Popis obrázku">
         ```
 
 - **CSS (Cascading Style Sheets)**
     - editace stylu stránky
     - definice barev, typů písma, fontů, velikostní či rozložení
+    - CSS kód může být vložen přímo do HTML nebo na něj lze odkázat a udržovat kód v odděleném souboru
         ```css
         /* Toto je komentář v CSS */
         body {
@@ -37,6 +38,7 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         text-align: center;
         }
         ```
+    
 
 - **JavaScript**
     - přidává do webové stránky dynamiku a interaktivitu
@@ -60,7 +62,30 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
     </figure>
 
 ## Popis HTML
+HTML (Hypertext Markup Language), je **hypertextový značkovací jazyk** určený k vytváření jednoduchých webových stránek. Od přelomu 80. a 90. let je vyvíjen a nepřetržitě používán. Aktuálně využívaná verze je HTML 5.
 
+Společně s jazykem HTML vznikl **HTTP protokol**, který zajišťuje komunikaci mezi servery a přenosy souborů. Zabezpečená verze protokolu **HTTPS** je novější verze zajišťující komunikaci mezi webovým serverem a počítačem. Oproti původní verzi HTTP **šifruje přenášená data**, čímž **snižuje riziko zneužití** osobních údajů nebo odposlech komunikace.
+
+HTML kód se z velké části skládá z tagů, neboli definovaných značek. Tagům přiřazujeme atributy a hodnoty, jež jednotlivým prvkům stránky přikládají určitou roli. Prostřednictvím HTML tagů tak například určujeme, kde budou odkazy a kam budou odkazovat nebo kde bude obrázek a odkud je bude prohlížeč čerpat.
+
+Tagy se vládají do špičatých závorek, přičemž je dělíme na párové a nepárové.
+
+- **párové tagy**, se kterými se setkáme nejčastěji, musejí být ukončeny lomítkem a původním tagem
+    ```html
+    <h1> Toto je nadpis </h1> 
+    ```
+
+- **nepárové tagy** ukončení druhým tagem nepotřebují
+    ``` html
+    <img src="obrazek.jpg"> 
+    ```
+
+Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na správnou syntax, čitelnost kódu a nezapomínat párové tagy ukončovat.
+```html
+<header>
+    <h1>Ing. František Mužík</h1>
+</header>
+```
 
 ???+ note "&nbsp;<span style="color:#448aff">Využití AI pro usnadnění psaní HTML</span>"
     Psaní HTML kódu je ideální příležitostí pro uplatnění umělé inteligence ([ChatGPT](https://chatgpt.com/), [Gemini](https://gemini.google.com)). 
@@ -74,9 +99,49 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         <figcaption>Ukázka návrhu jednoduché HTML stránky pomocí AI Gemini</figcaption>
     </figure>
 
-## Popis CSS
+### Základní struktura webové stránky v html
+```html
+<!DOCTYPE html> <!-- Deklarace typu dokumentu -->
+<html> <!-- Kořenový element, který zastřešuje celý dokument -->
+<head> <!-- Hlavička určující metadata. Typicky obsahuje, scripty, odkaz na CSS či titulek -->
+    <meta charset="UTF-8"> <!-- Kódování textu -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje první HTML stránka</title> <!-- Titulek stránky zobrazený v názvu okna -->
+</head>
+<body> <!-- Zde je zapsán obsah stránky -->
+
+    <h1>Ahoj světe!</h1> <!-- Nadpis -->
+    <p>Toto je první odstavec na mé stránce.</p> <!-- Odstavec textu -->
+
+</body>
+</html>
+```
+
+<figure markdown>
+![](../assets/cviceni1/html_zaklad.png){ width="400" }
+    <figcaption>Obsah webové stránky vytvořený kódem výše</figcaption>
+</figure>
 
 ## Popis prostředí Glitch
+[Glitch.com](https://glitch.com/) je online platforma, která umožňuje snadno vytvářet, upravovat a sdílet webové projekty. V podstatě se jedná o online editor, ve kterém lze psát kód, vidět výsledky okamžitě a dokonce spolupracovat s ostatními. 
+
+Po registraci vytvoříme nový projekt stisknutím tlačítka *New project* -> možnost *glitch-hello-website*.
+
+<figure markdown>
+![](../assets/cviceni1/glitch01.png){ width="800" }
+    <figcaption>Obsah webové stránky vytvořený kódem výše</figcaption>
+</figure>
+
+Po vygenerování stránky je možné v záložce *Settings* -> *Edit project details* změnit její název na něco rozumného, přičemž stránka vždy bude hostovaná na doméně Glitch a odkaz bude vypadat zhruba takto: <https://muj-test.glitch.me/>
+
+V levé části stránky se nacházejí záložky *Settings* (nastavení), *Assets* (sem se umisťují využité soubory - např. obrázky) a *Files* (pracovní soubory).
+
+V prostřední části se zobrazuje editor kódu a v pravé se zobrazuje výsledek v podobě náhledu stránky. Pokud není náhled zobrazený, zapneme ho tlačítkem *Preview* v dolní části obrazovky. Úpravy se ukládají automaticky.
+
+<figure markdown>
+![](../assets/cviceni1/glitch02.png){ width="800" }
+    <figcaption>Editace stránky v prostředí Glitch</figcaption>
+</figure>
 
 ## Tvorba webové stránky s vlastním životopisem
 

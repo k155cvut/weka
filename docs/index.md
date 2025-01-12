@@ -12,7 +12,7 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
 <div class="grid cards grid_icon_info smaller_padding" markdown> <!-- specificky format gridu (trida "grid_icon_info") na miru uvodni strance predmetu -->
 
--   :material-creation-outline:{ .xl }
+-   :octicons-code-16:{ .xl }
 
     základy __HTML__, __CSS__ a __JavaScriptu__
 
@@ -20,11 +20,11 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
     __vyvíjet__ interaktivní webové mapové aplikace
 
--   :material-vector-polygon:{ .xl }
+-   :material-leaf-circle-outline:{ .xl }
 
     využívat open-source mapové knihovny jako třeba __Leaflet__ či __OpenLayers__
 
--   :material-filter-outline:{ .xl }
+-   :simple-materialdesignicons:{ .xl }
 
     __vizualizovat__ geoprostorová data na webu
 
@@ -33,12 +33,11 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
     pochopit fungování webových __serverů__
 
 
-
--   :material-vector-difference:{ .xl }
+-   :octicons-graph-16:{ .xl }
 
     vytvořit interaktivní __infografiku__ a propojit jí s mapou
 
--   :octicons-share-16:{ .xl }
+-   :simple-arcgis:{ .xl }
 
     __sdílet__ data prostřednictvím webu (systém _ArcGIS Online_, webové mapové aplikace)
 
