@@ -127,6 +127,8 @@ Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na 
 
 Po registraci vytvoříme nový projekt stisknutím tlačítka *New project* -> možnost *glitch-hello-website*.
 
+Veškeré naše projekty najdeme na hlavní stránce v záložce *Dashboard*.
+
 <figure markdown>
 ![](../assets/cviceni1/glitch01.png){ width="800" }
     <figcaption>Obsah webové stránky vytvořený kódem výše</figcaption>
@@ -145,6 +147,193 @@ V prostřední části se zobrazuje editor kódu a v pravé se zobrazuje výsled
 
 ## Tvorba webové stránky s vlastním životopisem
 
+Začneme základním kódem, který následně rozvineme.
+
+``` html
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje první HTML stránka</title> 
+</head>
+<body> 
+
+    <h1>Ahoj světe!</h1> 
+    <p>Toto je první odstavec na mé stránce.</p> 
+
+</body>
+</html>
+```
+
+#### 1) Strukturování obsahu pomocí tagů
+
+Využijeme tagů pro naplnění životopisu obsahem. Pro jméno využijeme ```<h1>```, dále pro text bude určen tag ```<p>```. Vše vpisujeme do tagu ```<body>```.
+
+```html
+...
+<body> 
+
+    <h1>Ing. František Mužík</h1> 
+    <p>Email: frantisek. muzik@fsv.cvut.cz | Praha, Česko</p> 
+
+</body>
+...
+```
+
+Dále doplníme sekci ```<section>``` se vzděláním vzdělání, ve které využijeme tagu  ```<h2>``` pro jednotlivé nadpisy a odrážek pro popis. 
+
+Pro popis využijeme nečíslovaný seznam (unordered list) ```<ul>```, do kterého vkládáme jednotlivé položky tagem ```<li>```. Jestliže chceme vytvořit další odskočenou řádku v seznamu, použijeme znovu předešlé tagy. Je velmi důležité dodržovat pořádek v hierarchii, jinak se v kódu lze rychle ztratit.
+
+```html
+...
+<body>
+<h1>Ing. František Mužík</h1>
+<p>Email: frantisek. muzik@fsv.cvut.cz | Praha, Česko</p>
+
+<section>
+    <ul>
+    <li>
+        FSv ČVUT v Praze, obor Geodézie a kartografie; specializace Geomatika
+        <ul>
+        <li>2020–2022</li>
+        </ul>
+        <ul>
+        <li>Studium ukončeno státní zkouškou a získáním titulu Ing.</li>
+        </ul>
+    </li>
+    </ul>
+</section>
+</body>
+...
+```
+
+<figure markdown>
+![](../assets/cviceni1/html02.png){ width="400" }
+    <figcaption>Výsledek kompilovaného kódu se seznamy</figcaption>
+</figure>
+
+#### 2) Změna stylu písma
+
+Pokud chceme nějakou část textu zvýraznit, případně upravit kurzívou, pak opět využijeme příslušné tagy.
+
+- tučné písmo: ```<b>``` 
+
+- kurzíva: ```<i>```
+
+- zalomení řádku: ```<br>```
+
+```html
+...
+<body>
+<h1>Ing. František Mužík</h1>
+<p>Email: frantisek. muzik@fsv.cvut.cz | Praha, Česko</p>
+
+<section>
+    <ul>
+    <li>
+        <b>FSv ČVUT v Praze, obor Geodézie a kartografie; <i>specializace Geomatika</i> </b>
+        <ul>
+        <li> <i>2020–2022</i> </li>
+        </ul>
+        <ul>
+        <li>Studium ukončeno státní zkouškou a získáním titulu Ing.</li>
+        </ul>
+    </li>
+    </ul>
+    
+</section>
+</body>
+
+...
+```
+
+<figure markdown>
+![](../assets/cviceni1/html03.png){ width="400" }
+    <figcaption>Výsledek kompilovaného kódu se seznamy</figcaption>
+</figure>
+
+#### 2) Přidání odkazů a obrázku
+
+Do webové stránky lze jednoduše přidat odkazy na jinou stránku či obrázek. Na obrázek je možné odkazovat jak přes jeho umístění na disku, tak přes odkaz na webu.
+
+Odkaz na webovou stránku přidáme pomocí tagu ```<a>```.
+
+```  <a href="https://geomatics.fsv.cvut.cz/">Webové stránky katedry geomatiky</a>  ```
+
+Obrázek se přidává tagem ```<img>```, ve kterém lze upravit popis obrázku či jeho velikost v pixelech. 
+
+``` <img src="/images/ukazka_obrazek.png" alt="Popis obrázku" width="500" height="600"> ```
+
+Implementace v životopise může tedy vypadat následovně:
+
+```html
+...
+<section>
+    <ul>
+    <li>
+        <b
+        >FSv ČVUT v Praze, obor Geodézie a kartografie;
+        <i>specializace Geomatika</i>
+        </b>
+        <ul>
+        <li><i>2020–2022</i></li>
+        </ul>
+        <ul>
+        <li>Studium ukončeno státní zkouškou a získáním titulu Ing.</li>
+        </ul>
+
+        <ul>
+        <li>Téma diplomové práce:
+        <a href="https://dspace.cvut.cz/handle/10467/102826" alt="Zhůří"
+            >Využití rozšířené reality pro vizualizaci zaniklé obce Zhůří</a>
+        </li>
+        </ul>
+    </li>
+    <img src="https://cdn.glitch.global/7950426a-9139-4c64-82ee-8ab83f092129/obr9_app_ui.jpg?v=1736791065019" 
+    width="500" >
+    </ul>
+</section>
+...
+```
+
+<figure markdown>
+![](../assets/cviceni1/html04.png){ width="600" }
+    <figcaption>Přidání odkazů a obrázků</figcaption>
+</figure>
+
+
+#### 3) Doplnění stránky o interaktivní mapu
+
+Do životopisu můžeme dále přidat jednoduchou interaktivní mapu s lokalitou FSv ČVUT z Google Maps. V tuto chvíli tedy nebudeme tvořit vlastní aplikaci, jen využijeme ```<embed>```, což je kontejner pro externí prvky (např. webovou stránku, přehrávač médií či mapu).
+
+Na [Google Maps](https://www.google.com/maps) vyhledáme FSv ČVUT v Praze, klikneme na tlačítko *Sdílet* a vybereme záložku *Vložení mapy*.
+
+<figure markdown>
+![](../assets/cviceni1/html05.png){ width="400" }
+    <figcaption>Sdílení výřezu Google Maps do HTML</figcaption>
+</figure>
+
+Vybereme velikost mapy a zkopísujeme vygenerovaný HTML kód. Ten vložíme na požadované místo do body.
+
+```html
+...
+<iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.044009632525!2d14.386225475700655!3d50.1041832122365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b953bc00ed77d%3A0x43d70d04924c48ed!2sFakulta%20stavebn%C3%AD%20%C4%8CVUT%20v%20Praze!5e0!3m2!1scs!2scz!4v1736791843368!5m2!1scs!2scz"
+    width="400"
+    height="300"
+    style="border: 0"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+></iframe>
+...
+```
+
+<figure markdown>
+![](../assets/cviceni1/html06.png){ width="400" }
+    <figcaption>Vložená mapa ve stránce</figcaption>
+</figure>
 
 ???+ note "&nbsp;<span style="color:#448aff">Užitečné odkazy</span>"
     - základy HTML: <https://www.w3schools.com/html/html_basic.asp>
@@ -153,24 +342,7 @@ V prostřední části se zobrazuje editor kódu a v pravé se zobrazuje výsled
 
     - a do třetice: <https://www.rascasone.com/cs/blog/html-pro-zacatecniky-jak-psat-web>
 
-!!! warning "K odevzdání"
-    Do příštího cvičení vytvořte jednoduchou html stránku se svým životopisem, která bude hostována prostřednictvím platformy Glitch. Berte na vědomí, že vytřvořená stránka je veřejně přístupná. 
+    - seznamy: <https://www.jakpsatweb.cz/html/seznamy.html>
 
-    Životopis by měl obsahovat následující prvky:
-
-    - vaše jméno a příjmení včetně dosažených titulů
-
-    - studium (včetně odkazů na závěrečné práce), znalost cizích jazyků
-
-    - případné stáže, praxe v oboru
-
-    - oborové zaměření
-
-    - embed mapy, např. s okolím FSv ČVUT v Praze
-
-    Ve výsledné webové stránce upravte styl pomocí CSS (změny např. textu, fontu, barev, pozadí stránky).
-
-    Budeme rádi, pokud si zkusíte do stránky přidat i další volitelné prvky, např. foto, popis zájmů nebo něco zajímavého.
-
-    Ukázka: <https://frantisek-muzik.glitch.me/>
+    - formátování textu: <https://www.w3schools.com/html/html_formatting.asp>
 
