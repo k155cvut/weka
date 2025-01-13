@@ -27,6 +27,7 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
     - editace stylu stránky
     - definice barev, typů písma, fontů, velikostní či rozložení
     - CSS kód může být vložen přímo do HTML nebo na něj lze odkázat a udržovat kód v odděleném souboru
+    - kaskádové styly
         ```css
         /* Toto je komentář v CSS */
         body {
