@@ -2,15 +2,18 @@ site_name: Webová kartografie (155YWEK)
 nav:
   - Charakteristika předmětu: index.md
   - Cvičení:
-      - Úloha 1 – HTML5, CSS. Prostředí Glitch.com. Webová forma životopisu: cviceni/cviceni1.md 
-      - Základy práce s CSS, základy JavaScriptu: cviceni/cviceni2.md
-      - Pokročilejší využití JavaScriptu: cviceni/cviceni3.md
-      - Úloha 2 – VS Code, Netlify. Mapová aplikace v prostředí Leaflet: cviceni/cviceni4.md
-      - Úloha 3A – Knihovna D3.js: cviceni/cviceni5.md
-      - Úloha 3B – Vylepšení aplikace pomocí D3.js – grafy, diagramy, pop-upy: cviceni/cviceni6.md
-      - ÚLOHA 4 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni7.md
-      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni8.md
-      - ÚLOHA 5 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni9.md
+      - Úloha 1 – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch: cviceni/cviceni1.md 
+      - Základy práce s CSS. Základy JavaScriptu: cviceni/cviceni2.md
+      - Úloha 3 – VS Code. Mapová aplikace v prostředí Leaflet: cviceni/cviceni3.md
+      - Pokročilejší práce s knihovnou Leaflet: cviceni/cviceni4.md
+      - Úloha 4 – Knihovna D3.js: cviceni/cviceni5.md
+      - Propojení Leaflet a D3.js - grafy, diagramy, pop-upy: cviceni/cviceni6.md
+      - Úloha 5 – Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni7.md
+      - ÚLOHA 6 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni8.md
+      - Pokročilejší práce s ArcGIS JavaScript API: cviceni/cviceni9.md
+      - Finalizace aplikace pomocí ArcGIS JavaScript API: cviceni/cviceni10.md
+      - ÚLOHA 7 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
+  # případně U7 3D JS open source kartografická knihovna     
   # - Data: data.md
   # - Hodnocení: hodnoceni.md
   # - Semestrální práce: semestralka.md
