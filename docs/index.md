@@ -49,13 +49,14 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 </div>
 
 <div class="gallery_container" markdown>
-![](../assets/main/01.png){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/02.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/03.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/04.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/05.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/06.jpg){: .no-filter }
-![](https://geo.fsv.cvut.cz/data/cehak/MkDocs/index/07.jpg){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_1.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_2.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_3.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_4.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_5.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_6.png){: .no-filter }
+![](https://geo.fsv.cvut.cz/data/muzik/MkDocs/ywek_nahledy/ywek_nahled_7.png){: .no-filter }
+
 
 
 </div>
@@ -73,7 +74,7 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nimiž se mnohdy prolínají
 {: style="opacity:50%;margin-top:0;"}
 
-__Ing. Tomáš Janata, Ph.D.__ | __Mgr. Petra Justová, Ph.D.__ | __Ing. František Mužík__
+[__Ing. Tomáš Janata, Ph.D.__](https://geomatics.fsv.cvut.cz/employees/tomas-janata/) | [__Ing. František Mužík__](https://geomatics.fsv.cvut.cz/employees/frantisek-muzik/)
 
 1. Motivace k webové kartografii, úvod. Představení prostředí a technik. Přístupy k tvorbě webového obsahu. Webový server, typy serverů. Hosting
 2. Webový server – konfigurace. DNS, propojení obsahu s doménou. Základy JavaScript – datové typy, proměnné. Funkce, pole, řetězce, moderní operátory, cykly. DevTools, konzole, debug, responsivita.
@@ -87,16 +88,32 @@ __Ing. Tomáš Janata, Ph.D.__ | __Mgr. Petra Justová, Ph.D.__ | __Ing. Franti�
 10. ArcGIS JavaScript API – pokročilé možnosti. Feature Collection
 11. Ladění a škálování aplikací. Další API prostředí – CARTO.db, Mapbox aj. MapTiler, OSM
 
+## Cvičení {: style="margin-bottom:0;"}
+
+[__Ing. Tomáš Janata, Ph.D.__](https://geomatics.fsv.cvut.cz/employees/tomas-janata/) | [__Ing. František Mužík__](https://geomatics.fsv.cvut.cz/employees/frantisek-muzik/)
+
+1. **Úloha 1** – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch <!-- JC, TJ, FM -->
+2. Základy práce s CSS. Základy JavaScriptu <!-- FM -->
+3. **Úloha 3** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
+4. Pokročilejší práce s knihovnou Leaflet <!-- TJ -->
+5. **Úloha 4** – Knihovna D3.js <!-- FM -->
+6. Propojení Leaflet a D3.js - grafy, diagramy, pop-upy <!-- FM -->
+7. **Úloha 5** – Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
+8. **Úloha 6 **– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
+9. Pokročilejší práce s ArcGIS JavaScript API <!-- TJ+ (MH?) -->
+10. Finalizace aplikace pomocí ArcGIS JavaScript API <!-- TJ+ (MH?) -->
+11. **Úloha 7** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
+
+<!--
 ## Harmonogram {: style="margin-bottom:0;"}
 
 
-<!--
-[![](./assets/index/schedule.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
-[![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1551GIS/semester/B232){target="_blank"}
+[![](./assets/index/schedule.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/155YWEK/semester/B242){target="_blank"}
+[![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/155YWEK/semester/B242){target="_blank"}
+
 
 ---
 
 [Stránka předmětu v :custom-kos-logo-img-BW:{.middle style="margin-left:3px;"} :custom-kos-logo-BW:{.xl .middle}](https://kos.cvut.cz/course-syllabus/1551GIS/B232){ .md-button .md-button--primary target="_blank"}
 {align=center}
-
 -->
