@@ -71,15 +71,31 @@ HTML kód se z velké části skládá z tagů, neboli definovaných značek. Ta
 
 Tagy se vládají do špičatých závorek, přičemž je dělíme na párové a nepárové.
 
-- **párové tagy**, se kterými se setkáme nejčastěji, musejí být ukončeny lomítkem a původním tagem
+<div class="grid cards" markdown>
+
+-   :material-tag-multiple: __Párové tagy__
+
+    ---
+
+    Musejí být ukončeny lomítkem a původním tagem.
+
     ```html
     <h1> Toto je nadpis </h1> 
     ```
 
-- **nepárové tagy** ukončení druhým tagem nepotřebují
+    Setkáváme se s nimi nejčastěji.
+
+-   :material-tag: __Nepárové tagy__
+
+    ---
+
+    Ukončení druhým tagem nepotřebují.
+
     ``` html
     <img src="obrazek.jpg"> 
     ```
+</div>
+
 
 Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na správnou syntax, čitelnost kódu a nezapomínat párové tagy ukončovat.
 ```html
