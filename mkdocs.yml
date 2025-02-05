@@ -40,7 +40,7 @@ theme:
     annotation: material/plus-circle
   features:
     - navigation.tabs
-    # - navigation.tabs.sticky
+    - navigation.tabs.sticky
     - navigation.sections
     - toc.integrate
     - navigation.top
