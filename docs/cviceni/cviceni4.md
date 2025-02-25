@@ -3,7 +3,7 @@ icon: material/numeric-4-box
 title: Cvičení 4
 ---
 
-## Příprava stránky
+## Příprava stránky změna
 
 Před psaním kódu pro mapu je třeba na stránce provést následující přípravné kroky:
 
