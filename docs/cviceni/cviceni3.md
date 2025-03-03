@@ -375,7 +375,7 @@ Nově vytvořená vrstva (tedy níže v kódu) se v mapě vykreslí nad předcho
 
 ### 3) Pop-up 
 
-Nejprve zobrazíme markery pro všechny body v poli ```points```. To je možné provést postupně po jednom (jako v prvním kroku) nebo automatizovaně.
+Nejprve zobrazíme markery pro všechny body v poli ```points```. To je možné provést postupně po jednom (jako v prvním kroku) nebo automatizovaně. 
 
 === "script.js"
 
