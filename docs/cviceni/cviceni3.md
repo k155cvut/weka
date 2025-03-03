@@ -388,7 +388,7 @@ Nejprve zobrazíme markery pro všechny body v poli ```points```. To je možné 
 
 V kódu výše se pro každý bod z pole ```points``` vytvoří marker v mapě. Proměnná ```coord``` představuje každý jednotlivý prvek (bod = dvojice souřadnic) v poli ```points``` během iterace pomocí metody ```.forEach()```.
 
-Následně je možné smazat či vložit do blokového komentáře předchozí zadání markeru na FSv ČVUT.
+Následně je možné smazat či vložit do blokového komentáře předchozí zadání markeru na FSv ČVUT. 
 
 <figure markdown>
 ![](../assets/cviceni3/leaflet4.png){ width="800" }
