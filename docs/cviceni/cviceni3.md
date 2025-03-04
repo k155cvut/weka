@@ -381,12 +381,12 @@ Nejprve zobrazíme markery pro všechny body v poli ```points```. To je možné 
 
     ``` js
     // Přidání markerů pro každý bod
-    points.forEach(function(coord) {
-        L.marker(coord).addTo(map);
+    points.forEach(function(coords) {
+        L.marker(coords).addTo(map);
     });
     ```
 
-V kódu výše se pro každý bod z pole ```points``` vytvoří marker v mapě. Proměnná ```coord``` představuje každý jednotlivý prvek (bod = dvojice souřadnic) v poli ```points``` během iterace pomocí metody ```.forEach()```.
+V kódu výše se pro každý bod z pole ```points``` vytvoří marker v mapě. Proměnná ```coords``` (coordinates) představuje každý jednotlivý prvek (bod = dvojice souřadnic) v poli ```points``` během iterace pomocí funkce ```forEach()```.
 
 Následně je možné smazat či vložit do blokového komentáře předchozí zadání markeru na FSv ČVUT. 
 
@@ -395,8 +395,95 @@ Následně je možné smazat či vložit do blokového komentáře předchozí z
     <figcaption>Vytvoření markeru nad každým z bodů v poli points</figcaption>
 </figure>
 
-- pop up po kliknutí na každý pin, editace popupu
-- změna ikony pinu na jiný obrázek načtení ze souboru
+Dále přiřadíme pop-up jednomu prvku v mapě. Například polygonu, který spojuje všechny naše body. 
+
+=== "script.js"
+
+    ``` js
+    // Pop-up pro polygon
+    polygon.bindPopup("Toto je polygon");
+    ```
+
+Podobně bychom mohli postupně přiřadit pop-up jiným prvkům v mapě. Nicméně vyzkoušíme automatizovaný popis bodů z pole ```points```.
+
+Prvním krokem je úprava zadání bodového pole. Souřadnice vložíme do proměnné ```coords```, kterou jsme už předtím využívali. Zároveň přidáme textový parametr.
+
+=== "script.js"
+
+    ``` js
+    // Body s textovými informacemi
+    var points = [
+        { coords: [50.104, 14.388], text: "FSv ČVUT v Praze" },
+        { coords: [50.091, 14.402], text: "Pražský hrad" },
+        { coords: [50.082, 14.426], text: "metro Můstek" },
+        { coords: [50.106, 14.437], text: "vlak Praha Holešovice-zastávka" }
+    ];
+    ```
+
+Následně bude nutné vůči této úpravě přizpůsobit vykreslení linie a polygonu, což provedeme přidání tzv. [arrow funkce](https://js.provyvojare.cz/funkce/arrow-funkce).
+
+=== "script.js"
+
+    ``` js
+    // Linie propojující několik bodů 
+    var line = L.polyline(points.map(p => p.coords), {color: "red", weight: 10}).addTo(map);
+
+    // Polygon se zadanými vrcholy
+    var polygon = L.polygon(points.map(p => p.coords), {color: "blue", weight: 3, fillColor: "lightblue", fillOpacity: "0.8"}).addTo(map);
+    ```
+
+Výše použitá arrow funkce přijme každý objekt ```p``` z pole ```points``` a vrátí hodnotu jeho vlastnosti ```coords```.
+
+Nyní je kód opět funkční ve vykreslení linie a polygonu. Zbývá upravit markery, pro které je potřeba drobně upravit funkci ```forEach()```.
+
+=== "script.js"
+
+    ``` js
+    // Přidání markerů s popisky pro každý bod
+    points.forEach(function(point) {
+        L.marker(point.coords).addTo(map).bindPopup(point.text);
+    });
+    ```
+
+<figure markdown>
+![](../assets/cviceni3/leaflet5.png){ width="800" }
+    <figcaption>Ukázka pop-upu pro vykreslený bod</figcaption>
+</figure>
+
+!!! warning "&nbsp;<span>Upozornění</span>"
+
+    Pozor, uvnitř iterace funkce ```forEach()``` pracujeme s proměnnou jednoho zvoleného bodu ```point```, ne se všemy body ze seznamu ```points```.
+
+Závěrem tohoto kroku vytvoříme nový a samostatný marker s vlastní ikonou, kterou si v ve formátu *png* s průhledným pozadím stáhneme z internetu.
+
+Pomocí dokumentace můžeme upravit styl markeru ([ikony](https://leafletjs.com/reference.html#icon)). 
+
+=== "script.js"
+
+    ``` js
+    // Nastavení parametrů vlastního markeru
+    var blackMarker = L.icon({
+        iconUrl: '/assets/cerny_popup.png', // Umístění obrázku na disku
+        iconSize:     [60, 60], // Velikost ikony v px
+        iconAnchor:   [0, 80], // Pozice, na které se zobrazí ikona - vůči bodu
+        popupAnchor:  [5, -100] // Pozice, ze které se popup otevře - vůči bodu
+    });
+
+    // Samostatný bod s novým značením
+    var markerDivokaS = L.marker([50.093, 14.324], {icon: blackMarker}).addTo(map); 
+    markerDivokaS.bindPopup("Zde je <b style='color: red;'>Divoká Šárka</b>");
+    ```
+
+!!! warning "&nbsp;<span>Upozornění</span>"
+
+    Při zápisu textu v pop-upu je nutné využít dvojité uvozovky ```"..."``` pro textový řetězec a jednoduché ```'...'``` pro případné určený stylu (= barvy). 
+    
+    Při použití dvou párů dvojitých uvozovek by nastala chyba, protože by nebylo jasné, kdy má být textový řetězec ukončen.
+
+<figure markdown>
+![](../assets/cviceni3/leaflet6.png){ width="800" }
+    <figcaption>Mapa s vlastním stylem markeru a upraveným stylem pop-upu</figcaption>
+</figure>
 
 
 ??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 3) Pop-up </span>"
@@ -448,28 +535,39 @@ Následně je možné smazat či vložit do blokového komentáře předchozí z
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        // Bod zobrazující FSv ČVUT v Praze
-        // var marker = L.marker([50.104, 14.388]).addTo(map);
-
-        // Body 
+        // Body s textovými informacemi
         var points = [
-            [50.104, 14.388], // FSv ČVUT v Praze
-            [50.091, 14.402], // Pražský hrad
-            [50.082, 14.426], // metro Můstek
-            [50.106, 14.437]  // vlak Praha Holešovice-zastávka
+            { coords: [50.104, 14.388], text: "FSv ČVUT v Praze" },
+            { coords: [50.091, 14.402], text: "Pražský hrad" },
+            { coords: [50.082, 14.426], text: "metro Můstek" },
+            { coords: [50.106, 14.437], text: "vlak Praha Holešovice-zastávka" }
         ];
 
         // Linie propojující několik bodů 
-        var line = L.polyline(points, {color: "red", weight: 10}).addTo(map);
+        var line = L.polyline(points.map(p => p.coords), {color: "red", weight: 10}).addTo(map);
 
         // Polygon se zadanými vrcholy
-        var polygon = L.polygon(points, {color: "blue", weight: 3, fillColor: "lightblue", fillOpacity: "0.8"}).addTo(map);
+        var polygon = L.polygon(points.map(p => p.coords), {color: "blue", weight: 3, fillColor: "lightblue", fillOpacity: "0.8"}).addTo(map);
 
+        // Pop-up pro polygon
+        polygon.bindPopup("Toto je polygon");
 
-        // Přidání markerů pro každý bod
-        points.forEach(function(coord) {
-            L.marker(coord).addTo(map);
+        // Přidání markerů s popisky pro každý bod
+        points.forEach(function(point) {
+            L.marker(point.coords).addTo(map).bindPopup(point.text);
         });
+
+        // Nastavení parametrů vlastního markeru
+        var blackMarker = L.icon({
+            iconUrl: '/assets/cerny_popup.png', // Umístění obrázku na disku
+            iconSize:     [60, 60], // Velikost ikony v px
+            iconAnchor:   [0, 80], // Pozice, na které se zobrazí ikona - vůči bodu
+            popupAnchor:  [30, -100] // Pozice, ze které se popup otevře - vůči bodu
+        });
+
+        // Samostatný bod s novým značením
+        var markerDivokaS = L.marker([50.093, 14.324], {icon: blackMarker}).addTo(map); 
+        markerDivokaS.bindPopup("Zde je <b style='color: red;'>Divoká Šárka</b>");
         ```
 
     === "style.css - beze změny"
