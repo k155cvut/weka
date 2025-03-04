@@ -620,7 +620,7 @@ Následně je potřeba upravit definici původní OpenStreetMap na začátku skr
     }).addTo(map);
     ```
 
-Nyní do skriptu pod definice podkladových vrstev vložíme jejich [přepínání](https://leafletjs.com/reference.html#control-layers). 
+Nyní na konec skriptu vložíme [přepínání](https://leafletjs.com/reference.html#control-layers) podkladových vrstev. 
 
 === "script.js"
 
@@ -652,6 +652,71 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
 ![](../assets/cviceni3/leaflet9.png){ width="800" }
     <figcaption>Přepínání podkladových map</figcaption>
 </figure>
+
+Závěrem ještě přidáme přepínání i pro mapové vrstvy, tedy body, linii a polygon. 
+
+Následně musíme přepsat druhý parametr v přepínání vrstev z ```null``` na ```overlayMaps```, tedy přidat mapové vrstvy jako součást přepínání.
+
+=== "script.js"
+
+    ``` js
+    // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+    var overlayMaps = {
+        "Divoká Šárka": markerDivokaS,
+        "Moje linie": line, 
+        "Můj polygon": polygon
+    };
+
+    // Grafické přepínání podkladových map
+    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+    ```
+
+<figure markdown>
+![](../assets/cviceni3/leaflet10.png){ width="800" }
+    <figcaption>Přepínání podkladových map a mapových vrstev</figcaption>
+</figure>
+
+Pokud bychom chtěli do přepínání vložit i body dávkově zobrazené funkcí ```forEach()```, pak je třeba tyto body nejdříve shluknout do jedné skupiny, se kterou budeme pracovat jako s celkem.
+
+Zároveň je třeba upravit funkci ```forEach()``` tak, aby se každý bod nepřiřadil hned do mapy, ale do skupiny ```markersLayer```. Až na dalším řádku všechny body dohromady vložíme do mapy.
+
+=== "script.js"
+
+    ``` js
+    // Vytvoření vrstvy pro markery
+    var markersLayer = L.layerGroup();
+
+    // Přidání markerů s popisky pro každý bod
+    points.forEach(function(point) {
+        L.marker(point.coords).bindPopup(point.text).addTo(markersLayer);
+    });
+
+    // Vložení skupiny bodů do mapy
+    markersLayer.addTo(map);
+    ```
+
+Posledním krokem je pak přidání skupiny bodů ```markersLayer``` do výběru vrstev.
+
+=== "script.js"
+
+    ``` js
+    // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+    var overlayMaps = {
+        "Zajímavá místa": markersLayer,
+        "Divoká Šárka": markerDivokaS,
+        "Moje linie": line, 
+        "Můj polygon": polygon
+    };
+    ```
+
+<figure markdown>
+![](../assets/cviceni3/leaflet11.png){ width="800" }
+    <figcaption>Finální verze mapové aplikace se všemi mapovými vrstvami</figcaption>
+</figure>
+
+!!! warning "&nbsp;<span>Upozornění</span>"
+
+    Pokud chceme mít nějakou vrstvu skrytou při načtení mapy, pak ji jednoduše nepřidáváme do mapy v kódu pomocí ```vrstva.addTo(map)```, ale zobrazíme ji pouze výběrem vrstev.
 
 ??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 4) Přidání mapových vrstev </span>"
 
@@ -711,15 +776,6 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
         // Přiání OpenTopoMap do mapy
         otm.addTo(map);
 
-        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
-        var baseMaps = {
-            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
-            "OpenTopoMap": otm
-        };
-
-        // Grafické přepínání podkladových map
-        var layerControl = L.control.layers(baseMaps, null, {collapsed: false}).addTo(map);
-
         // Body s textovými informacemi
         var points = [
             { coords: [50.104, 14.388], text: "FSv ČVUT v Praze" },
@@ -737,10 +793,16 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
         // Pop-up pro polygon
         polygon.bindPopup("Toto je polygon");
 
+        // Vytvoření vrstvy pro markery
+        var markersLayer = L.layerGroup();
+
         // Přidání markerů s popisky pro každý bod
         points.forEach(function(point) {
-            L.marker(point.coords).addTo(map).bindPopup(point.text);
+            L.marker(point.coords).bindPopup(point.text).addTo(markersLayer);
         });
+
+        // Vložení skupiny bodů do mapy
+        //markersLayer.addTo(map);
 
         // Nastavení parametrů vlastního markeru
         var blackMarker = L.icon({
@@ -753,6 +815,24 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
         // Samostatný bod s novým značením
         var markerDivokaS = L.marker([50.093, 14.324], {icon: blackMarker}).addTo(map); 
         markerDivokaS.bindPopup("Zde je <b style='color: red;'>Divoká Šárka</b>");
+
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm
+        };
+
+        // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+        var overlayMaps = {
+            "Zajímavá místa": markersLayer,
+            "Divoká Šárka": markerDivokaS,
+            "Moje linie": line, 
+            "Můj polygon": polygon
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
         ```
 
     === "style.css - beze změny"
@@ -765,6 +845,5 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
         }
         ```
 
-- do příště - příprava statistických dat ČR (ČSÚ) v GIS pro načtení geojson a zobrazení kartogramu
 
 
