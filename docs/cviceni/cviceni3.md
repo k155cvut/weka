@@ -581,9 +581,189 @@ Pomocí dokumentace můžeme upravit styl markeru ([ikony](https://leafletjs.com
         ```
 ### 4) Přidání mapových vrstev
 
-- přidat přepínání mezi podkladovými mapami
+Katalog různých podkladových map nalezneme [ZDE](https://leaflet-extras.github.io/leaflet-providers/preview/). Stačí v pravém menu vybrat mapu a následně zkopírovat její parametry v js kódu.
 
-- přidat zapnutí/vypnutí zobrazení mapových vrstev
+<figure markdown>
+![](../assets/cviceni3/leaflet7.png){ width="800" }
+    <figcaption>Výběr podkladové mapy v katalogu</figcaption>
+</figure>
+
+Zkopírované parametry podkladové mapy vložíme do JavaScriptu.
+
+=== "script.js"
+
+    ``` js
+    // Definice podkladové OpenTopoMap
+    var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    });
+
+    // Přiání OpenTopoMap do mapy
+    otm.addTo(map);
+    ```
+
+<figure markdown>
+![](../assets/cviceni3/leaflet8.png){ width="800" }
+    <figcaption>Změna podkladové mapy</figcaption>
+</figure>
+
+Následně je potřeba upravit definici původní OpenStreetMap na začátku skriptu přiřazením názvu, např. ```osm```.
+
+=== "script.js"
+
+    ``` js
+    // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    ```
+
+Nyní do skriptu pod definice podkladových vrstev vložíme jejich [přepínání](https://leafletjs.com/reference.html#control-layers). 
+
+=== "script.js"
+
+    ``` js
+    // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+    var baseMaps = {
+        "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+        "OpenTopoMap": otm
+    };
+
+    // Grafické přepínání podkladových map
+    var layerControl = L.control.layers(baseMaps).addTo(map);
+    ```
+
+Nyní se nabídka přepnutí map zobrazí po najetí kurzoru myši na ikonu mapových vrstev. Jestliže bychom chtěli vidět přepínání vrstev stále zobrazené, pak přidáme úpravu parametru ```collapsed```. 
+
+Prvním parametrem níže upraveného přepínání je proměnná podkladových map (```baseMaps```), druhým proměnná mapových vrstev (zatím jsme neučili, proto ```null```) a následuje volitelné nastavení, tedy např ```collapsed```. 
+
+Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu přidaná jako poslední.
+
+=== "script.js"
+
+    ``` js
+    // Grafické přepínání podkladových map
+    var layerControl = L.control.layers(baseMaps, null, {collapsed: false}).addTo(map);
+    ```
+
+<figure markdown>
+![](../assets/cviceni3/leaflet9.png){ width="800" }
+    <figcaption>Přepínání podkladových map</figcaption>
+</figure>
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 4) Přidání mapových vrstev </span>"
+
+    === "index.html - beze změny"
+
+        ``` html
+        <!DOCTYPE html> 
+        <html> 
+        <head> 
+            <meta charset="UTF-8"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css">
+
+            <!-- Externí připojení CSS symbologie Leaflet-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+            
+
+            <!-- Externí připojení JS knihovny -> vložit až po připojení CSS souboru -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+            <title>Moje první Leaflet mapa</title> 
+        </head>
+        <body> 
+
+            <h1>Pěkná mapa v Leafletu</h1> 
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+
+        </body>
+        </html>
+        ```
+
+
+    === "script.js"
+
+        ``` js
+        // Nastavení mapy, jejího středu a úrovně přiblížení
+        var map = L.map('map').setView([50.104, 14.388], 13);
+
+        // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Definice podkladové OpenTopoMap
+        var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Přiání OpenTopoMap do mapy
+        otm.addTo(map);
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, null, {collapsed: false}).addTo(map);
+
+        // Body s textovými informacemi
+        var points = [
+            { coords: [50.104, 14.388], text: "FSv ČVUT v Praze" },
+            { coords: [50.091, 14.402], text: "Pražský hrad" },
+            { coords: [50.082, 14.426], text: "metro Můstek" },
+            { coords: [50.106, 14.437], text: "vlak Praha Holešovice-zastávka" }
+        ];
+
+        // Linie propojující několik bodů 
+        var line = L.polyline(points.map(p => p.coords), {color: "red", weight: 10}).addTo(map);
+
+        // Polygon se zadanými vrcholy
+        var polygon = L.polygon(points.map(p => p.coords), {color: "blue", weight: 3, fillColor: "lightblue", fillOpacity: "0.8"}).addTo(map);
+
+        // Pop-up pro polygon
+        polygon.bindPopup("Toto je polygon");
+
+        // Přidání markerů s popisky pro každý bod
+        points.forEach(function(point) {
+            L.marker(point.coords).addTo(map).bindPopup(point.text);
+        });
+
+        // Nastavení parametrů vlastního markeru
+        var blackMarker = L.icon({
+            iconUrl: '/assets/cerny_popup.png', // Umístění obrázku na disku
+            iconSize:     [60, 60], // Velikost ikony v px
+            iconAnchor:   [0, 80], // Pozice, na které se zobrazí ikona - vůči bodu
+            popupAnchor:  [30, -100] // Pozice, ze které se popup otevře - vůči bodu
+        });
+
+        // Samostatný bod s novým značením
+        var markerDivokaS = L.marker([50.093, 14.324], {icon: blackMarker}).addTo(map); 
+        markerDivokaS.bindPopup("Zde je <b style='color: red;'>Divoká Šárka</b>");
+        ```
+
+    === "style.css - beze změny"
+
+        ``` css
+        /* Velikost mapového okna */
+        #map {
+            height: 800px;
+            width: 60%;
+        }
+        ```
 
 - do příště - příprava statistických dat ČR (ČSÚ) v GIS pro načtení geojson a zobrazení kartogramu
 
