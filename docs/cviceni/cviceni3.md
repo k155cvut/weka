@@ -620,6 +620,32 @@ Následně je potřeba upravit definici původní OpenStreetMap na začátku skr
     }).addTo(map);
     ```
 
+Jako třetí podkladovou vrstvu přidáme [Ortofoto ČR z ČÚZK](https://geoportal.cuzk.cz/(S(qc0rzifrjshkbyytskpzdilh))/Default.aspx?menu=3121&mode=TextMeta&side=wms.verejne&metadataID=CZ-CUZK-WMS-ORTOFOTO-P&metadataXSL=metadata.sluzba). Tato vrsta je dostupná jako [WMS](https://leafletjs.com/examples/wms/wms.html) služba, tudíž ji musíme přidat s trochu jinými parametry než předchozí OpenTopoMap.
+
+=== "script.js"
+
+    ``` js
+    // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+    var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+        layers: "0", 
+        format: "image/png",
+        transparent: true,
+        attribution: "&copy ČÚZK"
+    }).addTo(map);
+    ```
+
+Parametry vrstvy ```layers```, ```format``` a ```transparent``` nalezneme ve vlastnostech služby [```GetCapabilities```](https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer?service=WMS&request=getCapabilities). 
+
+<figure markdown>
+![](../assets/cviceni3/wms-get-c.png){ width="1200" }
+    <figcaption>Získání potřebných parametrů z GetCapabilities</figcaption>
+</figure>
+
+<figure markdown>
+![](../assets/cviceni3/leaflet9.png){ width="800" }
+    <figcaption>Přidání ortofota</figcaption>
+</figure>
+
 Nyní na konec skriptu vložíme [přepínání](https://leafletjs.com/reference.html#control-layers) podkladových vrstev. 
 
 === "script.js"
@@ -628,7 +654,8 @@ Nyní na konec skriptu vložíme [přepínání](https://leafletjs.com/reference
     // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
     var baseMaps = {
         "OpenStreetMap": osm, // "popis mapy": nazevPromenne
-        "OpenTopoMap": otm
+        "OpenTopoMap": otm,
+        "Ortofoto ČR": ortofoto
     };
 
     // Grafické přepínání podkladových map
@@ -649,7 +676,7 @@ Při načtení stránky se v podkladu zobrazí OpenTopoMap, která byla v kódu 
     ```
 
 <figure markdown>
-![](../assets/cviceni3/leaflet9.png){ width="800" }
+![](../assets/cviceni3/leaflet10.png){ width="800" }
     <figcaption>Přepínání podkladových map</figcaption>
 </figure>
 
@@ -672,7 +699,7 @@ Následně musíme přepsat druhý parametr v přepínání vrstev z ```null``` 
     ```
 
 <figure markdown>
-![](../assets/cviceni3/leaflet10.png){ width="800" }
+![](../assets/cviceni3/leaflet11.png){ width="800" }
     <figcaption>Přepínání podkladových map a mapových vrstev</figcaption>
 </figure>
 
@@ -710,7 +737,7 @@ Posledním krokem je pak přidání skupiny bodů ```markersLayer``` do výběru
     ```
 
 <figure markdown>
-![](../assets/cviceni3/leaflet11.png){ width="800" }
+![](../assets/cviceni3/leaflet12.png){ width="800" }
     <figcaption>Finální verze mapové aplikace se všemi mapovými vrstvami</figcaption>
 </figure>
 
@@ -774,7 +801,15 @@ Posledním krokem je pak přidání skupiny bodů ```markersLayer``` do výběru
         });
 
         // Přiání OpenTopoMap do mapy
-        otm.addTo(map);
+        //otm.addTo(map);
+
+        // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+        var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+            layers: "0", 
+            format: "image/png",
+            transparent: true,
+            attribution: "&copy ČÚZK"
+        });
 
         // Body s textovými informacemi
         var points = [
@@ -802,7 +837,7 @@ Posledním krokem je pak přidání skupiny bodů ```markersLayer``` do výběru
         });
 
         // Vložení skupiny bodů do mapy
-        //markersLayer.addTo(map);
+        markersLayer.addTo(map);
 
         // Nastavení parametrů vlastního markeru
         var blackMarker = L.icon({
@@ -816,11 +851,11 @@ Posledním krokem je pak přidání skupiny bodů ```markersLayer``` do výběru
         var markerDivokaS = L.marker([50.093, 14.324], {icon: blackMarker}).addTo(map); 
         markerDivokaS.bindPopup("Zde je <b style='color: red;'>Divoká Šárka</b>");
 
-
         // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
         var baseMaps = {
             "OpenStreetMap": osm, // "popis mapy": nazevPromenne
-            "OpenTopoMap": otm
+            "OpenTopoMap": otm,
+            "Ortofoto ČR": ortofoto
         };
 
         // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
