@@ -1015,12 +1015,12 @@ V první řadě nastavíme zvýraznění a výběr polygonu po najetí kurzoru m
     }
     ```
 
-Dále přidáme přiblížení mapy na vybraný polygon po dvojkliku levého tlačítka myši.
+Dále přidáme přiblížení mapy na vybraný polygon po kliknutí levého tlačítka myši.
 
 === "script.js"
 
     ``` js
-    // Přiblížení na vybraný polygon po dvojkliku myší
+    // Přiblížení na vybraný polygon po kliknutí myší
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
@@ -1232,7 +1232,7 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
         layer.bringToFront();
         }
 
-        // Přiblížení na vybraný polygon po dvojkliku myší
+        // Přiblížení na vybraný polygon po kliknutí myší
         function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
         }
@@ -1539,7 +1539,7 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
         info.update(layer.feature.properties);
         }
 
-        // Přiblížení na vybraný polygon po dvojkliku myší
+        // Přiblížení na vybraný polygon po kliknutí myší
         function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
         }
