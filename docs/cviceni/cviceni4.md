@@ -1284,3 +1284,384 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
             width: 60%;
         }
         ```
+
+### 4) Přidání pop-upu a legendy
+
+Nejprve vypíšeme informace o vybraném prvku z mapy do samostatného divu, který vytvoříme přímo pomocí js.
+
+V informačním pop-upu se vypíše text, který bude využívat dva atributy polygonů z GeoJSONu - ```NAZEV``` a ```HUSTOTA``` (zaokrouhlíme na 2 des. místa).
+
+=== "script.js"
+
+    ``` js
+    // Vytvoření pop-upu s informacemi o vybraném prvku v mapě
+    var info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // Vytvoří div s třídou "info"
+        this.update();
+        return this._div;
+    };
+
+    // Funkce pro aktualizaci po-upu na základě předaných vlastností prvku
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>Hustota obyvatel</h4>' +  (props ?
+            '<b>' + props.NAZEV + '</b><br />' + props.HUSTOTA.toFixed(2) + ' obyv. / km<sup>2</sup>'
+            : 'Vyber ORP'); // Výpis, pokud není vybraný prvek
+    };
+    ```
+
+Výsledná aplikace by měla vypadat zhruba takto. V pravém horním rohu se vypisují vybrané atributy zvoleného polygonu, nicméně je potřeba vytvořit styl daného divu.
+
+<figure markdown>
+![](../assets/cviceni4/kartogram-popup.png){ width="800" }
+    <figcaption>Výpis atributů vybraného prvku</figcaption>
+</figure>
+
+Úprava stylu divu s pop-upem v souboru ```style.css```:
+
+=== "style.css"
+
+    ``` js
+    /* Div třídy info */
+    .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255,255,255,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+    }
+
+    /* Nadpis v divu info */
+    .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
+    ```
+
+<figure markdown>
+![](../assets/cviceni4/kartogram-popup-styl.png){ width="800" }
+    <figcaption>Upravený styl pop-upu pro výpis informací o prvku</figcaption>
+</figure>
+
+V posledním kroku přidáme legendu a upravíme její styl.
+
+=== "script.js"
+
+    ``` js
+    // Vytvoření legendy a nastavení její pozice
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 20, 50, 100, 200, 500, 1000], // Hranice intervalů - stejné jako v nastavení stylu kartogramu
+            labels = [];
+
+        // Procházení intervalů hustoty - pro každý interval se vygeneruje štítek s barevným čtvercem.
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+
+    // Přidání legendy do mapy
+    legend.addTo(map);
+    ```
+
+Pro správné zobrazení všech součástí legendy musíme upravit ```style.css```.
+
+=== "style.css"
+
+    ``` js
+    /* Úprava stylu legendy*/
+    .legend {
+        line-height: 18px;
+        color: #555;
+    }
+
+    /* Zobrazení čtverců s barvou stylu každého atributu */
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
+    ```
+
+<figure markdown>
+![](../assets/cviceni4/legenda.png){ width="1000" }
+    <figcaption>Finální mapa se zobrazenou legendou</figcaption>
+</figure>
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 4) Přidání pop-upu a legendy</span>"
+
+    === "index.html - beze změny"
+
+        ``` html
+        <!DOCTYPE html> 
+        <html> 
+        <head> 
+            <meta charset="UTF-8"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css">
+
+            <!-- Načtení souboru s městy GeoJSON-->
+            <script src="mesta_GeoJSON.js"></script>
+
+            <!-- Načtení souboru s ORP GeoJSON-->
+            <script src="ORP_GeoJSON.js"></script>
+
+            <!-- Externí připojení CSS symbologie Leaflet-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+            
+
+            <!-- Externí připojení JS knihovny -> vložit až po připojení CSS souboru -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+            <title>Moje první Leaflet mapa</title> 
+        </head>
+        <body> 
+
+            <h1>Pěkná mapa v Leafletu</h1> 
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+
+        </body>
+        </html>
+        ```
+
+
+    === "script.js"
+
+        ``` js
+        // Nastavení mapy, jejího středu a úrovně přiblížení
+        var map = L.map('map').setView([49.860, 15.315], 8); // Výběr bodu zhruba uprostřed republiky
+
+        // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Definice podkladové OpenTopoMap
+        var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+        var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+            layers: "0", 
+            format: "image/png",
+            transparent: true,
+            attribution: "&copy ČÚZK"
+        });
+
+        // Načtení bodu z GeoJSON zápisu
+        var prahaBod = [
+            {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                    "coordinates": [
+                        14.41581389404206,
+                        50.0970543797564
+                    ],
+                    "type": "Point"
+                    }
+                }
+                ]
+            }
+        ];
+
+        // Přiřazení GeoJSONu do mapové vrstvy a její přidání do mapy
+        var prahaBodLayer = L.geoJSON(prahaBod);
+
+        // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+        var mestaLayer = L.geoJSON(mesta, {
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.nazev) {
+                // layer.bindPopup(feature.properties.nazev); // Obyčejný popup
+                layer.bindPopup(`Jméno města je <b>${feature.properties.nazev}</b>`); // Vylepšený popup
+            }
+        }
+        });
+
+        // Vytvoření barevné stupnice
+        function getColor(d) {
+        return d > 1000 ? '#800026' :
+                d > 500  ? '#BD0026' :
+                d > 200  ? '#E31A1C' :
+                d > 100  ? '#FC4E2A' :
+                d > 50   ? '#FD8D3C' :
+                d > 20   ? '#FEB24C' :
+                            '#FFEDA0'; // Výchozí barva
+        }
+
+        // Styl kartogramu
+        function kartogram(feature) {
+        return {
+            fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+            weight: 1,
+            opacity: 1,
+            color: 'white',
+            fillOpacity: 0.7
+        };
+        }
+
+        // Výběr prvku po najetí kurzorem myši
+        function highlightFeature(e) {
+        var layer = e.target;
+
+        // Úprava stylu vybraného prvku = jeho zvýraznění
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        layer.bringToFront();
+        info.update(layer.feature.properties);
+        }
+
+        // Přiblížení na vybraný polygon po dvojkliku myší
+        function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+        }
+
+        // Resetování stylu kartogramu po zrušení jeho výběru myší
+        function resetHighlight(e) {
+        ORPLayer.resetStyle(e.target);
+        info.update();
+        }
+
+        // Přístup k jednotlivým polygonů ve vrstvě
+        function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+        });
+        }
+
+        // Načtení GeoJSONu s polygony ORP do mapy
+        var ORPLayer = L.geoJSON(ORP,{
+        style: kartogram, 
+        onEachFeature: onEachFeature
+        }).addTo(map);
+
+
+        // Vytvoření pop-upu s informacemi o vybraném prvku v mapě
+        var info = L.control();
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // Vytvoří div s třídou "info"
+            this.update();
+            return this._div;
+        };
+
+        // Funkce pro aktualizaci po-upu na základě předaných vlastností prvku
+        info.update = function (props) {
+            this._div.innerHTML = '<h4>Hustota obyvatel</h4>' +  (props ?
+                '<b>' + props.NAZEV + '</b><br />' + props.HUSTOTA.toFixed(2) + ' obyv. / km<sup>2</sup>'
+                : 'Vyber ORP'); // Výpis, pokud není vybraný prvek
+        };
+
+        // Vložení info pop-upu do mapy
+        info.addTo(map); 
+
+        // Vytvoření legendy a nastavení její pozice
+        var legend = L.control({position: 'bottomright'});
+
+        legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 20, 50, 100, 200, 500, 1000], // Hranice intervalů - stejné jako v nastavení stylu kartogramu
+                labels = [];
+
+            // Procházení intervalů hustoty - pro každý interval se vygeneruje štítek s barevným čtvercem.
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        // Přidání legendy do mapy
+        legend.addTo(map);
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm,
+            "Ortofoto ČR": ortofoto
+        };
+
+        // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+        var overlayMaps = {
+            "Praha": prahaBodLayer,
+            "Města": mestaLayer,
+            "Hustota obyvatelstva": ORPLayer
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+        ```
+
+    === "style.css"
+
+        ``` css
+        /* Velikost mapového okna */
+        #map {
+            height: 800px;
+            width: 60%;
+        }
+
+        /* Div třídy info */
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+
+        /* Nadpis v divu info */
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
+        /* Úprava stylu legendy*/
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+
+        /* Zobrazení čtverců s barvou stylu každého atributu */
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+        ```
