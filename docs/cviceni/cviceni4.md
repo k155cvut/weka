@@ -959,7 +959,302 @@ Závěrem pouze odstraníme vykreslování bodových vrstev při načtení mapy 
 
         // Načtení GeoJSONu s polygony ORP do mapy
         var ORPLayer = L.geoJSON(ORP,{
+            style: kartogram 
+        }).addTo(map);
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm,
+            "Ortofoto ČR": ortofoto
+        };
+
+        // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+        var overlayMaps = {
+            "Praha": prahaBodLayer,
+            "Města": mestaLayer,
+            "Hustota obyvatelstva": ORPLayer
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+        ```
+
+    === "style.css - beze změny"
+
+        ``` css
+        /* Velikost mapového okna */
+        #map {
+            height: 800px;
+            width: 60%;
+        }
+        ```
+
+### 3) Interaktivní kartogram
+
+Nyní statický kartogram upravíme tak, aby byl interaktivní, a tedy vhodný pro webovou mapovou aplikaci.
+
+V první řadě nastavíme zvýraznění a výběr polygonu po najetí kurzoru myši.
+
+=== "script.js"
+
+    ``` js
+    // Výběr prvku po najetí kurzorem myši
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        // Úprava stylu vybraného prvku = jeho zvýraznění
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        layer.bringToFront();
+    }
+    ```
+
+Dále přidáme přiblížení mapy na vybraný polygon po dvojkliku levého tlačítka myši.
+
+=== "script.js"
+
+    ``` js
+    // Přiblížení na vybraný polygon po dvojkliku myší
+    function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+    }
+    ```
+
+Abychom byli schopni přistupovat k jednotlivým prvkům kartogramu, je potřeba vytvořit funkci ```onEachFeature```, ve které definujeme procesy výběru polygonu a přiblížení na něj. 
+
+=== "script.js"
+
+    ``` js
+    // Přístup k jednotlivým polygonů ve vrstvě
+    function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            click: zoomToFeature
+        });
+    }
+    ```
+
+Pro vytvoření funkčního kódu musíme přiřadit funkci ```onEachFeature``` do definice vrstvy:
+
+=== "script.js"
+
+    ``` js
+    // Načtení GeoJSONu s polygony ORP do mapy
+    var ORPLayer = L.geoJSON(ORP,{
         style: kartogram, 
+        onEachFeature: onEachFeature
+    }).addTo(map);
+    ```
+
+
+Při otestování aplikace v současném stavu zjistíme, že se vybrané polygony nevypínají, tzn. zůstávají stále zvýrazněné.
+
+<figure markdown>
+![](../assets/cviceni4/kartogram-staly-vyber.png){ width="800" }
+    <figcaption>ORP zůstávají vybrané i po přejetí myši na jiný polygon</figcaption>
+</figure>
+
+V kódu je potřeba přidat ošetření tohoto stavu tak, aby se styl daného polygonu resetoval do základního nastavení.
+
+=== "script.js"
+
+    ``` js
+    // Resetování stylu kartogramu po zrušení jeho výběru myší
+    function resetHighlight(e) {
+        ORPLayer.resetStyle(e.target);
+    }
+    ```
+
+Pro správné fungování je nutné nově vytvořenou funkci ```resetHighlight``` přidat do funkce ```onEachFeature```.
+
+=== "script.js"
+
+    ``` js
+    // Přístup k jednotlivým polygonů ve vrstvě
+    function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+    }
+    ```
+
+Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jeden polygon. Ten se po změně výběru opět skryje a zvýrazní se další vybraný polygon.
+
+<figure markdown>
+![](../assets/cviceni4/interaktivni-kartogram.png){ width="800" }
+    <figcaption>Interaktivní výběr prvku v mapě</figcaption>
+</figure>
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 3) Interaktivní kartogram</span>"
+
+    === "index.html - beze změny"
+
+        ``` html
+        <!DOCTYPE html> 
+        <html> 
+        <head> 
+            <meta charset="UTF-8"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css">
+
+            <!-- Načtení souboru s městy GeoJSON-->
+            <script src="mesta_GeoJSON.js"></script>
+
+            <!-- Načtení souboru s ORP GeoJSON-->
+            <script src="ORP_GeoJSON.js"></script>
+
+            <!-- Externí připojení CSS symbologie Leaflet-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+            
+
+            <!-- Externí připojení JS knihovny -> vložit až po připojení CSS souboru -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+            <title>Moje první Leaflet mapa</title> 
+        </head>
+        <body> 
+
+            <h1>Pěkná mapa v Leafletu</h1> 
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+
+        </body>
+        </html>
+        ```
+
+
+    === "script.js"
+
+        ``` js
+        // Nastavení mapy, jejího středu a úrovně přiblížení
+        var map = L.map('map').setView([49.860, 15.315], 8); // Výběr bodu zhruba uprostřed republiky
+
+        // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Definice podkladové OpenTopoMap
+        var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+        var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+            layers: "0", 
+            format: "image/png",
+            transparent: true,
+            attribution: "&copy ČÚZK"
+        });
+
+        // Načtení bodu z GeoJSON zápisu
+        var prahaBod = [
+            {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                    "coordinates": [
+                        14.41581389404206,
+                        50.0970543797564
+                    ],
+                    "type": "Point"
+                    }
+                }
+                ]
+            }
+        ];
+
+        // Přiřazení GeoJSONu do mapové vrstvy a její přidání do mapy
+        var prahaBodLayer = L.geoJSON(prahaBod);
+
+        // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+        var mestaLayer = L.geoJSON(mesta, {
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.nazev) {
+                // layer.bindPopup(feature.properties.nazev); // Obyčejný popup
+                layer.bindPopup(`Jméno města je <b>${feature.properties.nazev}</b>`); // Vylepšený popup
+            }
+        }
+        });
+
+        // Vytvoření barevné stupnice
+        function getColor(d) {
+        return d > 1000 ? '#800026' :
+                d > 500  ? '#BD0026' :
+                d > 200  ? '#E31A1C' :
+                d > 100  ? '#FC4E2A' :
+                d > 50   ? '#FD8D3C' :
+                d > 20   ? '#FEB24C' :
+                            '#FFEDA0'; // Výchozí barva
+        }
+
+        // Styl kartogramu
+        function kartogram(feature) {
+        return {
+            fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+            weight: 1,
+            opacity: 1,
+            color: 'white',
+            fillOpacity: 0.7
+        };
+        }
+
+        // Výběr prvku po najetí kurzorem myši
+        function highlightFeature(e) {
+        var layer = e.target;
+
+        // Úprava stylu vybraného prvku = jeho zvýraznění
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        layer.bringToFront();
+        }
+
+        // Přiblížení na vybraný polygon po dvojkliku myší
+        function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+        }
+
+        // Resetování stylu kartogramu po zrušení jeho výběru myší
+        function resetHighlight(e) {
+        ORPLayer.resetStyle(e.target);
+        }
+
+        // Přístup k jednotlivým polygonů ve vrstvě
+        function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+        });
+        }
+
+        // Načtení GeoJSONu s polygony ORP do mapy
+        var ORPLayer = L.geoJSON(ORP,{
+        style: kartogram, 
+        onEachFeature: onEachFeature
         }).addTo(map);
 
         // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
