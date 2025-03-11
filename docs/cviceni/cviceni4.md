@@ -60,7 +60,7 @@ Lepší pochopení struktury vytváření geodat ve formátu GeoJSON můžeme z�
 
 ## Načtení dat z GeoJSON do mapové aplikace
 
-Toto cvičení navazuje na závěr předchozího cvičení. Začínáme tedy s kódem z minulé hodiny, který je vypsán v nabídce níže.
+Toto cvičení navazuje na závěr předchozího cvičení. Začínáme tedy s kódem z minulé hodiny, který je vypsán v nabídce níže. Kód se však bude výrazně měnit, takže **doporučujeme vytvořit kopii dat z minulé hodiny do nové složky**, ve které budete pracovat. Takto si zachováte postup z obou hodin uložený.
 
 ??? note "&nbsp;<span style="color:#448aff">Stav kódu na začátku cvičení </span>"
 
@@ -383,4 +383,383 @@ Na platformě geojson.io vytvoříme jednoduchou bodovou vrstvu s vybranými mě
 </figure>
 
 
+Takto stažený soubor je možné nahrát přímo do Leaflet, nicméně jednodušší možností je vytvoření nového js scriptu, např. ```mesta_GeoJSON.js```, ve kterém vytvoříme proměnnou ```mesta``` a přiřadíme jí data ze staženého GeoJSONu. Nový soubor uložíme do stejné pracovní složky jako ostatní skripty.
+
+Struktura připraveného souboru bude vypadat následovně:
+
+=== "mesta_GeoJSON.js"
+
+    ``` js
+    var mesta = {
+        "type": "FeatureCollection",
+        "features": [
+        {
+            ... // Zde jsou ostatní načtená data z GeoJSONu
+        }
+        ]
+    };
+    ```
+
+Abychom mohli města ze souboru ```mesta_GeoJSON.js``` načíst, je potřeba skript připojit v ```index.html``` – obdobně jako ostatní použité js soubory. 
+
+Do hlavičky v html tedy přidáme:
+
+=== "index.html"
+
+    ``` html
+    <!-- Načtení souboru s městy GeoJSON-->
+    <script src="mesta_GeoJSON.js"></script>
+    ```
+
+
+Nyní můžeme pokračovat načtením bodů z GeoJSONu do mapy. To provededeme podobně jako při načtení samostatného bodu Prahy v předchozím kroku. Zároveň přidáme novou vrstu měst do správce vrstev.
+
+=== "script.js"
+
+    ``` js
+    // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+    var mestaLayer = L.geoJSON(mesta).addTo(map);
+
+    // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+    var overlayMaps = {
+        "Praha": prahaBodLayer,
+        "Města": mestaLayer
+    };
+    ```
+
+<figure markdown>
+![](../assets/cviceni4/leaflet-nacteni-mest.png){ width="800" }
+    <figcaption>Mapová aplikace po načtení měst z GeoJSONu</figcaption>
+</figure>
+
+
+Závěrem tohoto kroku si upravíme rozsah úvodního okna pro celé Česko a upravíme zobrazení měst tak, abychom byli schopni zobrazit pop-up s jejich názvy.
+
+=== "script.js"
+
+    ``` js
+    // Nastavení mapy, jejího středu a úrovně přiblížení
+    var map = L.map('map').setView([49.860, 15.315], 8); // Výběr bodu zhruba uprostřed republiky
+    ```
+
+Popup vytvoříme obdobně jako v minulé hodině, jen je k atributu potřeba přistupovat přes ```feature.properties.nazev```. 
+
+Níže je vypsaný kód pro obyčejný pop-up vypisující pouze atribut (v komentáři) a upravený pop-up, který využívá html zápis. Pokud se odkazujeme přímo na hodnoty atributu, pak je nutné ve výpisu popupu využít zpětné uvozovky (backquote) ``` ` ``` (Alt + ý). 
+
+=== "script.js"
+
+    ``` js
+    // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+    var mestaLayer = L.geoJSON(mesta, {
+    onEachFeature: function (feature, layer) {
+        if (feature.properties && feature.properties.nazev) {
+            // layer.bindPopup(feature.properties.nazev); // Obyčejný popup
+            layer.bindPopup(`Jméno města je <b>${feature.properties.nazev}</b>`); // Vylepšený popup
+        }
+    }
+    }).addTo(map);
+    ```
+
+<figure markdown>
+![](../assets/cviceni4/leaflet-mesta-popup.png){ width="800" }
+    <figcaption>Přidání pop-upu pro výpis hodnoty atributu "název"</figcaption>
+</figure>
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 2) Načtení externího souboru s daty</span>"
+
+    === "index.html"
+
+        ``` html
+        <!DOCTYPE html> 
+        <html> 
+        <head> 
+            <meta charset="UTF-8"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css">
+
+            <!-- Načtení souboru s městy GeoJSON-->
+            <script src="mesta_GeoJSON.js"></script>
+
+            <!-- Externí připojení CSS symbologie Leaflet-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+            
+
+            <!-- Externí připojení JS knihovny -> vložit až po připojení CSS souboru -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+            <title>Moje první Leaflet mapa</title> 
+        </head>
+        <body> 
+
+            <h1>Pěkná mapa v Leafletu</h1> 
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+
+        </body>
+        </html>
+        ```
+
+
+    === "script.js"
+
+        ``` js
+        // Nastavení mapy, jejího středu a úrovně přiblížení
+        var map = L.map('map').setView([49.860, 15.315], 8); // Výběr bodu zhruba uprostřed republiky
+
+        // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Definice podkladové OpenTopoMap
+        var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+        var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+            layers: "0", 
+            format: "image/png",
+            transparent: true,
+            attribution: "&copy ČÚZK"
+        });
+
+        // Načtení bodu z GeoJSON zápisu
+        var prahaBod = [
+            {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                    "coordinates": [
+                        14.41581389404206,
+                        50.0970543797564
+                    ],
+                    "type": "Point"
+                    }
+                }
+                ]
+            }
+        ];
+
+        // Přiřazení GeoJSONu do mapové vrstvy a její přidání do mapy
+        var prahaBodLayer = L.geoJSON(prahaBod).addTo(map);
+
+        // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+        var mestaLayer = L.geoJSON(mesta, {
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.nazev) {
+                // layer.bindPopup(feature.properties.nazev); // Obyčejný popup
+                layer.bindPopup(`Jméno města je <b>${feature.properties.nazev}</b>`); // Vylepšený popup
+            }
+        }
+        }).addTo(map);
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm,
+            "Ortofoto ČR": ortofoto
+        };
+
+        // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+        var overlayMaps = {
+            "Praha": prahaBodLayer,
+            "Města": mestaLayer
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+        ```
+
+    === "style.css - beze změny"
+
+        ``` css
+        /* Velikost mapového okna */
+        #map {
+            height: 800px;
+            width: 60%;
+        }
+        ```
+
 ## Tvorba kartogramu
+
+### 1) Připojení dat ORP
+
+Nyní se dostaneme k načtení polygonů ORP s atributy. Je potřeba vytvořit nový js soubor, např. ```ORP_GeoJSON.js```, ve kterém bude vložený GeoJSON s ORP, který jsme si dopředu připravili v GIS. Postup připojení bude velmi podobný jako v případě bodů měst.
+
+Jeho struktura bude následující:
+
+=== "ORP_GeoJSON.js"
+
+    ``` js
+    var ORP = {"type":"FeatureCollection","features":
+    [
+        ... // Zde jsou ostatní načtená data z GeoJSONu 
+    ]
+    };
+    ```
+
+Připojení v hlavičce ```index.html```:
+
+=== "index.html"
+
+    ``` html
+    <!-- Načtení souboru s ORP GeoJSON-->
+    <script src="ORP_GeoJSON.js"></script>
+    ```
+
+Provedeme jednoduché načtení polygonů ORP do aplikace.
+
+=== "script.js"
+
+    ``` js
+    // Načtení GeoJSONu s polygony ORP do mapy
+    var ORPLayer = L.geoJSON(ORP).addTo(map);
+    ```
+
+<figure markdown>
+![](../assets/cviceni4/leaflet-orp-nacteni.png){ width="800" }
+    <figcaption>Zobrazení polygonů ORP v mapové aplikaci</figcaption>
+</figure>
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po dokončení kroku 1) Připojení dat ORP</span>"
+
+    === "index.html"
+
+        ``` html
+        <!DOCTYPE html> 
+        <html> 
+        <head> 
+            <meta charset="UTF-8"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="style.css">
+
+            <!-- Načtení souboru s městy GeoJSON-->
+            <script src="mesta_GeoJSON.js"></script>
+
+            <!-- Načtení souboru s ORP GeoJSON-->
+            <script src="ORP_GeoJSON.js"></script>
+
+            <!-- Externí připojení CSS symbologie Leaflet-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+            
+
+            <!-- Externí připojení JS knihovny -> vložit až po připojení CSS souboru -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+            <title>Moje první Leaflet mapa</title> 
+        </head>
+        <body> 
+
+            <h1>Pěkná mapa v Leafletu</h1> 
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+
+        </body>
+        </html>
+        ```
+
+
+    === "script.js"
+
+        ``` js
+        // Nastavení mapy, jejího středu a úrovně přiblížení
+        var map = L.map('map').setView([49.860, 15.315], 8); // Výběr bodu zhruba uprostřed republiky
+
+        // Určení podkladové mapy, maximální úrovně přiblížení a zdroje dat
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Definice podkladové OpenTopoMap
+        var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        // Přidání ortofota jako WMS služby, určení vrstvy, formátu a průhlednosti
+        var ortofoto = L.tileLayer.wms("https://ags.cuzk.gov.cz/arcgis1/services/ORTOFOTO/MapServer/WMSServer", {
+            layers: "0", 
+            format: "image/png",
+            transparent: true,
+            attribution: "&copy ČÚZK"
+        });
+
+        // Načtení bodu z GeoJSON zápisu
+        var prahaBod = [
+            {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                    "coordinates": [
+                        14.41581389404206,
+                        50.0970543797564
+                    ],
+                    "type": "Point"
+                    }
+                }
+                ]
+            }
+        ];
+
+        // Přiřazení GeoJSONu do mapové vrstvy a její přidání do mapy
+        var prahaBodLayer = L.geoJSON(prahaBod).addTo(map);
+
+        // Načtení GeoJSONu z proměnné "mesta" uložené v souboru "mesta_GeoJSON.js"
+        var mestaLayer = L.geoJSON(mesta, {
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.nazev) {
+                // layer.bindPopup(feature.properties.nazev); // Obyčejný popup
+                layer.bindPopup(`Jméno města je <b>${feature.properties.nazev}</b>`); // Vylepšený popup
+            }
+        }
+        }).addTo(map);
+
+        // Načtení GeoJSONu s polygony ORP do mapy
+        var ORPLayer = L.geoJSON(ORP).addTo(map);
+
+        // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
+        var baseMaps = {
+            "OpenStreetMap": osm, // "popis mapy": nazevPromenne
+            "OpenTopoMap": otm,
+            "Ortofoto ČR": ortofoto
+        };
+
+        // Proměnná uchovávající mapové vrstvy, které chceme zobrazovat a skrývat
+        var overlayMaps = {
+            "Praha": prahaBodLayer,
+            "Města": mestaLayer
+        };
+
+        // Grafické přepínání podkladových map
+        var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
+        ```
+
+    === "style.css - beze změny"
+
+        ``` css
+        /* Velikost mapového okna */
+        #map {
+            height: 800px;
+            width: 60%;
+        }
+        ```
