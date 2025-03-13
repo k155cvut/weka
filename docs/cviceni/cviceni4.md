@@ -58,6 +58,15 @@ Lepší pochopení struktury vytváření geodat ve formátu GeoJSON můžeme z�
     <figcaption>Platforma geojson.io</figcaption>
 </figure>
 
+???+ note "&nbsp;<span style="color:#448aff">TopoJSON</span>"
+    **TopoJSON** je nadstavba GeoJSON, která se liší tím, že neukládá opakující se informace o topologii sousedních prvků, což vede k menší velikosti souboru a efektivnější práci s geoprostorovými daty.
+
+    Například společná hranice dvou států (Česka a Německa) se uloží pouze jednou. V GeoJSONu by se tato hranice uložila dvakrát (jednou pro polygon Česka, podruhé pro polygon Německa). Je tím pádem vhodný pro **využití u větších datových sad** či při nutnosti **zachování topologie**.
+
+    Datová struktura je naopak v porovnání s GeoJSONem složitější. 
+
+    Více informací: [https://github.com/topojson/topojson](https://github.com/topojson/topojson)
+
 ## Načtení dat z GeoJSON do mapové aplikace
 
 Toto cvičení navazuje na závěr předchozího cvičení. Začínáme tedy s kódem z minulé hodiny, který je vypsán v nabídce níže. Kód se však bude výrazně měnit, takže **doporučujeme vytvořit kopii dat z minulé hodiny do nové složky**, ve které budete pracovat. Takto si zachováte postup z obou hodin uložený.
