@@ -58,7 +58,7 @@ Lepší pochopení struktury vytváření geodat ve formátu GeoJSON můžeme z�
     <figcaption>Platforma geojson.io</figcaption>
 </figure>
 
-???+ note "&nbsp;<span style="color:#448aff">TopoJSON</span>"
+!!! info "&nbsp;<span>TopoJSON</span>"
     **TopoJSON** je nadstavba GeoJSON, která se liší tím, že neukládá opakující se informace o topologii sousedních prvků, což vede k menší velikosti souboru a efektivnější práci s geoprostorovými daty.
 
     Například společná hranice dvou států (Česka a Německa) se uloží pouze jednou. V GeoJSONu by se tato hranice uložila dvakrát (jednou pro polygon Česka, podruhé pro polygon Německa). Je tím pádem vhodný pro **využití u větších datových sad** či při nutnosti **zachování topologie**.
@@ -606,7 +606,7 @@ Více informací o tvorbě kartogramu v Leaflet je na [stránkách dokumentace](
 
 ### 1) Připojení dat ORP
 
-???+ note "&nbsp;<span style="color:#448aff">Příprava GeoJSON v GIS a jeho kontrola</span>"
+!!! info "&nbsp;<span>Příprava GeoJSON v GIS a jeho kontrola</span>"
     Pro vytvoření kartogramu využijeme data obcí s rozšířenou působností (ORP) z datasetu [ArcČR 4.3](https://www.arcdata.cz/cs-cz/produkty/data/arccr). Zde nalezneme řadu zajímavých statistických dat, která v následujících několika cvičeních vizualizujeme metodami tematické kartografie či infografikou.
 
     1) Nejprve bude nutné protřídit atributy ve vrstvě ORP dle obrázku níže.
@@ -644,7 +644,7 @@ Více informací o tvorbě kartogramu v Leaflet je na [stránkách dokumentace](
 
 Nyní se dostaneme k načtení polygonů ORP s atributy. Je potřeba vytvořit nový js soubor, např. ```ORP_GeoJSON.js```, ve kterém bude vložený GeoJSON s ORP, který jsme si dopředu připravili v GIS. Postup připojení bude velmi podobný jako v případě bodů měst. V podstatě vytvoříme novou proměnnou ```ORP```, do které přiřadíme GeoJSON.
 
-Jeho struktura bude následující:
+Struktura nového souboru bude následující:
 
 === "ORP_GeoJSON.js"
 
@@ -665,7 +665,7 @@ Připojení v hlavičce ```index.html```:
     <script src="ORP_GeoJSON.js"></script>
     ```
 
-Provedeme jednoduché načtení polygonů ORP do aplikace.
+Provedeme jednoduché načtení polygonů ORP do aplikace. **Načítání dat ORP** musíme vypsat **téměř až na konci** skriptu. Tedy veškeré výpočetní či jiné funkce k němu vztažené vložíme v kódu před jeho načtení.
 
 === "script.js"
 
@@ -826,6 +826,26 @@ Pro vytvoření kartogramu je potřeba nejprve upravit načítání bodů z GeoJ
 
 Po přiřazení stylu ```kartogram``` do vrstvy ```ORPLayer``` bude potřeba vytvořit barvnou stupnici pro kartogram. Pro představu o rozsahu dat můžeme využít náhled v GISu. 
 
+
+!!! info "&nbsp;<span>Výpočet hodnoty zobrazovaného atributu přímo v JavaScriptu</span>"
+
+    Pokud máme z GISu připravený atribut pro vizualizaci, můžeme pokračovat s přípravou barevné stupnice níže. Nicméně, v této ukázce si ještě musíme dopočítat hustotu obyvatelstva v každém ORP.
+
+    === "script.js"
+
+    ``` js
+    // Výpočet nového atributu pro každý prvek ORP 
+    // (hustota obyvatelstva = počet obyvatel / plocha), převod z m2 na km2 -> vynásobení 1 000 000
+    ORP.features.forEach(function(feature){
+        if(feature.properties.Shape_Area && feature.properties.poc_obyv_SLDB_2021){
+            feature.properties.hustota = (feature.properties.poc_obyv_SLDB_2021/feature.properties.Shape_Area)*1000000
+        }else{
+            feature.properties.hustota = 0
+        }
+    })
+    ```
+
+
 V tomto příkladu budeme pracovat s hustotou obyvatelstva v jednotlivých ORP, ale je možné použít jiný vhodný relativní atribut. Barevnou stupnici můžeme vytvořit pomocí nástroje [ColorBrewer](https://colorbrewer2.org/).
 
 === "script.js"
@@ -851,7 +871,7 @@ Pro vytvoření statického kartogramu je nutné ještě definovat jeho styl, ve
     // Styl kartogramu
     function kartogram(feature) {
     return {
-        fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+        fillColor: getColor(feature.properties.hustota), // Styl na základě atributu "hustota"
         weight: 1,
         opacity: 1,
         color: 'white',
@@ -980,6 +1000,16 @@ Závěrem pouze odstraníme vykreslování bodových vrstev při načtení mapy 
         }
         });
 
+        // Výpočet nového atributu pro každý prvek ORP 
+        // (hustota obyvatelstva = počet obyvatel / plocha), převod z m2 na km2 -> vynásobení 1 000 000
+        ORP.features.forEach(function(feature){
+            if(feature.properties.Shape_Area && feature.properties.poc_obyv_SLDB_2021){
+                feature.properties.hustota = (feature.properties.poc_obyv_SLDB_2021/feature.properties.Shape_Area)*1000000
+            }else{
+                feature.properties.hustota = 0
+            }
+        })
+
         // Vytvoření barevné stupnice
         function getColor(d) {
         return d > 1000 ? '#800026' :
@@ -994,7 +1024,7 @@ Závěrem pouze odstraníme vykreslování bodových vrstev při načtení mapy 
         // Styl kartogramu
         function kartogram(feature) {
         return {
-            fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+            fillColor: getColor(feature.properties.hustota), // Styl na základě atributu "hustota"
             weight: 1,
             opacity: 1,
             color: 'white',
@@ -1240,6 +1270,16 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
         }
         });
 
+        // Výpočet nového atributu pro každý prvek ORP 
+        // (hustota obyvatelstva = počet obyvatel / plocha), převod z m2 na km2 -> vynásobení 1 000 000
+        ORP.features.forEach(function(feature){
+            if(feature.properties.Shape_Area && feature.properties.poc_obyv_SLDB_2021){
+                feature.properties.hustota = (feature.properties.poc_obyv_SLDB_2021/feature.properties.Shape_Area)*1000000
+            }else{
+                feature.properties.hustota = 0
+            }
+        })
+
         // Vytvoření barevné stupnice
         function getColor(d) {
         return d > 1000 ? '#800026' :
@@ -1254,7 +1294,7 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
         // Styl kartogramu
         function kartogram(feature) {
         return {
-            fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+            fillColor: getColor(feature.properties.hustota), // Styl na základě atributu "hustota"
             weight: 1,
             opacity: 1,
             color: 'white',
@@ -1264,42 +1304,42 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
 
         // Výběr prvku po najetí kurzorem myši
         function highlightFeature(e) {
-        var layer = e.target;
+            var layer = e.target;
 
-        // Úprava stylu vybraného prvku = jeho zvýraznění
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
+            // Úprava stylu vybraného prvku = jeho zvýraznění
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
 
-        layer.bringToFront();
+            layer.bringToFront();
         }
 
         // Přiblížení na vybraný polygon po kliknutí myší
         function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
+            map.fitBounds(e.target.getBounds());
         }
 
         // Resetování stylu kartogramu po zrušení jeho výběru myší
         function resetHighlight(e) {
-        ORPLayer.resetStyle(e.target);
+            ORPLayer.resetStyle(e.target);
         }
 
         // Přístup k jednotlivým polygonů ve vrstvě
         function onEachFeature(feature, layer) {
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: zoomToFeature
-        });
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
         }
 
         // Načtení GeoJSONu s polygony ORP do mapy
         var ORPLayer = L.geoJSON(ORP,{
-        style: kartogram, 
-        onEachFeature: onEachFeature
+            style: kartogram, 
+            onEachFeature: onEachFeature
         }).addTo(map);
 
         // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
@@ -1334,7 +1374,7 @@ Aplikace následně funguje správně, tedy po najejí myši se vybere vždy jed
 
 Nejprve vypíšeme informace o vybraném prvku z mapy do samostatného divu, který vytvoříme přímo pomocí js.
 
-V informačním pop-upu se vypíše text, který bude využívat dva atributy polygonů z GeoJSONu - ```NAZEV``` a ```HUSTOTA``` (zaokrouhlíme na 2 des. místa).
+V informačním pop-upu se vypíše text, který bude využívat dva atributy polygonů z GeoJSONu - ```NAZEV``` a ```hustota``` (zaokrouhlíme na 2 des. místa).
 
 === "script.js"
 
@@ -1351,9 +1391,40 @@ V informačním pop-upu se vypíše text, který bude využívat dva atributy po
     // Funkce pro aktualizaci po-upu na základě předaných vlastností prvku
     info.update = function (props) {
         this._div.innerHTML = '<h4>Hustota obyvatel</h4>' +  (props ?
-            '<b>' + props.NAZEV + '</b><br />' + props.HUSTOTA.toFixed(2) + ' obyv. / km<sup>2</sup>'
+            '<b>' + props.nazev + '</b><br />' + props.hustota.toFixed(2) + ' obyv. / km<sup>2</sup>'
             : 'Vyber ORP'); // Výpis, pokud není vybraný prvek
     };
+
+    // Vložení info pop-upu do mapy
+    info.addTo(map); 
+    ```
+
+Pro aktualizaci info pop-upu na základě výběru prvku ještě musíme upravit funkce ```highlightFeature``` a ```resetHighlight```.
+
+=== "script.js"
+
+    ``` js
+    // Výběr prvku po najetí kurzorem myši
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        // Úprava stylu vybraného prvku = jeho zvýraznění
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        layer.bringToFront();
+        info.update(layer.feature.properties); // Aktualizace info pop-upu při výběru prvku
+    }
+
+    // Resetování stylu kartogramu po zrušení jeho výběru myší
+    function resetHighlight(e) {
+        ORPLayer.resetStyle(e.target);
+        info.update(); // Aktualizace info pop-upu při výběru prvku
+    }
     ```
 
 Výsledná aplikace by měla vypadat zhruba takto. V pravém horním rohu se vypisují vybrané atributy zvoleného polygonu, nicméně je potřeba vytvořit styl daného divu.
@@ -1546,6 +1617,16 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
         }
         });
 
+        // Výpočet nového atributu pro každý prvek ORP 
+        // (hustota obyvatelstva = počet obyvatel / plocha), převod z m2 na km2 -> vynásobení 1 000 000
+        ORP.features.forEach(function(feature){
+            if(feature.properties.Shape_Area && feature.properties.poc_obyv_SLDB_2021){
+                feature.properties.hustota = (feature.properties.poc_obyv_SLDB_2021/feature.properties.Shape_Area)*1000000
+            }else{
+                feature.properties.hustota = 0
+            }
+        })
+
         // Vytvoření barevné stupnice
         function getColor(d) {
         return d > 1000 ? '#800026' :
@@ -1560,7 +1641,7 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
         // Styl kartogramu
         function kartogram(feature) {
         return {
-            fillColor: getColor(feature.properties.HUSTOTA), // Styl na základě atributu "HUSTOTA"
+            fillColor: getColor(feature.properties.hustota), // Styl na základě atributu "hustota"
             weight: 1,
             opacity: 1,
             color: 'white',
@@ -1570,46 +1651,39 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
 
         // Výběr prvku po najetí kurzorem myši
         function highlightFeature(e) {
-        var layer = e.target;
+            var layer = e.target;
 
-        // Úprava stylu vybraného prvku = jeho zvýraznění
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
+            // Úprava stylu vybraného prvku = jeho zvýraznění
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
 
-        layer.bringToFront();
-        info.update(layer.feature.properties);
+            layer.bringToFront();
+            info.update(layer.feature.properties); // Aktualizace info pop-upu při výběru prvku
         }
 
         // Přiblížení na vybraný polygon po kliknutí myší
         function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
+            map.fitBounds(e.target.getBounds());
         }
 
         // Resetování stylu kartogramu po zrušení jeho výběru myší
         function resetHighlight(e) {
-        ORPLayer.resetStyle(e.target);
-        info.update();
+            ORPLayer.resetStyle(e.target);
+            info.update(); // Aktualizace info pop-upu při výběru prvku
         }
 
         // Přístup k jednotlivým polygonů ve vrstvě
         function onEachFeature(feature, layer) {
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: zoomToFeature
-        });
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
         }
-
-        // Načtení GeoJSONu s polygony ORP do mapy
-        var ORPLayer = L.geoJSON(ORP,{
-        style: kartogram, 
-        onEachFeature: onEachFeature
-        }).addTo(map);
-
 
         // Vytvoření pop-upu s informacemi o vybraném prvku v mapě
         var info = L.control();
@@ -1623,7 +1697,7 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
         // Funkce pro aktualizaci po-upu na základě předaných vlastností prvku
         info.update = function (props) {
             this._div.innerHTML = '<h4>Hustota obyvatel</h4>' +  (props ?
-                '<b>' + props.NAZEV + '</b><br />' + props.HUSTOTA.toFixed(2) + ' obyv. / km<sup>2</sup>'
+                '<b>' + props.nazev + '</b><br />' + props.hustota.toFixed(2) + ' obyv. / km<sup>2</sup>'
                 : 'Vyber ORP'); // Výpis, pokud není vybraný prvek
         };
 
@@ -1651,6 +1725,12 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
 
         // Přidání legendy do mapy
         legend.addTo(map);
+
+        // Načtení GeoJSONu s polygony ORP do mapy
+        var ORPLayer = L.geoJSON(ORP,{
+            style: kartogram, 
+            onEachFeature: onEachFeature
+        }).addTo(map);
 
         // Proměnná uchovávající podkladové mapy, mezi kterými chceme přepínat
         var baseMaps = {

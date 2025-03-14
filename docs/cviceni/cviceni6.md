@@ -57,7 +57,7 @@ Při práci ve VS Code je nutné nainstalovat extension Live Sever
     <figcaption>Opravené vykreslení bodů</figcaption>
 </figure>
 
-???+ note "&nbsp;<span style="color:#448aff">Užitečné odkazy</span>"
+!!! info "&nbsp;<span>Užitečné odkazy</span>"
     - práce s div: [https://www.w3schools.com/html/html_div.asp](https://www.w3schools.com/html/html_div.asp)
     - mapová vizualizace přímo z D3: [https://observablehq.com/@coachman/week-11-intro-to-d3-js-mapping-data-with-d3](https://observablehq.com/@coachman/week-11-intro-to-d3-js-mapping-data-with-d3)
     - Leaflet + D3 popup: [https://gist.github.com/Andrew-Reid/11602fac1ea66c2a6d7f78067b2deddb#file-thumbnail-png](https://gist.github.com/Andrew-Reid/11602fac1ea66c2a6d7f78067b2deddb#file-thumbnail-png)

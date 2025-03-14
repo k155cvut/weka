@@ -73,7 +73,7 @@ Při práci ve VS Code je nutné [nainstalovat](https://youtu.be/9kEOkw_LvGU?si=
     <figcaption>Pop-up s informacemi o zobrazovaném bodě</figcaption>
 </figure>
 
-???+ note "&nbsp;<span style="color:#448aff">Užitečné odkazy</span>"
+!!! info "&nbsp;<span>Užitečné odkazy</span>"
     - styly v D3: [http://www.d3noob.org/2014/02/styles-in-d3js.html](http://www.d3noob.org/2014/02/styles-in-d3js.html)
     - tvary v D3: [https://d3-graph-gallery.com/graph/shape.html](https://d3-graph-gallery.com/graph/shape.html)
     - atributy v D3: [http://www.d3noob.org/2014/02/attributes-in-d3js.html](http://www.d3noob.org/2014/02/attributes-in-d3js.html)

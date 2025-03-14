@@ -52,7 +52,7 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         }
         ```
 
-???+ note "&nbsp;<span style="color:#448aff">Zobrazení zdrojového kódu stránky</span>"
+!!! info "&nbsp;<span>Zobrazení zdrojového kódu stránky</span>"
     Pokud si chceme prohlédnout zdrojový kúd dané stránky, stačí kliknout pravým tlačítkem a zobrazit zdrojový kód v novém okně. 
 
     Pro pokročilejší zobrazení včetně konzole a vývojářských nastavení vyvoláme stiskem klávesy **F12**. 
@@ -104,7 +104,7 @@ Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na 
 </header>
 ```
 
-???+ note "&nbsp;<span style="color:#448aff">Využití AI pro usnadnění psaní HTML</span>"
+!!! info "&nbsp;<span>Využití AI pro usnadnění psaní HTML</span>"
     Psaní HTML kódu je ideální příležitostí pro uplatnění umělé inteligence ([ChatGPT](https://chatgpt.com/), [Gemini](https://gemini.google.com)). 
     
     Tyto nástroje pomáhají v hledání chyb nebo třeba pro vygenerování základní struktury stránky, kterou lze dále upavit pomocí vlastních znalostí. 
@@ -352,7 +352,7 @@ Vybereme velikost mapy a zkopísujeme vygenerovaný HTML kód. Ten vložíme na 
     <figcaption>Vložená mapa ve stránce</figcaption>
 </figure>
 
-???+ note "&nbsp;<span style="color:#448aff">Užitečné odkazy</span>"
+!!! info "&nbsp;<span>Užitečné odkazy</span>"
     - základy HTML: <https://www.w3schools.com/html/html_basic.asp>
 
     - další základy HTML: <https://www.jakpsatweb.cz/zaklady-html.html>

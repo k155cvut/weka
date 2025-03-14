@@ -194,7 +194,7 @@ img {
 </figure>
 
 
-???+ note "&nbsp;<span style="color:#448aff">Užitečné odkazy</span>"
+!!! info "&nbsp;<span >Užitečné odkazy</span>"
     - základy CSS: <https://jecas.cz/css-zaklady>
 
     - úpravy obrázků: <https://www.w3schools.com/css/css3_images.asp>
