@@ -606,7 +606,43 @@ Více informací o tvorbě kartogramu v Leaflet je na [stránkách dokumentace](
 
 ### 1) Připojení dat ORP
 
-Nyní se dostaneme k načtení polygonů ORP s atributy. Je potřeba vytvořit nový js soubor, např. ```ORP_GeoJSON.js```, ve kterém bude vložený GeoJSON s ORP, který jsme si dopředu připravili v GIS. Postup připojení bude velmi podobný jako v případě bodů měst.
+???+ note "&nbsp;<span style="color:#448aff">Příprava GeoJSON v GIS a jeho kontrola</span>"
+    Pro vytvoření kartogramu využijeme data obcí s rozšířenou působností (ORP) z datasetu [ArcČR 4.3](https://www.arcdata.cz/cs-cz/produkty/data/arccr). Zde nalezneme řadu zajímavých statistických dat, která v následujících několika cvičeních vizualizujeme metodami tematické kartografie či infografikou.
+
+    1) Nejprve bude nutné protřídit atributy ve vrstvě ORP dle obrázku níže.
+
+    <figure markdown>
+    ![](../assets/cviceni4/orp-atributy.png){ width="600" }
+        <figcaption>Vybrané atributy z vrstvy ORP</figcaption>
+    </figure>
+
+    2) Dále polygony generalizujeme pro webové prostředí geoprocesingovou funkcí [Smooth Shared Edges](https://pro.arcgis.com/en/pro-app/latest/tool-reference/cartography/smooth-shared-edges.htm). Využijeme algoritmus ```PAEK``` a ```Smoothing Tolerance``` nastavíme na ```1500 m```.
+
+    3) Závěrem provedeme export do GeoJSONu pomocí funkce [Features to JSON](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/features-to-json.htm). Zaškrtneme ```Output to GeoJSON``` a ```Project to WGS_1984```.
+
+    Vyexportovaný GeoJSON můžeme **validovat** (zkontrolovat) pomocí některého z webových nástrojů:
+
+    - [GeoJSONLint](https://geojsonlint.com/): náhled na data
+
+    <figure markdown>
+    ![](../assets/cviceni4/gj-lint.png){ width="600" }
+        <figcaption>Kontrola a náhled GeoJSONu pomocí GeoJSONLint</figcaption>
+    </figure>
+    
+    - [GeoJSON validator](https://www.itb.ec.europa.eu/json/geojson/upload): validace přímo ze souboru - výpis případných chyb
+    <figure markdown>
+    ![](../assets/cviceni4/gj-validator.png){ width="600" }
+        <figcaption>Kontrola GeoJSON pomocí GeoJSON validator</figcaption>
+    </figure>
+        
+    <div align="center">
+
+    [:material-layers-plus: GeoJSON s daty ORP](../assets/cviceni4/ORP_ywek.json){ .md-button .md-button--primary }
+
+    </div>
+
+
+Nyní se dostaneme k načtení polygonů ORP s atributy. Je potřeba vytvořit nový js soubor, např. ```ORP_GeoJSON.js```, ve kterém bude vložený GeoJSON s ORP, který jsme si dopředu připravili v GIS. Postup připojení bude velmi podobný jako v případě bodů měst. V podstatě vytvoříme novou proměnnou ```ORP```, do které přiřadíme GeoJSON.
 
 Jeho struktura bude následující:
 
