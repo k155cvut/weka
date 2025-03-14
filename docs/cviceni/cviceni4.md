@@ -1475,6 +1475,8 @@ V posledním kroku přidáme legendu a upravíme její styl.
             grades = [0, 20, 50, 100, 200, 500, 1000], // Hranice intervalů - stejné jako v nastavení stylu kartogramu
             labels = [];
 
+        div.innerHTML += '<h4>Hustota obyvatel</h4>' + 'obyv. / km<sup>2</sup><br />'; // Nadpis legendy
+
         // Procházení intervalů hustoty - pro každý interval se vygeneruje štítek s barevným čtvercem.
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
@@ -1712,6 +1714,8 @@ Pro správné zobrazení všech součástí legendy musíme upravit ```style.css
             var div = L.DomUtil.create('div', 'info legend'),
                 grades = [0, 20, 50, 100, 200, 500, 1000], // Hranice intervalů - stejné jako v nastavení stylu kartogramu
                 labels = [];
+
+            div.innerHTML += '<h4>Hustota obyvatel</h4>' + 'obyv. / km<sup>2</sup><br />'; // Nadpis legendy
 
             // Procházení intervalů hustoty - pro každý interval se vygeneruje štítek s barevným čtvercem.
             for (var i = 0; i < grades.length; i++) {
