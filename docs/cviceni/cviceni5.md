@@ -1065,7 +1065,7 @@ rect{
 
     === "style.css"
 
-        ``` js
+        ``` css
         rect{
             pointer-events: all;
             fill-opacity: 0;
@@ -1305,7 +1305,7 @@ listeningRect.on("mouseleave", function () {
 
     === "style.css"
 
-        ``` js
+        ``` css
         rect{
             pointer-events: all;
             fill-opacity: 0;
