@@ -3,6 +3,25 @@ icon: material/numeric-6-box
 title: Cvičení 6
 ---
 
+Náplní tohoto cvičení bude tvorba kartodiagramu, který vytvoříme díky propojení knihoven Leaflet a D3.js nad daty ORP, která byla použita ve cvičení 4.
+
+### Příprava dat 
+
+Pro vytvoření kartodiagramu musíme v GISu převést polygonovou vrstvu ORP na body pomocí funkce [Feature to Point](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/feature-to-point.htm).
+
+Do vrstvy zároveň byly přidány informace o výstavbě bytů, které také využijeme pro vizualizaci.
+
+[:material-layers-plus: GeoJSON s body ORP](../assets/cviceni6/ORP_body_ywek.geojson){ .md-button .md-button--primary .center}
+{: .button_array}
+
+[:material-layers-plus: GeoJSON s polygony ORP](../assets/cviceni6/ORP_ywek.geojson){ .md-button .md-button--primary .center}
+{: .button_array}
+
+
+
+
+----
+
 # Propojení JS knihoven [D3](https://d3js.org/) a [Leaflet](https://leafletjs.com/)
 
 Při práci ve VS Code je nutné nainstalovat extension Live Sever
