@@ -61,13 +61,14 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
 </div>
 
-<!-- ## Doporučená literatura
+## Doporučená literatura
 
-1. Kolář, J.: Geografické informační systémy 10. Vydavatelství ČVUT, Praha 1998.
-2. Rapant, P. (2006): Geoinformatika a geoinformační technologie. VŠB-TU Ostrava, 500 str. ISBN 80-248-1264-9.
-3. Břehovský, M., Jedlička, K. (2005): Přednáškové texty pro Úvod do GIS. ZČU Plzeň, 116 s.
-4. Hrubý M.: Geografické Informační Systémy (GIS) - Studijní opora. VÚT v Brně, 91 str.
-5. Tuček J.: Geografické informační systémy, Praha Computer Press, 1998. -->
+- Nétek, R. (2020): [Webová kartografie: Specifika tvorby interaktivních map na webu](https://webova.kartografie.upol.cz/). Univerzita Palackého v Olomouci.
+- Miklín, J. a kol (2018): [Tvorba map](https://tvorbamap.osu.cz/). Ostravská univerzita.
+- [Leaflet](https://leafletjs.com/): An Open-Source JavaScript Library for Interactive Maps.
+- [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/latest/). Esri.
+
+
 
 ## Přednášky {: style="margin-bottom:0;"}
 
@@ -94,15 +95,15 @@ jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nim
 
 1. **Úloha 1** – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch <!-- JC, TJ, FM -->
 2. Základy práce s CSS. Základy JavaScriptu <!-- FM -->
-3. **Úloha 3** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
-4. Pokročilejší práce s knihovnou Leaflet <!-- TJ -->
-5. **Úloha 4** – Knihovna D3.js <!-- FM -->
-6. Propojení Leaflet a D3.js - grafy, diagramy, pop-upy <!-- FM -->
-7. **Úloha 5** – Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
-8. **Úloha 6 **– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
+3. **Úloha 2** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
+4. GeoJSON. Tvorba kartogramu v Leaflet <!-- TJ -->
+5. **Úloha 3** – Knihovna D3.js <!-- FM -->
+6. Propojení Leaflet a D3.js. Kartodiagram <!-- FM -->
+7. **Úloha 4** – Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
+8. **Úloha 5**– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
 9. Pokročilejší práce s ArcGIS JavaScript API <!-- TJ+ (MH?) -->
 10. Finalizace aplikace pomocí ArcGIS JavaScript API <!-- TJ+ (MH?) -->
-11. **Úloha 7** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
+11. **Úloha 6** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
 
 <!--
 ## Harmonogram {: style="margin-bottom:0;"}

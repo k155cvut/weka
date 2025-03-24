@@ -4,15 +4,15 @@ nav:
   - Cvičení:
       - Úloha 1 – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch: cviceni/cviceni1.md 
       - Základy práce s CSS. Základy JavaScriptu: cviceni/cviceni2.md
-      - Úloha 3 – VS Code. Mapová aplikace v prostředí Leaflet: cviceni/cviceni3.md
-      - Pokročilejší práce s knihovnou Leaflet: cviceni/cviceni4.md
-      - Úloha 4 – Knihovna D3.js: cviceni/cviceni5.md
-      - Propojení Leaflet a D3.js - grafy, diagramy, pop-upy: cviceni/cviceni6.md
-      - Úloha 5 – Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni7.md
-      - Úloha 6 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni8.md
+      - Úloha 2 – VS Code. Mapová aplikace v prostředí Leaflet: cviceni/cviceni3.md
+      - GeoJSON. Tvorba kartogramu v Leaflet: cviceni/cviceni4.md
+      - Úloha 3 – Knihovna D3.js: cviceni/cviceni5.md
+      - Propojení Leaflet a D3.js. Kartodiagram: cviceni/cviceni6.md
+      - Úloha 4 – Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni7.md
+      - Úloha 5 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni8.md
       - Pokročilejší práce s ArcGIS JavaScript API: cviceni/cviceni9.md
       - Finalizace aplikace pomocí ArcGIS JavaScript API: cviceni/cviceni10.md
-      - Úloha 7 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
+      - Úloha 6 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
   # U7 - případně U7 3D JS open source kartografická knihovna     
   # - Data: data.md
 
@@ -75,6 +75,7 @@ extra:
 copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2023-2024
 extra_css:
   - stylesheets/extra.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
 markdown_extensions:
   - attr_list
   - md_in_html
@@ -102,3 +103,7 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.tilde
 
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
