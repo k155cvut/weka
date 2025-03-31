@@ -675,7 +675,7 @@ Nyní si do grafu vykreslíme **reálná data ve formátu CSV**, kterí stahneme
 Hledáme data, která jsou ideální pro vykreslení liniovým grafem, například [průměrnou hrubou měsíční mzdu](https://vdb.czso.cz/vdbvo2/faces/cs/index.jsf?page=vystup-objekt&z=T&f=TABULKA&skupId=855&katalog=30852&pvo=MZD01-A&pvo=MZD01-A&evo=v208_!_MZD-LEG4_1).
 
 
-[:material-layers-plus: Připravené CSV](../assets/cviceni5/prumerna_mesicni_mzda.csv){ .md-button .md-button--primary .center}
+[:material-layers-plus: Připravené CSV](../assets/cviceni5/prumerna_mesicni_mzda_cr.csv){ .md-button .md-button--primary .center}
 {: .button_array}
 
 
@@ -1065,7 +1065,7 @@ rect{
 
     === "style.css"
 
-        ``` js
+        ``` css
         rect{
             pointer-events: all;
             fill-opacity: 0;
@@ -1305,7 +1305,7 @@ listeningRect.on("mouseleave", function () {
 
     === "style.css"
 
-        ``` js
+        ``` css
         rect{
             pointer-events: all;
             fill-opacity: 0;

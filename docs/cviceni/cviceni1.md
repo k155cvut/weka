@@ -31,12 +31,12 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         ```css
         /* Toto je komentář v CSS */
         body {
-        background-color: lightblue;
+            background-color: lightblue;
         }
 
         h1 {
-        color: navy;
-        text-align: center;
+            color: navy;
+            text-align: center;
         }
         ```
     
@@ -48,7 +48,7 @@ Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webov�
         ```js
         // Toto je komentář v JS
         function zmenBarvu() {
-        document.body.style.backgroundColor = "pink";
+            document.body.style.backgroundColor = "pink";
         }
         ```
 
@@ -289,22 +289,21 @@ Implementace v životopise může tedy vypadat následovně:
 <section>
     <ul>
     <li>
-        <b
-        >FSv ČVUT v Praze, obor Geodézie a kartografie;
-        <i>specializace Geomatika</i>
+        <b>FSv ČVUT v Praze, obor Geodézie a kartografie;
+            <i>specializace Geomatika</i>
         </b>
         <ul>
-        <li><i>2020–2022</i></li>
+            <li><i>2020–2022</i></li>
         </ul>
         <ul>
-        <li>Studium ukončeno státní zkouškou a získáním titulu Ing.</li>
+            <li>Studium ukončeno státní zkouškou a získáním titulu Ing.</li>
         </ul>
 
         <ul>
-        <li>Téma diplomové práce:
-        <a href="https://dspace.cvut.cz/handle/10467/102826" alt="Zhůří"
-            >Využití rozšířené reality pro vizualizaci zaniklé obce Zhůří</a>
-        </li>
+            <li>Téma diplomové práce:
+            <a href="https://dspace.cvut.cz/handle/10467/102826" alt="Zhůří"
+                >Využití rozšířené reality pro vizualizaci zaniklé obce Zhůří</a>
+            </li>
         </ul>
     </li>
     <img src="https://cdn.glitch.global/7950426a-9139-4c64-82ee-8ab83f092129/obr9_app_ui.jpg?v=1736791065019" 

@@ -13,12 +13,12 @@ Náplň tohoto cvičení navazuje na [předchozí cvičení](https://k155cvut.gi
     ```css
     /* Toto je komentář v CSS */
     body {
-    background-color: lightblue;
+      background-color: lightblue;
     }
 
     h1 {
-    color: navy;
-    text-align: center;
+      color: navy;
+      text-align: center;
     }
     ```
 
@@ -63,7 +63,7 @@ Pak platí, že:
       body {
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
-        }
+      }
     </style>
 </head>
 <body> 
@@ -102,7 +102,7 @@ Pak platí, že:
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
-  }
+}
 ```
 
 <figure markdown>
@@ -140,7 +140,7 @@ Upravený CSS soubor ```style.css``` bude vypadat následovně:
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
-  }
+}
 
 h1 {
   color: #008080;
@@ -167,7 +167,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   text-align: center;
-  }
+}
 
 h1 {
   color: #008080;
@@ -221,19 +221,19 @@ JavaScript je klíčovou technologií pro moderní web a jeho znalost je pro web
 Syntaxe JavaScriptu je podobná jazyku C a Java. Kód se píše do souborů s příponou .js, které se pak vkládají do HTML stránky pomocí tagu &lt;script&gt;.
 
 ```html
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Moje stránka</title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moje stránka</title>
+</head>
+<body>
 
-      <h1>Ahoj světe!</h1>
+  <h1>Ahoj světe!</h1>
 
-      <script src="mujSkript.js"></script>
+  <script src="mujSkript.js"></script>
 
-    </body>
-    </html>
+</body>
+</html>
 ```    
 
 V tomto příkladu je soubor *mujSkript.js* vložen do HTML stránky a bude se spouštět v prohlížeči.
@@ -260,15 +260,15 @@ let desetinneCislo = 3.14;
 **String (textové řetězce):** Používají se pro ukládání textu. Text se uzavírá do uvozovek nebo apostrofů.
 
 ```js
-    let text = "Ahoj světe!";
-    let jmeno = 'Jan';
+let text = "Ahoj světe!";
+let jmeno = 'Jan';
 ```
 
 **Boolean (logické hodnoty):** Mohou nabývat dvou hodnot: true (pravda) nebo false (nepravda). Používají se pro logické operace a podmínky.
 
 ```js
-    let pravda = true;
-    let nepravda = false;
+let pravda = true;
+let nepravda = false;
 ```
 
 **Object (objekty):** Objekty jsou kolekce vlastností (klíč-hodnota). Vlastnosti mohou být různého datového typu.
