@@ -35,7 +35,7 @@ Jako účastníci kurzu se naučíte naprogramovat mapové aplikace využívají
 
 -   :octicons-graph-16:{ .xl }
 
-    vytvořit interaktivní __infografiku__ a propojit jí s mapou
+    vytvořit interaktivní __infografiku__ a propojit ji s mapou
 
 -   :simple-arcgis:{ .xl }
 
@@ -97,9 +97,9 @@ jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nim
 3. **Úloha 3** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
 4. Pokročilejší práce s knihovnou Leaflet <!-- TJ -->
 5. **Úloha 4** – Knihovna D3.js <!-- FM -->
-6. Propojení Leaflet a D3.js - grafy, diagramy, pop-upy <!-- FM -->
+6. Propojení Leaflet a D3.js – grafy, diagramy, pop-upy <!-- FM -->
 7. **Úloha 5** – Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
-8. **Úloha 6 **– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
+8. **Úloha 6** – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
 9. Pokročilejší práce s ArcGIS JavaScript API <!-- TJ+ (MH?) -->
 10. Finalizace aplikace pomocí ArcGIS JavaScript API <!-- TJ+ (MH?) -->
 11. **Úloha 7** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
