@@ -8,16 +8,17 @@ title: ArcGIS for JavaScript – základy
 
 **ArcGIS API for JavaScript** je výkonný nástroj pro vytváření interaktivních webových mapových aplikací. V dalších cvičeních se naučíme základy práce s tímto API, od vytvoření jednoduché mapy a vložení do HTML stránky až po pokročilejší customizace.
 
-**HTML stránka**
-- Začneme vytvořením základní HTML stránky (soubor `index.html`), do které vložíme mapu.
-- Vytvoříme <div> element s id "mapaDiv", který bude sloužit jako kontejner pro mapu.
+**Úvod – potřebné stránky**
+
+- Začneme vytvořením základní HTML stránky (soubor `index.html`), do které chceme vložit mapu.
+- Vytvoříme `<div>` element s identifikátorem "mapDiv", který bude sloužit jako kontejner pro mapu.
 - Přidáme JavaScript kód, který vytvoří mapu.
-- Použijeme modul esri/Map k vytvoření instance mapy.
-- Nastavíme základní mapu (basemap) pomocí vlastnosti basemap.
-- Vytvoříme instanci esri/views/MapView a nastavíme kontejner mapy pomocí vlastnosti container.
-- Nastavíme střed mapy (center) a úroveň přiblížení (zoom).
+- Použijeme modul *esri/Map* k vytvoření instance mapy.
+- Nastavíme základní mapu (basemap) pomocí vlastnosti *basemap*.
+- Vytvoříme instanci esri/views/MapView a nastavíme kontejner mapy pomocí vlastnosti *container*.
+- Nastavíme střed mapy (*center*) a úroveň přiblížení (*zoom*).
 - Vložíme JavaScript kód do souboru `script.js`.
-- Přidáme odkaz na ArcGIS API for JavaScript a na soubor se skriptem v <head> elementu HTML stránky.
+- Přidáme odkaz na ArcGIS API for JavaScript a na soubor se skriptem v `<head>` elementu HTML stránky.
 
 Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní mapa.
 
@@ -33,9 +34,8 @@ Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní m
             <meta charset="utf-8" />
             <title>Pěkná mapa č. I</title>
             <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
-            <script src="https://js.arcgis.com/4.28/"></script>
+            <script src="https://js.arcgis.com/4.28/"></script>     <!-- odkaz na knihovny a skripty Esri   -->
             <script src="script.js"></script>
-            <script type="module" src="script.js"></script>
             <style>
                 #mapDiv {
                     width: 60%;
@@ -51,49 +51,27 @@ Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní m
 
         </body>
         </html>
-
         ```
-
-    === "script.js"
-
-        ``` js
-        import Map from "esri/Map";
-        import MapView from "esri/views/MapView";
-
-        const map = new Map({
-            basemap: "streets"
-        });
-
-        const view = new MapView({
-            container: "mapDiv",
-            map: map,
-            center: [14.42, 50.09], // souřadnice Prahy
-            zoom: 14
-        });
-        ```
-
-
-Tento kód vytvoří jednoduchou mapu s podkladovou mapou "streets" a zobrazí Prahu, ovšem vyžaduje spouštění skriptů jako modulů, což není na serveru vždy zajištěno.
-
-Stejně tak by se kód dal zapsat i následovně, což bude vždy fungovat:
-
-??? note "&nbsp;<span style="color:#448aff">Stav kódu po vložení mapy do stránky a její inicializaci – použití *require* </span>"
 
     === "script.js"
 
         ``` js
         require(["esri/Map", "esri/views/MapView"], function(Map, MapView) {
             const map = new Map({
-                basemap: "streets"
+                basemap: "streets"      // rastrová basemapa, lze jinak volit např. topo, satellite, osm, hybrid, gray, oceans atd.
+                                        // nebo vektorové např. streets-vector, topo-vector, gray-vector apod.
             });
             const view = new MapView({
                 container: "mapDiv",
                 map: map,
-                center: [14.42, 50.09], // Souřadnice Prahy
+                center: [14.42, 50.09], // souřadnice Prahy
                 zoom: 10
             });
         });
         ```
+
+
+Tento kód vytvoří jednoduchou mapu s podkladovou mapou "streets" a zobrazí Prahu.
 
 Podívejme se nyní na sekci **require**. Zde jsou běžně definovány moduly, které mapová aplikace vyžaduje ke svému běhu.
 Mezi důležité moduly patří např.:
@@ -126,6 +104,7 @@ V JavaScriptovém kódu aplikace používáme modul `esri/layers/MapImageLayer` 
 
 Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
 
+??? note "&nbsp;<span style="color:#448aff">Vložení dynamické rastrové vrstvy</span>"
 
     === "script.js"
 
@@ -134,19 +113,18 @@ Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
         "esri/Map",
         "esri/views/MapView",
         "esri/layers/MapImageLayer",
-        "esri/widgets/LayerList",
-        "esri/widgets/Legend",
-        "esri/widgets/Fullscreen",
-        ], function(Map, MapView, MapImageLayer, LayerList, Legend, Fullscreen) {
+
+        ], function(Map, MapView, MapImageLayer) {
 
         var map = new Map({
-            basemap: "streets"
+            basemap: "streets"     // rastrová basemapa, lze jinak volit např. topo, satellite, osm, hybrid, gray, oceans atd.
+                                   // nebo vektorové např. streets-vector, topo-vector, gray-vector apod.
         });
 
         var view = new MapView({
             container: "viewDiv",
             map: map,
-            center: [14.42, 50.09], // Souřadnice Prahy
+            center: [14.42, 50.09], // souřadnice Prahy
             zoom: 12
         });
 
@@ -154,30 +132,17 @@ Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
             url: "https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer"
         });
 
-        map.add(Ortofoto);
+        map.add(Ortofoto);          // přidání k vykreslení do mapy
         });
         ```
 
 
 
-
-
-
-
 #### Další kroky
 
-Přidání vrstev:
-Naučíme se přidávat různé typy vrstev do mapy, jako jsou rastrové vrstvy, vektorové vrstvy a vrstvy prvků.
-
-Interakce s mapou:
-Naučíme se přidávat interaktivní prvky do mapy, jako jsou popup okna, grafika a události.
-
-Geometrie a symboly:
-Naučíme se pracovat s geometriemi a symboly pro vizualizaci dat na mapě.
-
-Geoprocessing:
-Naučíme se používat geoprocessingové nástroje pro analýzu dat na mapě.
-
-Widgety:
-Naučíme se používat widgety pro přidání funkcionality do mapové aplikace.
+- Naučíme se přidávat různé typy vrstev do mapy, jako jsou rastrové vrstvy, vektorové vrstvy a vrstvy prvků.
+- Interaktivní prvky v mapě – popup okna, grafika a události.
+- Naučíme se pracovat s geometriemi a symboly pro vizualizaci dat na mapě.
+- Přidáme geoprocessingové nástroje pro analýzu dat na mapě.
+- Funkcionalitu mapové aplikace rozšíříme pomocí widgetů.
 
