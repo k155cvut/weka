@@ -97,13 +97,13 @@ jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nim
 2. Základy práce s CSS. Základy JavaScriptu <!-- FM -->
 3. **Úloha 2** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
 4. GeoJSON. Tvorba kartogramu v Leaflet <!-- TJ -->
-5. **Úloha 3** – Knihovna D3.js <!-- FM -->
+5. **Úloha 2A** – Knihovna D3.js <!-- FM -->
 6. Propojení Leaflet a D3.js. Kartodiagram <!-- FM -->
-7. **Úloha 4** – Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
-8. **Úloha 5**– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
+7. Windows server (IIS) – konfigurace vlastního prostoru <!-- TJ -->
+8. **Úloha 3**– Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API <!-- TJ -->
 9. Pokročilejší práce s ArcGIS JavaScript API <!-- TJ+ (MH?) -->
 10. Finalizace aplikace pomocí ArcGIS JavaScript API <!-- TJ+ (MH?) -->
-11. **Úloha 6** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
+11. **Úloha 4** – Jednoduchá aplikace pomocí GISQuick <!-- FM --> <!-- Případně 3D webová mapa pomocí open source -->
 
 <!--
 ## Harmonogram {: style="margin-bottom:0;"}
