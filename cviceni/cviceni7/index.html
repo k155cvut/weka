@@ -1,0 +1,1215 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../cviceni6/">
+      
+      
+        <link rel="next" href="../cviceni8/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>IIS a konfigurace vlastního prostoru - Webová kartografie (155YWEK)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17%2013h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#webovy-server-ve-windows" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="Webová kartografie (155YWEK)" class="md-header__button md-logo" aria-label="Webová kartografie (155YWEK)" data-md-component="logo">
+      
+  <img src="../../assets/favicon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Webová kartografie (155YWEK)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IIS a konfigurace vlastního prostoru
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Charakteristika předmětu
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cviceni1/" class="md-tabs__link">
+          
+  
+  
+  Cvičení
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Webová kartografie (155YWEK)" class="md-nav__button md-logo" aria-label="Webová kartografie (155YWEK)" data-md-component="logo">
+      
+  <img src="../../assets/favicon.svg" alt="logo">
+
+    </a>
+    Webová kartografie (155YWEK)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Charakteristika předmětu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cvičení
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cvičení
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni1/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 17h-2V9h-2V7h4m5-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    Úloha 1 – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni2/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 11a2 2 0 0 1-2 2h-2v2h4v2H9v-4a2 2 0 0 1 2-2h2V9H9V7h4a2 2 0 0 1 2 2m4-6H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    Základy práce s CSS. Základy JavaScriptu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni3/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 10.5a1.5 1.5 0 0 1-1.5 1.5c.84 0 1.5.67 1.5 1.5V15c0 1.11-.89 2-2 2H9v-2h4v-2h-2v-2h2V9H9V7h4c1.11 0 2 .89 2 2m4-6H5c-1.09 0-2 .9-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    Úloha 2 – VS Code. Mapová aplikace v prostředí Leaflet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni4/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 17h-2v-4H9V7h2v4h2V7h2m4-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    GeoJSON. Tvorba kartogramu v Leaflet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni5/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 9h-4v2h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H9v-2h4v-2H9V7h6m4-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    Úloha 2A – Knihovna D3.js
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni6/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 9h-4v2h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4m4-4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-8 12h2v-2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    Propojení Leaflet a D3.js. Kartodiagram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-8 14 4-8V7H9v2h4l-4 8z"/></svg>
+  
+  <span class="md-ellipsis">
+    Windows server (IIS) – konfigurace vlastního prostoru
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-8 14 4-8V7H9v2h4l-4 8z"/></svg>
+  
+  <span class="md-ellipsis">
+    Windows server (IIS) – konfigurace vlastního prostoru
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vychozi-slozka-inetpub-a-jeji-vyznam" class="md-nav__link">
+    <span class="md-ellipsis">
+      Výchozí složka inetpub a její význam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weby-a-jejich-definice-v-iis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weby a jejich definice v IIS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaultni-soubory-a-jejich-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defaultní soubory a jejich role
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#povoleni-prochazeni-webu-a-jeho-bezpecnostni-aspekty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Povolení procházení webu a jeho bezpečnostní aspekty
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certifikaty-ssltls-a-zabezpeceni-komunikace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Certifikáty SSL/TLS a zabezpečení komunikace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-mime-typu-a-jejich-vyznam-pro-webove-aplikace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Správa MIME typů a jejich význam pro webové aplikace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protokolovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protokolování
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ověřování
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isapi-filtry-a-rozsireni" class="md-nav__link">
+    <span class="md-ellipsis">
+      ISAPI filtry a rozšíření
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fondy-aplikaci-application-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fondy aplikací (Application Pools)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moduly-a-obsluzne-rutiny-modules-and-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moduly a obslužné rutiny (Modules and Handlers)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepisovani-adres-url-url-rewriting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Přepisování adres URL (URL Rewriting)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Přepisování adres URL (URL Rewriting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlavni-duvody-pro-pouziti-prepisovani-adres-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hlavní důvody pro použití přepisování adres URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-rewriting-funguje" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jak Rewriting funguje
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prakticke-vyuziti" class="md-nav__link">
+    <span class="md-ellipsis">
+      Praktické využití
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zabezpeceni-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabezpečení (Security)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zabezpečení (Security)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-injection-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Injection (SQLI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-scripting-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-site scripting (XSS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-request-forgery-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Site Request Forgery (CSRF)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rozdily-na-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rozdíly na Linuxu
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni8/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-8 14h2a2 2 0 0 0 2-2v-1.5a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 0 1.5-1.5V9a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v1.5a1.5 1.5 0 0 0 1.5 1.5A1.5 1.5 0 0 0 9 13.5V15a2 2 0 0 0 2 2m0-4h2v2h-2zm0-4h2v2h-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    Úloha 3 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni9/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-6 8h-2V9h2zm0-4h-2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v2H9v2h4a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/></svg>
+  
+  <span class="md-ellipsis">
+    Pokročilejší práce s ArcGIS JavaScript API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni10/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 9h2v6h-2zm7-4v14c0 1.11-.89 2-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2M10 7H6v2h2v8h2zm8 2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2c1.11 0 2-.89 2-2z"/></svg>
+  
+  <span class="md-ellipsis">
+    Finalizace aplikace pomocí ArcGIS JavaScript API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cviceni11/" class="md-nav__link">
+        
+  
+  
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="numeric-10-box.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:current-layer="svg1" />
+  <path
+     id="path2"
+     d="M 5 3 A 2 2 0 0 0 3 5 L 3 19 A 2 2 0 0 0 5 21 L 19 21 C 20.109999 21 21 20.109999 21 19 L 21 5 C 21 3.9000011 20.109999 3 19 3 L 5 3 z M 7 7 L 11 7 L 11 17 L 9 17 L 9 9 L 7 9 L 7 7 z M 13 7 L 17 7 L 17 17 L 15 17 L 15 9 L 13 9 L 13 7 z " />
+</svg>
+  
+  <span class="md-ellipsis">
+    Úloha 4 – Jednoduchá aplikace pomocí GISQuick
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="webovy-server-ve-windows">Webový server ve Windows</h1>
+<p><strong>IIS</strong> (neboli <strong>Internet Information Services</strong>) je webový server vyvinutý společností Microsoft, který slouží k hostování webových stránek a aplikací na serverech s operačním systémem Windows. Jeho hlavním úkolem je přijímat požadavky od klientů (webových prohlížečů) a odesílat jim požadovaný obsah. IIS podporuje různé webové protokoly, včetně HTTP, HTTPS, FTP a SMTP, což z něj činí univerzální nástroj pro webové publikování. Kromě statických webových stránek (HTML, CSS, JavaScript) umožňuje IIS hostovat i dynamické webové aplikace založené na technologiích jako ASP.NET, PHP nebo Node.js. Díky své integraci s operačním systémem Windows a široké škále funkcí je IIS oblíbenou volbou pro webové vývojáře a administrátory, kteří pracují s platformou Microsoft.</p>
+<h3 id="vychozi-slozka-inetpub-a-jeji-vyznam">Výchozí složka <em>inetpub</em> a její význam</h3>
+<p>Po instalaci IIS se ve výchozím nastavení vytváří složka <em>inetpub</em> v kořenovém adresáři disku C:. Tato složka slouží jako centrální úložiště pro soubory webových stránek a aplikací. Obsahuje několik podsložek, z nichž nejdůležitější je <em>wwwroot</em>. Tato složka je kořenovým adresářem pro výchozí webovou stránku. Do ní se umisťují soubory, které mají být dostupné z webového serveru. Kromě <em>wwwroot</em> obsahuje složka inetpub i další podsložky, jako je <em>ftproot</em> pro FTP server, <em>mailroot</em> pro SMTP server a <em>logs</em> pro ukládání protokolů. Správné umístění souborů do těchto složek je důležité pro správné fungování webového serveru.</p>
+<h3 id="weby-a-jejich-definice-v-iis">Weby a jejich definice v IIS</h3>
+<p>V IIS se weby definují pomocí tzv. "webových stránek" (websites). Každá webová stránka má svůj jedinečný název, fyzickou cestu (obvykle do složky <em>wwwroot</em> nebo její podsložky) a nastavení pro přístup (např. port, IP adresa). Fyzická cesta určuje, kde se nacházejí soubory webové stránky na disku serveru. Nastavení pro přístup určuje, jakým způsobem se klienti mohou k webové stránce připojit. IIS umožňuje hostovat více webových stránek na jednom serveru, přičemž každá webová stránka má vlastní konfiguraci. To umožňuje flexibilní správu webových aplikací a jejich izolaci.</p>
+<h3 id="defaultni-soubory-a-jejich-role">Defaultní soubory a jejich role</h3>
+<p>Když uživatel zadá do prohlížeče adresu webové stránky bez specifikace konkrétního souboru (např. <code>http://www.stranka.cz</code>), IIS hledá v kořenovém adresáři webu tzv. "defaultní soubory" (default documents). To jsou soubory, které se automaticky načtou a zobrazí uživateli. Mezi nejčastější defaultní soubory patří <code>index.html</code>, <code>default.aspx</code> a <code>default.php</code>. Seznam defaultních souborů lze v IIS konfigurovat, což umožňuje přizpůsobit chování webového serveru podle potřeb konkrétní webové aplikace.</p>
+<h3 id="povoleni-prochazeni-webu-a-jeho-bezpecnostni-aspekty">Povolení procházení webu a jeho bezpečnostní aspekty</h3>
+<p>Ve výchozím nastavení je procházení adresářů webu zakázáno z bezpečnostních důvodů. To znamená, že uživatelé nemohou zobrazit seznam souborů a složek v adresáři, pokud není v adrese specifikován konkrétní soubor. Povolení procházení webu může vést k odhalení citlivých informací a zranitelnosti webové aplikace. Pro vývojové účely může být užitečné toto nastavení dočasně povolit, ale v produkčním prostředí se důrazně nedoporučuje.</p>
+<h3 id="certifikaty-ssltls-a-zabezpeceni-komunikace">Certifikáty SSL/TLS a zabezpečení komunikace</h3>
+<p>Pro zabezpečení komunikace mezi webovým serverem a uživateli se používají certifikáty SSL/TLS (Secure Sockets Layer / Transport Layer Security). Tyto certifikáty šifrují data a ověřují identitu webového serveru, čímž chrání citlivé informace, jako jsou hesla nebo platební údaje. IIS umožňuje snadnou instalaci a správu SSL/TLS certifikátů. Pro získání certifikátu je nutné požádat certifikační autoritu (CA). Po instalaci certifikátu je nutné nakonfigurovat IIS tak, aby používal protokol HTTPS (Hypertext Transfer Protocol Secure) pro zabezpečenou komunikaci.</p>
+<h3 id="sprava-mime-typu-a-jejich-vyznam-pro-webove-aplikace">Správa MIME typů a jejich význam pro webové aplikace</h3>
+<p>MIME typy (Multipurpose Internet Mail Extensions) určují, jak má webový prohlížeč zpracovat různé typy souborů (např. HTML, CSS, JavaScript, obrázky). IIS umožňuje přidávat a upravovat MIME typy, což je důležité pro správné fungování webových aplikací. Pokud není MIME typ pro konkrétní typ souboru správně nastaven, může dojít k chybnému zobrazení obsahu v prohlížeči. Například, pokud není pro soubory JavaScript nastaven MIME typ application/javascript, prohlížeč je může interpretovat jako textové soubory a nespustit je.</p>
+<h3 id="protokolovani">Protokolování</h3>
+<p>IIS zaznamenává informace o přístupech k webovému serveru do protokolů (logů). Tyto protokoly mohou být užitečné pro sledování návštěvnosti webu, diagnostiku problémů a analýzu chování uživatelů.</p>
+<h3 id="overovani">Ověřování</h3>
+<p>IIS podporuje různé metody ověřování uživatelů, jako je anonymní ověřování, ověřování pomocí Windows, ověřování pomocí formulářů atd.</p>
+<h3 id="isapi-filtry-a-rozsireni">ISAPI filtry a rozšíření</h3>
+<p>ISAPI (Internet Server Application Programming Interface) filtry a rozšíření umožňují rozšiřovat funkcionalitu IIS. Filtry slouží k úpravě požadavků a odpovědí, zatímco rozšíření slouží k zpracování konkrétních typů požadavků.</p>
+<h3 id="fondy-aplikaci-application-pools">Fondy aplikací (Application Pools)</h3>
+<p>Fondy aplikací jsou klíčovou součástí IIS, která umožňuje izolovat webové aplikace od sebe navzájem. Každá webová aplikace může mít svůj vlastní fond aplikací s vlastními nastaveními, jako je verze .NET Framework, identita procesu a nastavení recyklace. To zajišťuje, že pokud jedna aplikace selže, neovlivní to ostatní aplikace na serveru.</p>
+<h3 id="moduly-a-obsluzne-rutiny-modules-and-handlers">Moduly a obslužné rutiny (Modules and Handlers)</h3>
+<p>IIS používá moduly a obslužné rutiny k zpracování požadavků. Moduly jsou komponenty, které provádějí různé úkoly, jako je ověřování, autorizace a protokolování. Obslužné rutiny zpracovávají požadavky na konkrétní typy souborů, jako jsou <code>.aspx</code>, <code>.php</code> nebo <code>.html</code>. Moduly a obslužné rutiny jsou důležité pro konfiguraci IIS pro různé typy webových aplikací.</p>
+<h3 id="prepisovani-adres-url-url-rewriting">Přepisování adres URL (URL Rewriting)</h3>
+<p>Přepisování adres URL je technika, která umožňuje upravovat adresy URL, které uživatelé vidí v prohlížeči, aniž by se změnila skutečná adresa, na kterou se server dotazuje. To znamená, že webový server může přijmout požadavek na jednu adresu URL a interně ho přesměrovat na jinou. Tato technika se často používá k zlepšení SEO (optimalizace pro vyhledávače), zjednodušení adres URL pro uživatele a k implementaci různých funkcí webové aplikace.</p>
+<h5 id="hlavni-duvody-pro-pouziti-prepisovani-adres-url">Hlavní důvody pro použití přepisování adres URL</h5>
+<ul>
+<li>
+<p>SEO (Optimalizace pro vyhledávače) <br>
+Přepisování adres URL umožňuje vytvářet adresy URL, které jsou pro vyhledávače srozumitelnější a obsahují klíčová slova. Například, místo adresy URL <code>www.mujserver.cz/product.php?id=1236</code> lze použít adresu URL <code>www.mujserver.cz/produkty/1236-nazev-produktu</code>. To zlepšuje pozici webové stránky ve výsledcích vyhledávání.</p>
+</li>
+<li>
+<p>Zjednodušení adres URL pro uživatele <br>
+Přepisování adres URL umožňuje vytvářet krátké a srozumitelné adresy URL, které si uživatelé snadněji zapamatují a sdílejí. To zlepšuje uživatelskou zkušenost a usnadňuje navigaci na webové stránce.</p>
+</li>
+<li>
+<p>Implementace funkcí webové aplikace <br>
+Přepisování adres URL lze použít k implementaci různých funkcí webové aplikace, jako je směrování požadavků na různé skripty, zpracování chyb a implementace REST API. Například lze použít přepisování adres URL k přesměrování požadavků na různé kontrolery na základě adresy URL.</p>
+</li>
+<li>
+<p>Zabezpečení <br>
+Přepisování URL může sloužit i k maskování skutečných cest k souborům na serveru, což může zvýšit bezpečnost.</p>
+</li>
+</ul>
+<h5 id="jak-rewriting-funguje">Jak Rewriting funguje</h5>
+<p>IIS nabízí modul pro přepisování adres URL, který umožňuje definovat pravidla pro přepisování adres URL. Tato pravidla se obvykle definují pomocí regulárních výrazů, které se používají k porovnání adres URL. Pokud adresa URL odpovídá pravidlu, server ji přepíše na novou adresu URL. Důležité je si uvědomit <strong>rozdíl mezi přesměrováním a přepsáním adresy</strong>.</p>
+<ul>
+<li><strong>Přesměrování (redirect)</strong> znamená, že uživatel je přesměrován na novou adresu a tato adresa se zobrazí v adresním řádku prohlížeče.</li>
+<li><strong>Přepsání (rewrite)</strong> znamená, že adresa je přepsána pouze interně na serveru a uživatel vidí v adresním řádku původní adresu.</li>
+</ul>
+<h5 id="prakticke-vyuziti">Praktické využití</h5>
+<p>Přepisování adres URL se často používá k implementaci REST API, kde se adresy URL používají k identifikaci zdrojů dat. Lze ho také použít k implementaci vícejazyčných webových stránek, kde se adresy URL používají k identifikaci jazyka nebo např. pro implementaci takzvaných "hezkých URL" v redakčních systémech.</p>
+<h3 id="zabezpeceni-security">Zabezpečení (Security)</h3>
+<p>Zabezpečení je klíčovým aspektem správy webového serveru. Existují dobré techniky zabezpečení webových aplikací, jako je prevence útoků SQL injection, cross-site scripting (XSS) a cross-site request forgery (CSRF). IIS nabízí různé funkce pro zabezpečení webových aplikací, jako je ověřování, autorizace a filtrování požadavků, ovšem hlavní tíha zabezpečení serveru proti zmíněným útokům leží především na aplikaci samotné.</p>
+<h5 id="sql-injection-sqli">SQL Injection (SQLI)</h5>
+<ul>
+<li><strong>Princip útoku</strong> <br>
+Útočník vkládá škodlivý SQL kód do vstupních polí aplikace, což může vést k neoprávněnému přístupu k databázi.</li>
+<li><strong>Techniky obrany</strong> <br>
+<em>Prepared Statements (Parametrizované dotazy)</em> – oddělují SQL kód od dat, což znemožňuje interpretaci uživatelského vstupu jako SQL kódu.<br>
+<em>Validace a sanitizace vstupů</em> – kontrola a čištění uživatelských vstupů před jejich použitím v SQL dotazech.<br>
+<em>Omezení práv databázového uživatele</em> – udělování minimálních nutných práv databázovému uživateli, který používá webová aplikace.</li>
+</ul>
+<p>Zabezpečení webových aplikací je komplexní problém, který vyžaduje vícevrstvý přístup. IIS může poskytnout určité základní bezpečnostní funkce, ale hlavní odpovědnost za ochranu proti XSS a CSRF útokům spočívá na vývojářích webových aplikací. Je důležité pravidelně aktualizovat IIS a operační systém Windows, aby se opravily známé zranitelnosti.</p>
+<h5 id="cross-site-scripting-xss">Cross-site scripting (XSS)</h5>
+<ul>
+<li><strong>Princip útoku</strong>
+Útočník vkládá škodlivý JavaScript kód do webové stránky, který se spustí v prohlížeči jiného uživatele.</li>
+<li><strong>Techniky obrany</strong>
+<em>Sanitizace výstupů</em> – Ošetření dat, která se zobrazují na webové stránce, aby se zabránilo spuštění škodlivého kódu.<br>
+<em>Content Security Policy (CSP)</em> – definování pravidel, která určují, odkud se mohou načítat zdroje (JavaScript, CSS, obrázky). Omezuje spouštění skriptů z nedůvěryhodných zdrojů.<br>
+<em>HTTP-only cookies</em> – nastavení cookies tak, aby k nim neměl přístup JavaScript. Chrání cookies před krádeží pomocí XSS.<br>
+<em>Ověřování vstupů</em> – stejně jako u SQLI je nutné ověřovat vstupy uživatelů.</li>
+</ul>
+<h5 id="cross-site-request-forgery-csrf">Cross-Site Request Forgery (CSRF)</h5>
+<ul>
+<li><strong>Princip útoku</strong>
+Útočník přiměje oběť, která je přihlášena k webové aplikaci, aby provedla nechtěnou akci na této aplikaci.</li>
+<li><strong>Techniky obrany</strong>
+<em>CSRF tokeny</em> – generování náhodných tokenů, které se odesílají s formuláři. Server ověřuje, zda se token shoduje s tokenem uloženým v relaci uživatele.<br>
+<em>SameSite cookies</em> – nastavení cookies tak, aby se odesílaly pouze při požadavcích ze stejné domény. Omezuje možnost zneužití cookies při CSRF útoku.<br>
+<em>Ověřování hlavičky Referer</em> – kontrola hlavičky Referer, která udává, odkud byl požadavek odeslán. Je to ovšem slabá ochrana, protože hlavička Referer může být podvržena.<br>
+<em>Dvojitá ochrana cookies</em> – tato metoda zahrnuje odeslání CSRF tokenu jako cookie a také jako hodnotu formuláře. Server pak ověřuje, zda se obě hodnoty shodují.</li>
+</ul>
+<h2 id="rozdily-na-linuxu">Rozdíly na Linuxu</h2>
+<p>Na Linuxu se pro hostování webových stránek nejčastěji používá webový server Apache nebo Nginx. Konfigurace těchto serverů se významně liší od IIS. Místo grafického rozhraní se používají konfigurační soubory (např. httpd.conf pro Apache, nginx.conf pro Nginx). IIS ve Windows je v zásadě také možno konfigurovat pomocí bash souborů spouštěných přes PowerShell (a weboví administrátoři touto cestou spravují zpravidla větší množství stanic s obdobnou základní konfigurací), ale není to běžně rozšířený přístup.</p>
+<p>Na Linuxu se pro <strong>správu certifikátů SSL/TLS</strong> obvykle používá nástroj Certbot. Pro <strong>ověřování uživatelů</strong> se používají moduly jako mod_auth_basic pro Apache nebo ngx_http_auth_basic_module pro Nginx. <strong>Protokoly</strong> se ukládají do textových souborů, které se nacházejí v adresáři /var/log.</p>
+<p>Linux nabízí větší flexibilitu a kontrolu nad konfigurací webového serveru, ale vyžaduje hlubší znalosti příkazového řádku a konfiguračních souborů. IIS je na druhou stranu uživatelsky přívětivější a snadněji se spravuje pomocí grafického rozhraní, což ovšem může někomu přijít jako ve výsledku méně komfortní způsob vyžadující množství času a klikání v mnoha navzájem odlišných menu.</p>
+<p><br><br></p>
+<h1 id="dns-sprava-domen">DNS – správa domén</h1>
+<p><strong>DNS (Domain Name System)</strong> je decentralizovaný systém doménových jmen, který převádí lidsky srozumitelné doménové názvy (např. <code>www.google.com</code>) na IP adresy (např. <code>172.217.168.196</code>), které počítače používají ke komunikaci. Vše si lze představit jako telefonní seznam internetu. Když zadáme doménový název do webového prohlížeče, počítač odešle dotaz na DNS server, který vyhledá odpovídající IP adresu a vrátí ji zpět. Bez DNS by musel uživatel zadávat složité IP adresy, což by bylo pro praktické používání webu velmi nešikovné.</p>
+<p>V hierarchii DNS hrají klíčovou roli tři typy serverů: kořenové, autoritativní a rekurzivní. Kořenové servery stojí na samém vrcholu a slouží jako výchozí bod pro překlad doménových jmen, směrují dotazy na autoritativní servery pro domény nejvyšší úrovně (TLD), jako jsou <code>.com</code> nebo <code>.cz</code>. Autoritativní servery uchovávají definitivní informace o konkrétních doménách a jejich subdoménách, poskytují IP adresy a další záznamy pro dané doménové jméno. Rekurzivní servery fungují jako prostředníci mezi uživateli a autoritativními servery, přijímají dotazy od uživatelů, procházejí hierarchii DNS a ukládají výsledky do mezipaměti (cache), čímž urychlují budoucí dotazy na stejná doménová jména. Tyto tři typy serverů spolupracují, aby zajistily efektivní a spolehlivý překlad doménových jmen na IP adresy, což je nezbytné pro fungování internetu. </p>
+<h3 id="prubeh-prekladu-domenoveho-jmena-na-ip-adresu">Průběh překladu doménového jména na IP adresu</h3>
+<ul>
+<li>Uživatel zadá doménový název do webového prohlížeče.</li>
+<li>Počítač uživatele odešle dotaz na rekurzivní DNS server.</li>
+<li>Rekurzivní DNS server se dotáže kořenových DNS serverů.</li>
+<li>Kořenové DNS servery vrátí adresu autoritativních DNS serverů pro doménu nejvyšší úrovně (např. .com).</li>
+<li>Rekurzivní DNS server se dotáže autoritativních DNS serverů pro doménu nejvyšší úrovně.</li>
+<li>Autoritativní DNS servery vrátí adresu autoritativních DNS serverů pro danou doménu.</li>
+<li>Rekurzivní DNS server se dotáže autoritativních DNS serverů pro danou doménu.</li>
+<li>Autoritativní DNS servery vrátí IP adresu odpovídající doménovému názvu.</li>
+<li>Rekurzivní DNS server vrátí IP adresu počítači uživatele.</li>
+<li>Počítač uživatele se připojí k webovému serveru pomocí IP adresy.</li>
+</ul>
+<p>DNS systém sám o sobě není koncipován jako nějaký bezpečnostní mechanismus, a proto není automaticky chráněn proti všem zranitelnostem. Nicméně, existují bezpečnostní rozšíření a postupy, které zvyšují jeho odolnost.</p>
+<h5 id="zranitelnosti-dns">Zranitelnosti DNS</h5>
+<p><strong>DNS spoofing/cache poisoning</strong> <br> 
+Útočník podvrhne falešné DNS záznamy, které se uloží do mezipaměti DNS serveru. To může vést k přesměrování uživatelů na škodlivé webové stránky.</p>
+<p><strong>Útoky typu Man-in-the-middle (MitM)</strong><br> Útočník zachytí komunikaci mezi uživatelem a DNS serverem a manipuluje s ní.</p>
+<p><strong>DDoS útoky (Distributed Denial of Service)</strong><br> Útočník zahltí DNS servery velkým množstvím požadavků, čímž je znepřístupní.</p>
+<h5 id="bezpecnostni-opatreni">Bezpečnostní opatření</h5>
+<p><strong>DNSSEC (DNS Security Extensions)</strong><br> Rozšíření DNS protokolu, které přidává digitální podpisy k DNS záznamům. To umožňuje ověřit integritu a autenticitu DNS dat.</p>
+<p><strong>DNS over HTTPS (DoH) a DNS over TLS (DoT)</strong><br> Protokoly, které šifrují komunikaci mezi uživatelem a DNS serverem, čímž chrání před útoky typu MitM.</p>
+<p>Dále např.<br>
+<strong>Ověřování certifikátů</strong><br> Uživatelé by měli ověřovat certifikáty webových stránek, aby se ujistili, že se připojují k legitimním serverům.</p>
+<p><strong>Používání VPN</strong><br> Virtuální privátní sítě (VPN) mohou šifrovat komunikaci a maskovat IP adresu uživatele, čímž zvyšují bezpečnost.</p>
+<h3 id="dns-zaznamy">DNS záznamy</h3>
+<p>DNS záznamy jsou sekvence uložené na DNS serverech, které obsahují informace o doménových názvech a jejich odpovídajících IP adresách. Existuje několik typů DNS záznamů, z nichž každý slouží k jinému účelu:</p>
+<table>
+<thead>
+<tr>
+<th>Typ záznamu</th>
+<th>Popis</th>
+<th>Příklad použití</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Mapuje doménový název na IPv4 adresu</td>
+<td><code>www.mujserver.cz. A 155.112.159.74</code></td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>Mapuje doménový název na IPv6 adresu</td>
+<td><code>www.mujserver.cz. AAAA 2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>Vytvoří alias pro doménový název</td>
+<td><code>www.mujserver.cz. CNAME mujserver.cz.</code></td>
+</tr>
+<tr>
+<td>MX</td>
+<td>Určuje poštovní server pro e-maily</td>
+<td><code>mujserver.cz. MX 10 mail.mujserver.cz.</code></td>
+</tr>
+<tr>
+<td>NS</td>
+<td>Určuje autoritativní DNS servery</td>
+<td><code>mujserver.cz. NS ns1.forpsi.cz.</code></td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>Ukládá libovolný textový řetězec</td>
+<td><code>mujserver.cz. TXT "v=spf1 mx ~all"</code></td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>Určuje umístění serverů pro služby</td>
+<td><code>_sip._tcp.mujserver.cz. SRV 0 5 5060 sip.mujserver.cz.</code></td>
+</tr>
+<tr>
+<td>TLSA</td>
+<td>Ověřuje certifikáty TLS/SSL</td>
+<td><code>_443._tcp.mujserver.cz. TLSA 3 0 1 ...</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2023-2024
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/CTUGeomatics" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.facebook.com/geomatics.ctu" target="_blank" rel="noopener" title="www.facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.instagram.com/geomatics.ctu" target="_blank" rel="noopener" title="www.instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141m0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7m146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8m76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.tooltips"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
