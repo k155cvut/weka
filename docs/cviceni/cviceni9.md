@@ -228,6 +228,132 @@ Uživatel si může vybrat vybrat jednu z vektorových vrstev z rozbalovacího s
 Budete muset získat vybranou *FeatureLayer* z `webmap.layers`. Pro zobrazení atributové tabulky můžete použít buď hotový widget *FeatureTable* z `esri/widgets/FeatureTable` nebo si můžete data načíst pomocí `layer.queryFeatures()` a dynamicky vytvořit HTML tabulku.
 
 
+Kód může vypadat např. takto, je třeba přidat příslušné elementy i do HTML stránky:
+
+??? note 
+
+    === "script.js"
+
+        ``` js
+
+        require([
+        "esri/views/MapView",
+        "esri/WebMap",
+        "esri/widgets/FeatureTable"
+        ], function(MapView, WebMap, FeatureTable) {
+        const webmapId = "38b56df5741748d29bc1f7761590962b"; // ID webmapy
+        const layerSelect = document.getElementById("layerSelect");
+        const tableDiv = document.getElementById("tableDiv");
+        let featureTable;
+
+        const webmapa = new WebMap({
+          portalItem: {
+            id: webmapId
+          }
+        });
+
+        const view = new MapView({
+          container: "mapDiv",
+          map: webmapa
+        });
+
+        view.when(function() {
+          // naplnění select elementu vektorovými vrstvami
+          webmapa.layers.forEach(layer => {
+            if (layer.type === "feature") {
+              const option = document.createElement("option");
+              option.value = layer.id;
+              option.text = layer.title;
+              layerSelect.appendChild(option);
+            }
+          });
+
+          // zobrazení atributové tabulky pro vybranou vrstvu
+          function showAttributes(layerId) {
+            const selectedLayer = webmapa.layers.find(layer =>
+              layer.id === layerId && layer.type === "feature"
+            );
+
+            if (selectedLayer) {
+              // pokud atributová tabulka již existuje, zlikvidujeme
+              if (featureTable) {
+                featureTable.destroy();
+              }
+
+              featureTable = new FeatureTable({
+                view: view,
+                layer: selectedLayer,
+                container: tableDiv
+              });
+            } else {
+              tableDiv.innerHTML = "<p>Vybraná vrstva neobsahuje atributy nebo není vektorová.</p>";
+            }
+          }
+
+          // změna v select elementu pomocí standardní události
+          layerSelect.addEventListener("change", (event) => {
+            const selectedLayerId = event.target.value;
+            showAttributes(selectedLayerId);
+          });
+
+          // zobrazíme atributovou tabulku pro první vektorovou vrstvu po načtení mapy
+          const firstFeatureLayer = webmapa.layers.find(layer => layer.type === "feature");
+          if (firstFeatureLayer) {
+            showAttributes(firstFeatureLayer.id);
+            layerSelect.value = firstFeatureLayer.id; // Nastavíme select na první vrstvu
+          } else {
+            tableDiv.innerHTML = "<p>Webová mapa neobsahuje žádné vektorové vrstvy.</p>";
+          }
+
+        }, function(error) {
+          console.error("Chyba při načítání webové mapy:", error);
+        });
+        });
+        ```
+
+    === "index.html"
+
+        ``` html
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+          <title>Dynamická legenda pro viditelné vrstvy</title>
+          <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
+          <script src="https://js.arcgis.com/4.29/"></script>
+          <script src="script9b.js"></script>
+          <style>
+            html, body, #mapDiv {
+              padding: 0;
+              margin: 0;
+              height: 70%;
+              width: 100%;
+            }
+            #tableDiv {
+              height: 30%;
+              width: 100%;
+              overflow: auto;
+            }
+            #layerSelect {
+              margin-bottom: 10px;
+            }
+          </style>
+        </head>
+        <body>
+            <div id="mapDiv"></div>
+            <div>
+              <select id="layerSelect">
+                <option value="">Vyberte vektorovou vrstvu ...</option>
+              </select>
+            </div>
+            <div id="tableDiv"></div>
+          </body>
+        </html>
+        ```
+
+
+
 
 
 
