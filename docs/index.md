@@ -93,9 +93,9 @@ jsou spíše formou workshopu a bezprostředně předcházejí cvičením, s nim
 
 [__Ing. Tomáš Janata, Ph.D.__](https://geomatics.fsv.cvut.cz/employees/tomas-janata/) | [__Ing. František Mužík__](https://geomatics.fsv.cvut.cz/employees/frantisek-muzik/)
 
-1. **Úloha 1** – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch <!-- JC, TJ, FM -->
+1. **Úloha 1** – Základ HTML. VS Code. Tvorba webové formy životopisu. <!-- JC, TJ, FM -->
 2. Základy práce s CSS. Základy JavaScriptu <!-- FM -->
-3. **Úloha 2** – VS Code. Mapová aplikace v prostředí Leaflet <!-- TJ -->
+3. **Úloha 2** – Mapová aplikace v prostředí Leaflet <!-- TJ -->
 4. GeoJSON. Tvorba kartogramu v Leaflet <!-- TJ -->
 5. **Úloha 2A** – Knihovna D3.js <!-- FM -->
 6. Propojení Leaflet a D3.js. Kartodiagram <!-- FM -->

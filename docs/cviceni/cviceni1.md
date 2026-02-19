@@ -7,7 +7,7 @@ title: Cvičení 1
 
 Každá stránka je na disku nebo na serveru uložena ve formě zdrojového kódu. Ten kód je psaný v jazyce HTML.
 
-Kód HTML se upravuje pomocí editoru. V tomto cvičení se seznámíme s webovým prostředím [Glitch](https://glitch.com/), nicméně po většinu semestru budeme pracovat ve [VS Code](https://code.visualstudio.com/). Zdrojový kód se uchovává na disku, ze kterého je otevřen v prohlížeči.
+Kód HTML se upravuje pomocí editoru. V rámci semestru budeme pracovat ve [VS Code](https://code.visualstudio.com/). Zdrojový kód se uchovává na disku, ze kterého je otevřen v prohlížeči.
 
 **Stránka se skládá ze 3 základních částí kódu:**
 
@@ -116,7 +116,31 @@ Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na 
         <figcaption>Ukázka návrhu jednoduché HTML stránky pomocí AI Gemini</figcaption>
     </figure>
 
-### Základní struktura webové stránky v html
+## VS Code
+
+Visual Studio Code (VS Code) je bezplatný a multiplatformní editor zdrojového kódu, který vyvinula společnost Microsoft. Je populární díky flexibilitě a podpoře široké škály programovacích jazyků.
+
+Mezi výhody patří zvýraznění syntaxe, našeptávání při psaní, ladění kódu přímo z editoru a možnost instalace řady rozšíření (např. [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)).
+
+
+<figure markdown>
+![](../assets/cviceni3/vscode-live-server.png){ width="800" }
+    <figcaption>Prostředí VS Code s ukázkou rozšíření Live server, díky kterému je možné sledovat změny kódu v reálném čase</figcaption>
+</figure>
+
+[Stažení VS Code :material-microsoft-visual-studio-code:](https://code.visualstudio.com/download){ .md-button .md-button--primary .center}
+{: .button_array}
+
+## Netlify
+
+[Netlify](https://www.netlify.com/) je **cloudová služba pro publikaci webových stránek** a menších webových aplikací. Umožňuje velmi rychle převést lokální projekt do veřejně dostupné podoby **bez nutnosti spravovat vlastní server**. 
+
+Pro první seznámení stačí použít **Netlify Drop**: do webového rozhraní přetáhneme složku s hotovým webem a během chvíle získáme veřejný odkaz. Pro průběžnou práci je vhodné propojení s repozitářem na GitHubu, kdy Netlify po každé změně automaticky provede nový deploy.
+
+Výhodou Netlify je i přehledná historie nasazení (deploy), díky které je možné vrátit se ke starší funkční verzi projektu. Platforma navíc automaticky zajišťuje HTTPS, takže stránka běží bezpečně bez další konfigurace. V praxi jde o jednoduchý a spolehlivý způsob, jak vytvořit reálně dostupný web.
+
+
+## Základní struktura webové stránky v html
 ```html
 <!DOCTYPE html> <!-- Deklarace typu dokumentu -->
 <html> <!-- Kořenový element, který zastřešuje celý dokument -->
@@ -139,28 +163,7 @@ Tagy je do sebe možné vzájemně vkládat, přičemž důležité je dbát na 
     <figcaption>Obsah webové stránky vytvořený kódem výše</figcaption>
 </figure>
 
-## Popis prostředí Glitch
-[Glitch.com](https://glitch.com/) je online platforma, která umožňuje snadno vytvářet, upravovat a sdílet webové projekty. V podstatě se jedná o online editor, ve kterém lze psát kód, vidět výsledky okamžitě a dokonce spolupracovat s ostatními. 
 
-Po registraci vytvoříme nový projekt stisknutím tlačítka *New project* -> možnost *glitch-hello-website*.
-
-Veškeré naše projekty najdeme na hlavní stránce v záložce *Dashboard*.
-
-<figure markdown>
-![](../assets/cviceni1/glitch01.png){ width="800" }
-    <figcaption>Obsah webové stránky vytvořený kódem výše</figcaption>
-</figure>
-
-Po vygenerování stránky je možné v záložce *Settings* -> *Edit project details* změnit její název na něco rozumného, přičemž stránka vždy bude hostovaná na doméně Glitch a odkaz bude vypadat zhruba takto: <https://muj-test.glitch.me/>
-
-V levé části stránky se nacházejí záložky *Settings* (nastavení), *Assets* (sem se umisťují využité soubory - např. obrázky) a *Files* (pracovní soubory).
-
-V prostřední části se zobrazuje editor kódu a v pravé se zobrazuje výsledek v podobě náhledu stránky. Pokud není náhled zobrazený, zapneme ho tlačítkem *Preview* v dolní části obrazovky. Úpravy se ukládají automaticky.
-
-<figure markdown>
-![](../assets/cviceni1/glitch02.png){ width="800" }
-    <figcaption>Editace stránky v prostředí Glitch</figcaption>
-</figure>
 
 ## Tvorba webové stránky s vlastním životopisem
 
@@ -306,7 +309,7 @@ Implementace v životopise může tedy vypadat následovně:
             </li>
         </ul>
     </li>
-    <img src="https://cdn.glitch.global/7950426a-9139-4c64-82ee-8ab83f092129/obr9_app_ui.jpg?v=1736791065019" 
+    <img src="./obrazky/obrazek-bp.png" 
     width="500" >
     </ul>
 </section>

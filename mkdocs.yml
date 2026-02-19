@@ -2,9 +2,9 @@ site_name: Webová kartografie (155YWEK)
 nav:
   - Charakteristika předmětu: index.md
   - Cvičení:
-      - Úloha 1 – Základ HTML. Tvorba webové formy životopisu v prostředí Glitch: cviceni/cviceni1.md 
+      - Úloha 1 – Základ HTML. VS Code. Tvorba webové formy životopisu.: cviceni/cviceni1.md 
       - Základy práce s CSS. Základy JavaScriptu: cviceni/cviceni2.md
-      - Úloha 2 – VS Code. Mapová aplikace v prostředí Leaflet: cviceni/cviceni3.md
+      - Úloha 2 –  Mapová aplikace v prostředí Leaflet: cviceni/cviceni3.md
       - GeoJSON. Tvorba kartogramu v Leaflet: cviceni/cviceni4.md
       - Úloha 2A – Knihovna D3.js: cviceni/cviceni5.md
       - Propojení Leaflet a D3.js. Kartodiagram: cviceni/cviceni6.md

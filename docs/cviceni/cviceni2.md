@@ -544,4 +544,4 @@ Ladící nástroje: Prohlížeče mají i pokročilé ladící nástroje, které
 
     Budeme rádi, pokud si zkusíte do stránky přidat i další volitelné prvky, např. foto, popis zájmů nebo něco zajímavého.
 
-    Ukázka: <https://frantisek-muzik.glitch.me/>
+    Ukázka: <https://frantisek-muzik.netlify.app/>
