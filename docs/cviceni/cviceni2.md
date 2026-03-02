@@ -526,7 +526,7 @@ Ladící nástroje: Prohlížeče mají i pokročilé ladící nástroje, které
 <hr>
 
 !!! warning "K odevzdání"
-    Do příštího cvičení vytvořte jednoduchou html stránku se svým životopisem, která bude hostována prostřednictvím platformy Glitch. Berte na vědomí, že vytřvořená stránka je veřejně přístupná. 
+    Do příštího cvičení vytvořte jednoduchou html stránku se svým životopisem, která bude hostována prostřednictvím platformy Netlify. Berte na vědomí, že vytvořená stránka je veřejně přístupná. 
 
     Životopis by měl obsahovat následující prvky:
 
@@ -540,8 +540,12 @@ Ladící nástroje: Prohlížeče mají i pokročilé ladící nástroje, které
 
     - embed mapy, např. s okolím FSv ČVUT v Praze
 
+    - úpravu vizuálních prvků stránky pomocí JavaScriptu (například změna barvy pozadí a typu fontu po stisknutí tlačítka)
+
     Ve výsledné webové stránce upravte styl pomocí CSS (změny např. textu, fontu, barev, pozadí stránky).
 
     Budeme rádi, pokud si zkusíte do stránky přidat i další volitelné prvky, např. foto, popis zájmů nebo něco zajímavého.
+
+    Výsledné webové stránky zasílejte na **frantisek.muzik@fsv.cvut.cz** do **neděle 8.3.**
 
     Ukázka: <https://frantisek-muzik.netlify.app/>
