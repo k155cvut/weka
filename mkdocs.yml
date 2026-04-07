@@ -8,12 +8,13 @@ nav:
       - GeoJSON. Tvorba kartogramu v Leaflet: cviceni/cviceni4.md
       - Úloha 2A – Knihovna D3.js: cviceni/cviceni5.md
       - Propojení Leaflet a D3.js. Kartodiagram: cviceni/cviceni6.md
-      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni7.md
-      - Úloha 3 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni8.md
-      - Pokročilejší práce s ArcGIS JavaScript API: cviceni/cviceni9.md
-      - Finalizace aplikace pomocí ArcGIS JavaScript API: cviceni/cviceni10.md
-      - Úloha 4 – Jednoduchá aplikace pomocí GISQuick: cviceni/cviceni11.md
-  # U7 - případně U7 3D JS open source kartografická knihovna     
+      - Úloha 3 - Tvorba mapové aplikace vybraného státu: cviceni/cviceni7.md
+      - Windows server (IIS) – konfigurace vlastního prostoru: cviceni/cviceni8.md
+      - Úloha 4 – Základy ArcGIS JavaScript API. Práce s WebMap. Mapová aplikace pomocí ArcGIS API: cviceni/cviceni9.md
+      - Pokročilejší práce s ArcGIS JavaScript API: cviceni/cviceni10.md
+      - Finalizace aplikace pomocí ArcGIS JavaScript API: cviceni/cviceni11.md
+      - Využití AI pro zpracování dat a kartografickou vizualizaci: cviceni/cviceni12.md
+   
   # - Data: data.md
 
 plugins:
