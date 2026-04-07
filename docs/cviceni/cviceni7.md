@@ -1,6 +1,6 @@
 ---
 icon: material/numeric-7-box
-title: 
+title: Cvičení 7
 ---
 
 
