@@ -1,54 +1,72 @@
 ---
 icon: material/numeric-9-box
-title: ArcGIS for JavaScript - základy
+title: ArcGIS Maps SDK for JavaScript – základy (ESM)
 ---
 
+## ArcGIS Maps SDK for JavaScript – základy
 
-## ArcGIS API for JavaScript – základy
+**ArcGIS Maps SDK for JavaScript** (ve verzi 5.0+) je výkonný nástroj pro vytváření interaktivních webových mapových aplikací. V dalších cvičeních se naučíme základy práce s tímto API, od vytvoření jednoduché mapy a vložení do HTML stránky až po pokročilejší customizace. Na začátku se naučíme základy práce s tímto SDK v moderním standardu **ES modulů**.
 
-**ArcGIS API for JavaScript** je výkonný nástroj pro vytváření interaktivních webových mapových aplikací. V dalších cvičeních se naučíme základy práce s tímto API, od vytvoření jednoduché mapy a vložení do HTML stránky až po pokročilejší customizace.
+### Zásadní změny v moderním SDK
 
-**Úvod – potřebné stránky**
+Předtím, než začneme programovat, musíme pochopit dvě novinky, které verze 5.0 přináší:
 
-- Začneme vytvořením základní HTML stránky (soubor `index.html`), do které chceme vložit mapu.
-- Vytvoříme `<div>` element s identifikátorem "mapDiv", který bude sloužit jako kontejner pro mapu.
-- Přidáme JavaScript kód, který vytvoří mapu.
-- Použijeme modul *esri/Map* k vytvoření instance mapy.
-- Nastavíme základní mapu (basemap) pomocí vlastnosti *basemap*.
-- Vytvoříme instanci esri/views/MapView a nastavíme kontejner mapy pomocí vlastnosti *container*.
-- Nastavíme střed mapy (*center*) a úroveň přiblížení (*zoom*).
-- Vložíme JavaScript kód do souboru `script.js`.
-- Přidáme odkaz na ArcGIS API for JavaScript a na soubor se skriptem v `<head>` elementu HTML stránky.
+1. **AMD vs. ESM:** Starší verze používaly standard AMD (Asynchronous Module Deinition – funkce `require`). Moderní JavaScript a verze 5.0 využívají **ES moduly (`import`)**. Tento přístup je rychlejší, přehlednější a odpovídá dnešním webovým standardům. Povšimnete si toho např. tak, že v HTML musíme u skriptu uvést `type="module"`.
+2. **API Key:** Pro přístup k podkladovým mapám a dalším službám (geocoding, routing) je nyní vyžadován **API klíč**. Je to vaše identifikace vývojáře. Získáte ji zdarma na [developers.arcgis.com](https://developers.arcgis.com).
 
-Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní mapa.
+---
 
+**Úvod – příprava aplikace**
 
-??? note "&nbsp;<span style="color:#448aff">Stav kódu po vložení mapy do stránky a její inicializaci </span>"
+- Začneme vytvořením základní HTML stránky (soubor `index.html`).
+- Místo starého způsobu budeme používat moduly přímo z CDN pomocí příkazu `import`.
+- Pro rozvržení stránky použijeme **CSS Flexbox**, aby mapa správně vyplnila okno prohlížeče.
+- Vytvoříme `<div>` element s identifikátorem `viewDiv`.
+- Nastavíme API klíč pomocí modulu `esri/config`.
+
+Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní mapa. V kódu použijeme modernější řízení layoutu pomocí _flexbox_.
+
+??? note "&nbsp;<span style="color:#448aff">Stav kódu po vložení mapy a inicializaci (v5.0 ESM)</span>"
 
     === "index.html"
 
         ``` html
         <!DOCTYPE html>
-        <html>
+        <html lang="cs">
         <head>
             <meta charset="utf-8" />
-            <title>Pěkná mapa č. I</title>
-            <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
-            <script src="https://js.arcgis.com/4.28/"></script>     <!-- odkaz na knihovny a skripty Esri   -->
-            <script src="script.js"></script>
+            <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+            <title>Moje první pěkná mapa</title>
+            
+            <link rel="stylesheet" href="https://js.arcgis.com/5.0/esri/themes/light/main.css">
+            
             <style>
-                #mapDiv {
-                    width: 60%;
-                    height: 600px;
-                    
+                
+                body {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    margin: 0;
+                    height: 100vh;
+                    width: 100%;
+                }
+                h1 {
+                    padding: 10px;
+                    margin: 0;
+                    background: #f8f8f8;
+                    font-size: 1.2rem;
+                }
+                #viewDiv {
+                    flex: 1; /* Mapa vyplní zbývající prostor */
+                    width: 100%;
                 }
             </style>
 
+            <script type="module" src="script.js"></script>
         </head>
         <body>
-            <h1>První mapa vytvořená v ArcGIS API for JavaScript</h1>
-            <div id="mapDiv"></div>
-
+            <h1>První mapa v ArcGIS Maps SDK 5.0 (ESM)</h1>
+            <div id="viewDiv"></div>
         </body>
         </html>
         ```
@@ -56,271 +74,315 @@ Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní m
     === "script.js"
 
         ``` js
-        require(["esri/Map", "esri/views/MapView"], function(Map, MapView) {
-            const map = new Map({
-                basemap: "streets"      // rastrová basemapa, lze jinak volit např. topo, satellite, hybrid, gray, oceans atd.
-                                        // nebo vektorové např. streets-vector, topo-vector, gray-vector apod.
-            });
-            const view = new MapView({
-                container: "mapDiv",
-                map: map,
-                center: [14.42, 50.09], // souřadnice Prahy
-                zoom: 10
-            });
+        // importujeme konkrétní moduly z tzv. sítě CDN
+        import config from "https://js.arcgis.com/5.0/esri/config.js";
+        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
+        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
+
+        // 1. Nastavení API klíče (nutné pro basemapy)
+        config.apiKey = "******* váš_API_key *******";
+
+        // 2. Vytvoření instance mapy
+        const map = new Map({
+            basemap: "arcgis-navigation" // původní "topo-vector"
+        });
+
+        // 3. Vytvoření pohledu na mapu
+        const view = new MapView({
+            container: "viewDiv",
+            map: map,
+            center: [14.42, 50.09], // souřadnice Prahy [lon, lat]
+            zoom: 10
+        });
+
+        view.when(() => {
+            console.log("Mapa byla úspěšně načtena pomocí ES modulů");
         });
         ```
 
+---
 
-Tento kód vytvoří jednoduchou mapu s podkladovou mapou *streets* a zobrazí Prahu.
+Tento kód vytvoří jednoduchou mapu s podkladovou mapou a zobrazí Prahu.
 
-Podívejme se nyní na sekci **require**. Zde jsou běžně definovány moduly, které mapová aplikace vyžaduje ke svému běhu.
+### Přehled důležitých modulů (Standard ESM)
+
+Podívejme se nyní na moduly. V novém standardu již nepoužíváme pole v `require`, ale každý modul importujeme samostatně.
 Mezi důležité moduly patří např.:
 
-| Modul | Popis | Příklad použití |
+| Modul | Popis | Příklad importu |
 |---|---|---|
-| `esri/Map` | Vytvoření mapy | `var map = new Map({ basemap: "streets" });` |
-| `esri/views/MapView` | Zobrazení 2D mapy | `var view = new MapView({ container: "viewDiv", map: map });` |
-| `esri/views/SceneView` | Zobrazení 3D scény | `var view = new SceneView({ container: "viewDiv", map: map });` |
-| `esri/layers/FeatureLayer` | Zobrazení vektorové vrstvy prvků | `var layer = new FeatureLayer({ url: "https://.../FeatureServer/0" });` |
-| `esri/layers/MapImageLayer` | Zobrazení dynamické mapové služby | `var layer = new MapImageLayer({ url: "https://.../MapServer" });` |
-| `esri/layers/ImageryLayer` | Zobrazení rastrové vrstvy snímků | `var layer = new ImageryLayer({ url: "https://.../ImageServer" });` |
-| `esri/layers/GraphicsLayer` | Zobrazení grafických prvků | `var layer = new GraphicsLayer();` |
-| `esri/geometry/*` | Práce s geometriemi (body, linie, polygony) | `var point = new Point({ x: 10, y: 20 });` |
-| `esri/symbols/*` | Nastavení symbolů pro prvky | `var symbol = new SimpleMarkerSymbol({ color: "red" });` |
-| `esri/widgets/*` | Přidání widgetů pro ovládání mapy | `var legend = new Legend({ view: view });` |
-| `esri/tasks/*` | Geoprocessingové úlohy | `var task = new GeoprocessingTask({ url: "https://.../GPServer/Buffer" });` |
-| `esri/Graphic` | Vytvoření grafického prvku | `var graphic = new Graphic({ geometry: point, symbol: symbol });` |
-| `esri/PopupTemplate` | Vytvoření popup okna | `var template = new PopupTemplate({ title: "Atributy", content: "{*}" });` |
-| `esri/core/watchUtils` | Sledování změn vlastností objektů | `watchUtils.when(view, "stationary", function() { ... });` |
-| `dojo/domReady!` | Zajistí, že se kód spustí až kompletním načtení DOM | –– | 
+| `esri/Map` | Vytvoření mapy | `import Map from ".../esri/Map.js";` |
+| `esri/views/MapView` | Zobrazení 2D mapy | `import MapView from ".../esri/views/MapView.js";` |
+| `esri/views/SceneView` | Zobrazení 3D scény | `import SceneView from ".../esri/views/SceneView.js";` |
+| `esri/layers/FeatureLayer` | Zobrazení vektorové vrstvy prvků | `import FeatureLayer from ".../esri/layers/FeatureLayer.js";` |
+| `esri/layers/MapImageLayer` | Zobrazení dynamické mapové služby | `import MapImageLayer from ".../esri/layers/MapImageLayer.js";` |
+| `esri/widgets/Legend` | Widget legendy | `import Legend from ".../esri/widgets/Legend.js";` |
+| `esri/Graphic` | Grafický prvek | `import Graphic from ".../esri/Graphic.js";` |
+| `esri/core/reactiveUtils` | Sledování změn (náhrada watchUtils) | `import * as reactiveUtils from ".../core/reactiveUtils.js";` |
 
-
+---
 
 ## Přidání rastrové vrstvy
 
-Přidání vrstvy do mapy:
-
-V JavaScriptovém kódu aplikace používáme modul `esri/layers/MapImageLayer` pro načtení dynamické mapové služby nebo modul `esri/layers/FeatureLayer` pro načtení vektorové vrstvy prvků.
+V ESM verzi importujeme `MapImageLayer` přímo z jeho cesty.
 
 Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
 
-??? note "&nbsp;<span style="color:#448aff">Vložení dynamické rastrové vrstvy</span>"
+??? note "&nbsp;<span style="color:#448aff">Vložení dynamické rastrové vrstvy (ESM)</span>"
 
     === "script.js"
 
         ``` js
-        require([
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
+        import config from "https://js.arcgis.com/5.0/esri/config.js";
+        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
+        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
+        import MapImageLayer from "https://js.arcgis.com/5.0/esri/layers/MapImageLayer.js";
 
-        ], function(Map, MapView, MapImageLayer) {
+        config.apiKey = "****";
 
-        var map = new Map({
-            basemap: "streets"     // rastrová basemapa, lze jinak volit např. topo, satellite, hybrid, gray, oceans atd.
-                                   // nebo vektorové např. streets-vector, topo-vector, gray-vector apod.
+        const map = new Map({
+            basemap: "arcgis-topographic"
         });
 
-        var view = new MapView({
+        const view = new MapView({
             container: "viewDiv",
             map: map,
-            center: [14.42, 50.09], // souřadnice Prahy
+            center: [14.42, 50.09],
             zoom: 12
         });
 
-        var Ortofoto = new MapImageLayer({
+        // Načtení ortofota ČÚZK
+        const ortofoto = new MapImageLayer({
             url: "https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer"
         });
 
-        map.add(Ortofoto);          // přidání k vykreslení do mapy
-        });
+        map.add(ortofoto);  // přidání k vykreslení do mapy
         ```
 
+---
+
+## Vlastní basemap z více zdrojů
 
 Nyní bychom rádi vytvořili mapu, která bude obsahovat jako basemap vrstvu ortofota např. s obcemi z ArcČR. Můžeme využít toho, že lze v aplikacích pracovat i s vrstvami v ArccGIS Online nebo Portal for ArcGIS. Tyto vrstvy voláme pomocí tzv. Portal ID, které lze zjistit přes REST rozhraní dané vrstvy.
 
 Kód bude vypadat následovně:
 
-??? note "&nbsp;<span style="color:#448aff">Vložení vlastní basemapy</span>"
+??? note "&nbsp;<span style="color:#448aff">Vložení vlastní basemapy (ESM)</span>"
 
     === "script.js"
 
         ``` js
-        require([
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
-        "esri/layers/FeatureLayer", //nově: importujeme vektorovou vrstvu
-        "esri/Basemap", // nově: importujeme Basemap
-        "esri/portal/PortalItem" //nově: importujeme položku z ArcGIS Online
-        ], function(Map, MapView, MapImageLayer, FeatureLayer, Basemap) {
+        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
+        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
+        import MapImageLayer from "https://js.arcgis.com/5.0/esri/layers/MapImageLayer.js";
+        import FeatureLayer from "https://js.arcgis.com/5.0/esri/layers/FeatureLayer.js"; // nově: importujeme vektorovou vrstvu
+        import Basemap from "https://js.arcgis.com/5.0/esri/Basemap.js";  // nově: importujeme Basemap
 
-        // Vytvoření rastrové vrstvy pro ortofoto
         const ortofoto = new MapImageLayer({
             url: "https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer",
             title: "Ortofoto ČR"
         });
 
         // Vytvoření vektorové vrstvy obcí pomocí ItemID
+        // Není již od verze 5.0 třeba explicitně volat modul portal/PortalItem
         const obce = new FeatureLayer({
-            portalItem: {
-            id: "1838754f565b47658477ab75ea2eced0"
-            },
+            portalItem: { id: "1838754f565b47658477ab75ea2eced0" },
             title: "Obce ČR"
         });
 
         // Vytvoření vlastní basemapy
         const vlastniBasemap = new Basemap({
-            baseLayers: [ortofoto, obce], // Vložíme obě vrstvy do baseLayers
-            title: "Ortofoto + hranice obcí", // Název naší vlastní basemapy
-            id: "ortofoto-obce" // Unikátní ID basemapy
+            baseLayers: [ortofoto, obce],  // Vložíme obě vrstvy do baseLayers
+            title: "Ortofoto + obce",  // Název naší vlastní basemapy
+            id: "moje_basemapa"  // Unikátní ID basemapy
         });
 
         // Vytvoření mapy a nastavení vlastní basemapy
         const map = new Map({
-            basemap: vlastniBasemap // Použijeme naši vlastní basemapu
+            basemap: vlastniBasemap
         });
 
-        var view = new MapView({
-            container: "mapDiv",
+        const view = new MapView({
+            container: "viewDiv",
             map: map,
             center: [14.42, 50.09], // souřadnice Prahy
             zoom: 12
         });
-        
-        });
         ```
+
+---
+
+## Práce s widgety (BasemapGallery)
 
 Abychom uživateli umožnili si podkladovou mapu přepnout na jinou, než jsme mu právě načetli, je možné vložit kus kódu pro přepínač basemap.
 
-``` js
+Widgety v ESM verzi přidáváme importem z `esri/widgets/`.
 
-"esri/widgets/BasemapGallery"
+``` js
+import BasemapGallery from "https://js.arcgis.com/5.0/esri/widgets/BasemapGallery.js";
+import LocalBasemapsSource from "https://js.arcgis.com/5.0/esri/widgets/BasemapGallery/support/LocalBasemapsSource.js";
 
 ...
 
-// Vytvoření instance BasemapGallery
+// vytvoření galerie basemap s vlastním zdrojem (LocalBasemapsSource)
 const basemapGallery = new BasemapGallery({
     view: view,
-        source: [ // nastavení zdroje basemap – můžeme přidat naši vlastní
-        vlastniBasemap,
-        "topo-vector",
-        "satellite",
-        "streets"
-        // můžete přidat další předdefinované basemapy nebo instance Basemap
-    ]
-  });
+    // ve v5 je vhodnější použít LocalBasemapsSource pro definici vlastního seznamu
+    source: new LocalBasemapsSource({
+        basemaps: [
+            vlastniBasemap, // naše ortofoto + obce
+            Basemap.fromId("arcgis-topographic"),
+            Basemap.fromId("arcgis-imagery"),
+            Basemap.fromId("arcgis-navigation")
+        ]
+    })
+});
 
-  // přidání BasemapGallery widgetu do zobrazení (například do pravého horního rohu)
-  view.ui.add(basemapGallery, {
-    position: "top-right"
-  });
+// přidání widgetu do zobrazení (například do pravého horního rohu)
+view.ui.add(basemapGallery, "top-right");
+
 ```
 
 Případně pokud chceme využít výchozí galerii basemap, stačí deklarovat jen 
 
 ``` js
-
-"esri/widgets/BasemapGallery"
+import BasemapGallery from "https://js.arcgis.com/5.0/esri/widgets/BasemapGallery.js";
 
 ...
 
-// Vytvoření instance BasemapGallery
+// vytvoření instance BasemapGallery
 const basemapGallery = new BasemapGallery({
     view: view
-    });
+});
 
-  // přidání BasemapGallery widgetu do zobrazení (například do pravého horního rohu)
-    view.ui.add(basemapGallery, {
-    position: "top-right"
-    });
+// přidání widgetu do zobrazení (například do pravého horního rohu)
+view.ui.add(basemapGallery, "top-right");
+
 ```
 
+Kdybychom nechtěli, aby ta galerie zabírala tolik místa, můžeme ji obalit do widgetu Expand. Např:
+
+``` js
+
+import Expand from "https://js.arcgis.com/5.0/esri/widgets/Expand.js";
+
+const galerieExp = new Expand({
+    view: view,
+    content: basemapGallery,
+    expandIcon: "basemap" // klasická basemap ikona čtyř čtverečků
+});
+
+view.ui.add(galerieExp, "top-right");
+
+```
 
 ### Grafika v mapě
 
-Pojďme nyní zkusit do mapy přidat pár stacionárních bodů, nad kterými se zobrazí nějaký základní bodový symbol.
+Grafika slouží k zobrazení prvků, které nejsou uloženy v databázi na serveru, ale vytváříme je přímo v prohlížeči (např. výsledek měření, zvýraznění bodu zájmu). 
 
-Budeme potřebovat další moduly, a to `esri/Graphic`, `esri/layers/GraphicsLayer` a `esri/symbols/SimpleMarkerSymbol`.
-Následující kus kódu přidá do mapy několik bodů definovaných v poli `coordinates` – několik měst:
+Pojďme nyní zkusit do mapy přidat pár stacionárních bodů, nad kterými se zobrazí nějaký základní bodový symbol. Budeme potřebovat moduly `GraphicsLayer` a `Graphic`.
 
-``` js
+Každý grafický prvek se skládá ze tří částí: **geometrie** (poloha), **symbolu** (vzhled) a volitelně **atributů**.
 
-// Vytvoření vrstvy pro grafiku (body)
-  const graphicsLayer = new GraphicsLayer();
-  map.add(graphicsLayer);
+??? note "&nbsp;<span style="color:#448aff">Vytvoření a zobrazení grafiky (ESM v5.0)</span>"
 
-  // Definování symbolu pro body
-  const pointSymbol = new SimpleMarkerSymbol({
-    color: [0, 0, 255], // Modrá barva
-    outline: {
-      color: [255, 255, 255], // Bílá obrys
-      width: 1
-    },
-    size: 8
-  });
+    === "script.js"
 
-  // pole souřadnic bodů (longitude, latitude)
-  const coordinates = [
-    [14.42, 50.09],   // Praha
-    [16.61, 49.20],   // Brno
-    [18.21, 49.59],   // Ostrava
-    [15.77, 49.09],   // Jihlava
-    [12.91, 50.08]    // Plzeň
-  ];
+        ``` js
 
-  // iterování pole souřadnic a vytvoření grafických objektů
-  coordinates.forEach(function(coords) {
-    // vytvoření geometrie bodu
-    const point = {
-      type: "point",
-      longitude: coords[0],
-      latitude: coords[1]
-    };
+        ...
 
-    // vytvoření grafického objektu
-    const pointGraphic = new Graphic({
-      geometry: point,
-      symbol: pointSymbol
-    });
+        
+        import GraphicsLayer from "https://js.arcgis.com/5.0/esri/layers/GraphicsLayer.js";
+        import Graphic from "https://js.arcgis.com/5.0/esri/Graphic.js";
 
-    // přidání grafického objektu do vrstvy grafiky
-    graphicsLayer.add(pointGraphic);
-  });
-```
+        // 1. Vytvoření vrstvy pro grafiku a přidání do mapy
+        const graphicsLayer = new GraphicsLayer({
+            title: "Moje grafika"
+        });
+        map.add(graphicsLayer);
 
-### Přidání vrstev z ArcGIS Serveru
+        // 2. Definování vzhledu (symbolu) – v5.0 stačí prostý objekt
+        const pointSymbol = {
+            type: "simple-marker", // autocast
+            color: [0, 25, 255],   // modrá barva
+            size: "10px",
+            outline: {
+                color: [255, 255, 255],  //bílý obrys
+                width: 1
+            }
+        };
 
-Můžeme přidávat jako obsah samozřejmě nejen vrstvy ArcGIS Online, ale i z ArcGIS Serveru, dostupné přes REST rozhraní.
+        // 3. Pole souřadnic měst (longitude, latitude)
+        const mesta = [
+            { name: "Praha", coords: [14.42, 50.09] },
+            { name: "Brno", coords: [16.61, 49.20] },
+            { name: "Ostrava", coords: [18.21, 49.59] },
+            { name: "Jihlava", coords: [15.77, 49.09] },
+            { name: "Plzeň", coords: [12.91, 50.08] }
+            
+        ];
+
+        // 4. Iterování pole souřadnic a vytvoření grafických objektů
+        mesta.forEach(mesto => {
+            const pointGraphic = new Graphic({
+                geometry: {
+                    type: "point",
+                    longitude: mesto.coords[0],
+                    latitude: mesto.coords[1]
+                },
+                symbol: pointSymbol,
+                attributes: {
+                    NAZEV: mesto.name
+                },
+                // Popup se zobrazí po kliknutí na bod
+                popupTemplate: {
+                    title: "{NAME}",
+                    content: "Toto je grafický prvek zobrazený v vrstvě GraphicsLayer."
+                }
+            });
+
+            graphicsLayer.add(pointGraphic);
+        });
+        ```
+
+---
+
+### Přidání vrstev z ArcGIS Serveru (REST rozhraní)
+
+Můžeme přidávat jako obsah samozřejmě nejen vrstvy ArcGIS Online, ale i z ArcGIS Serveru, dostupné přes REST rozhraní. K tomu nejčastěji využíváme `FeatureLayer` (pro vektorová data s možností dotazování) nebo `MapImageLayer` (pro dynamicky generované obrázky celých mapových služeb).
 
 Zde je příklad s vrstvou silnic z DATA50 přidanou do mapy:
 
-``` js
-    const silnice = new FeatureLayer({
-    url: "https://ags.cuzk.cz/arcgis/rest/services/DATA50/MapServer/41"  // vrstva silnic z DATA50
-    });
+??? note "&nbsp;<span style="color:#448aff">Vložení vrstvy z ArcGIS Serveru (ESM)</span>"
 
-    // přidání vrstvy z ArcGIS Serveru do mapy
-    map.add(silnice);
-```
+    === "script.js"
 
-Vyzkoušejte si práci s různými druhy vrstev (rastrové, vektorové; z ArcGIS Online, ze serveru). 
+        ``` js
+        import FeatureLayer from "https://js.arcgis.com/5.0/esri/layers/FeatureLayer.js";
 
+        // Vytvoření instance FeatureLayer směřující na REST rozhraní ArcGIS Serveru
+        const silnice = new FeatureLayer({
+            url: "https://ags.cuzk.cz/arcgis/rest/services/DATA50/MapServer/41",
+            title: "Silniční síť (DATA50)",
+            opacity: 0.8
+        });
+
+        // Přidání vrstvy do mapy
+        map.add(silnice);
+        ```
+
+---
+
+### Úkoly k procvičení
+1. Vyzkoušejte si do aplikace přidat další vrstvu ze služeb ČÚZK (např. vodní toky nebo plochy z [DATA50](https://ags.cuzk.cz/arcgis/rest/services/DATA50/MapServer)).
+2. Zkuste změnit typ grafického symbolu pro města na `"simple-marker"` s jiným tvarem (např. `style: "square"`).
+3. Ověřte, že se po kliknutí na bod grafiky správně zobrazí okno **Popup**.
+
+---
 
 #### Další kroky
-
-- Naučíme se přidávat interaktivní prvky do mapy – např. popup okna.
-- Přidáme kompoziční prvky (legendu, galerii podkladových map apod.).
-- Naučíme se pracovat s geometriemi a symboly pro vizualizaci dat na mapě.
-- Přidáme geoprocessingové nástroje pro analýzu dat na mapě.
-- Funkcionalitu mapové aplikace rozšíříme pomocí widgetů.
-
-
-
-
-
-
-
-
-
-
+V příštím cvičení se naučíme:
+- Pracovat s celou **WebMapou** uloženou na portálu.
+- Zobrazovat **atributovou tabulku** pro vybrané vrstvy.
+- Dynamicky měnit obsah legendy podle toho, co uživatel v mapě vidí.
