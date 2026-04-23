@@ -62,7 +62,10 @@ Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní m
                 }
             </style>
 
+            <script type="module" src="https://js.arcgis.com/5.0/"></script>
+    
             <script type="module" src="script.js"></script>
+        
         </head>
         <body>
             <h1>První mapa v ArcGIS Maps SDK 5.0 (ESM)</h1>
@@ -75,16 +78,19 @@ Po otevření HTML souboru ve webovém prohlížeči se zobrazí interaktivní m
 
         ``` js
         // importujeme konkrétní moduly z tzv. sítě CDN
-        import config from "https://js.arcgis.com/5.0/esri/config.js";
-        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
-        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
+        
+        const [Map, MapView, config] = await $arcgis.import([
+            "esri/Map", 
+            "esri/views/MapView", 
+            "esri/config"
+        ]);
 
         // 1. Nastavení API klíče (nutné pro basemapy)
         config.apiKey = "******* váš_API_key *******";
 
         // 2. Vytvoření instance mapy
         const map = new Map({
-            basemap: "arcgis-navigation" // původní "topo-vector"
+            basemap: "topo-vector" // původní "topo-vector"
         });
 
         // 3. Vytvoření pohledu na mapu
@@ -124,7 +130,7 @@ Mezi důležité moduly patří např.:
 
 ## Přidání rastrové vrstvy
 
-V ESM verzi importujeme `MapImageLayer` přímo z jeho cesty.
+V ESM verzi můžeme importovat např. `MapImageLayer` přímo z jeho cesty jako soubor JS, ale **lepší je použít tzv. zavaděč** (řádek `<script type="module" src="https://js.arcgis.com/5.0/"></script>` v HTML souboru) a moduly poté volat pomocí funkce `$arcgis.import` (doporučené řešení od Esri).
 
 Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
 
@@ -133,10 +139,14 @@ Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
     === "script.js"
 
         ``` js
-        import config from "https://js.arcgis.com/5.0/esri/config.js";
-        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
-        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
-        import MapImageLayer from "https://js.arcgis.com/5.0/esri/layers/MapImageLayer.js";
+        const [Map, MapView, config, MapImageLayer] = await $arcgis.import([
+            "esri/Map", 
+            "esri/views/MapView", 
+            "esri/config",
+            "esri/MapImageLayer"
+        ]);
+
+        // tedy ne přímo import MapImageLayer from "https://js.arcgis.com/5.0/esri/layers/MapImageLayer.js";
 
         config.apiKey = "****";
 
@@ -159,6 +169,8 @@ Zde je příklad kódu pro načtení dynamické mapové služby ortofota ČÚZK:
         map.add(ortofoto);  // přidání k vykreslení do mapy
         ```
 
+V ESM verzi můžeme importovat např. `MapImageLayer` přímo z jeho cesty jako soubor JS, ale lepší je použít tzv. zavaděč (řádek `<script type="module" src="https://js.arcgis.com/5.0/"></script>` v HTML souboru) a moduly poté volat pomocí funkce `$arcgis.import` (doporučené řešení od Esri).
+
 ---
 
 ## Vlastní basemap z více zdrojů
@@ -172,11 +184,15 @@ Kód bude vypadat následovně:
     === "script.js"
 
         ``` js
-        import Map from "https://js.arcgis.com/5.0/esri/Map.js";
-        import MapView from "https://js.arcgis.com/5.0/esri/views/MapView.js";
-        import MapImageLayer from "https://js.arcgis.com/5.0/esri/layers/MapImageLayer.js";
-        import FeatureLayer from "https://js.arcgis.com/5.0/esri/layers/FeatureLayer.js"; // nově: importujeme vektorovou vrstvu
-        import Basemap from "https://js.arcgis.com/5.0/esri/Basemap.js";  // nově: importujeme Basemap
+
+        const [Map, MapView, MapImageLayer, FeatureLayer, Basemap] = await $arcgis.import([
+            "esri/Map", 
+            "esri/views/MapView", 
+            "esri/layers/MapImageLayer",
+            "esri/layers/FeatureLayer",
+            "esri/Basemap"
+        ]);
+        // nově: importujeme vektorovou vrstvu, importujeme Basemap
 
         const ortofoto = new MapImageLayer({
             url: "https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer",
@@ -219,8 +235,12 @@ Abychom uživateli umožnili si podkladovou mapu přepnout na jinou, než jsme m
 Widgety v ESM verzi přidáváme importem z `esri/widgets/`.
 
 ``` js
-import BasemapGallery from "https://js.arcgis.com/5.0/esri/widgets/BasemapGallery.js";
-import LocalBasemapsSource from "https://js.arcgis.com/5.0/esri/widgets/BasemapGallery/support/LocalBasemapsSource.js";
+
+const [BasemapGallery, LocalBasemapsSource] = await $arcgis.import([
+    "esri/widgets/BasemapGallery", 
+    "esri/widgets/BasemapGallery/support/LocalBasemapsSource"
+    });
+
 
 ...
 
