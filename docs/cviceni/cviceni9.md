@@ -296,6 +296,8 @@ view.ui.add(galerieExp, "top-right");
 
 ```
 
+Můžete používat ikony ze standardní sady Calcite (více na [přehledu ikon](https://developers.arcgis.com/javascript/latest/esri-icon-font/)).
+
 ### Grafika v mapě
 
 Grafika slouží k zobrazení prvků, které nejsou uloženy v databázi na serveru, ale vytváříme je přímo v prohlížeči (např. výsledek měření, zvýraznění bodu zájmu). 
