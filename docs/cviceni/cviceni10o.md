@@ -1,5 +1,5 @@
 ---
-icon: material/numeric-10-box
+icon: material/vc-numeric-10-box
 title: Práce s WebMap v prostředí ArcGIS API for JavaScript
 ---
 

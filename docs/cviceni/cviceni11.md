@@ -1,5 +1,5 @@
 ---
-icon: material/numeric-11-box
+icon: material/vc-numeric-11-box
 title: Analytické nástroje a dotazy
 ---
 
