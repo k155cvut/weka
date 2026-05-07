@@ -538,7 +538,7 @@ Ladící nástroje: Prohlížeče mají i pokročilé ladící nástroje, které
 
     - oborové zaměření
 
-    - embed mapy, např. s okolím FSv ČVUT v Praze
+    - embed mapy (například s okolím FSv ČVUT v Praze)
 
     - úpravu vizuálních prvků stránky pomocí JavaScriptu (například změna barvy pozadí a typu fontu po stisknutí tlačítka)
 
