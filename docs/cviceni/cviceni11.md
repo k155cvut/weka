@@ -1,6 +1,6 @@
 ---
 icon: material/numeric-11-box
-title: Analytické nástroje a prostorové dotazy
+title: Analytické nástroje a dotazy
 ---
 
 V tomto cvičení si vyzkoušejte práci s dalšími pokročilými prvky aplikací, např. filtrování dat, analýzy, hledání nejkratších cest
