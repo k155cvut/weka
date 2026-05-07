@@ -22,7 +22,7 @@ Místo abychom se ptali serveru přes query, využijeme metodu layerView.queryFe
         
         ``` html
 
-<!DOCTYPE html>
+        <!DOCTYPE html>
         <html lang="cs">
         <head>
         <meta charset="utf-8" />
@@ -56,8 +56,8 @@ Místo abychom se ptali serveru přes query, využijeme metodu layerView.queryFe
         <script type="module" src="https://js.arcgis.com/5.0/"></script>
     
         <script type="module" src="script.js"></script>
-</head>
-<body>
+        </head>
+        <body>
         <div id="viewDiv"></div>
         <div id="resultsPanel">
         <h3>Analýza</h3>
@@ -72,7 +72,7 @@ Místo abychom se ptali serveru přes query, využijeme metodu layerView.queryFe
 
         ``` js
 
-            const [Map, MapView, config, WebMap, GraphicsLayer, Sketch, geometryEngine, Graphic] = await $arcgis.import([
+        const [Map, MapView, config, WebMap, GraphicsLayer, Sketch, geometryEngine, Graphic] = await $arcgis.import([
             "esri/Map", 
             "esri/views/MapView", 
             "esri/config",
