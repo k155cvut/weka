@@ -157,7 +157,7 @@ Upravte skript tak, aby:
 
 - aplikace vypsala jmenný seznam prvků (např. názvy obcí), které tato zóna protíná.
 
-Můžete zkusit vylepšení, že se výsledný seznam obcí vypíše do postranního panelu jako HTML seznam (<ul>).
+Můžete zkusit vylepšení, že se výsledný seznam obcí vypíše do postranního panelu jako HTML seznam (```<ul>```).
 
 ??? tip Seznam názvů 
     Získat ho z výsledků dotazu můžete např. takto:
