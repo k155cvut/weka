@@ -22,7 +22,6 @@ Místo abychom se ptali serveru přes query, využijeme metodu layerView.queryFe
         
         ``` html
 
-        <!DOCTYPE html>
         <html lang="cs">
         <head>
         <meta charset="utf-8" />
