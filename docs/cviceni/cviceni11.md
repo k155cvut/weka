@@ -278,7 +278,7 @@ Nastavíme-li *definitionExpression*, říkáme vrstvě, že další prvky nyní
 Využijeme např., když chceme v mapě nechat např. jen obce z jednoho konkrétního okresu a vše ostatní skrýt.
 
 ``` js
-// Všechno ostatní z mapy zmizí
+// všechno ostatní z mapy zmizí
 layer.definitionExpression = "KRAJ = 'Ústecký'";
 ```
 
@@ -294,7 +294,7 @@ Využijeme např., když chceme zjistit, kolik lidí žije v obcích nad 5000 ob
 const query = layer.createQuery();
 query.where = "OBYVATEL > 5000";
 
-// Mapa vypadá pořád stejně, ale v 'results' mám data pro další výpočty
+// mapa vypadá pořád stejně, ale v proměnné results máme data pro další výpočty
 const results = await layer.queryFeatures(query);
 console.log("Mám data pro " + results.features.length + " obcí.");
 ```
