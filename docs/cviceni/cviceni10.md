@@ -135,8 +135,8 @@ V HTML souboru musíme u skriptu nastavit `type="module"`.
     === "script.js"
 
         ``` js
-        import config from "[https://js.arcgis.com/5.0/esri/config.js](https://js.arcgis.com/5.0/esri/config.js)";
-        import WebMap from "[https://js.arcgis.com/5.0/esri/WebMap.js](https://js.arcgis.com/5.0/esri/WebMap.js)";
+        import config from "https://js.arcgis.com/5.0/esri/config.js";
+        import WebMap from "https://js.arcgis.com/5.0/esri/WebMap.js";
         import MapView from "[https://js.arcgis.com/5.0/esri/views/MapView.js](https://js.arcgis.com/5.0/esri/views/MapView.js)";
         import Legend from "[https://js.arcgis.com/5.0/esri/widgets/Legend.js](https://js.arcgis.com/5.0/esri/widgets/Legend.js)";
         import LayerList from "[https://js.arcgis.com/5.0/esri/widgets/LayerList.js](https://js.arcgis.com/5.0/esri/widgets/LayerList.js)";
@@ -300,8 +300,7 @@ Kód může vypadat např. takto, je třeba přidat příslušné elementy i do 
                 view: view,
                 layer: layer,
                 container: tableDiv
-              });
-            }
+              });            }
           }
 
          // změna v select elementu pomocí standardní události
@@ -316,4 +315,4 @@ Kód může vypadat např. takto, je třeba přidat příslušné elementy i do 
         });
         ```
 
-Všimněte si použití metody `destroy()`. Při každé změně výběru vrstvy je nutné stávající instanci widgetu `FeatureTable` odstranit, aby nedocházelo k chybám při vykreslování a k úniku paměti prohlížeče.
+Všimněte si použití metody `destroy()`. Při každé změně výběru vrstvy je nutné stávající instanci widgetu `FeatureTable` odstranit, aby nedocházelo k chybám při vykreslování a k čerpání paměti prohlížeče.
